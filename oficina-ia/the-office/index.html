@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Office</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky header + section nav, then three stacked sections (agents grid, review strip, kanban board). One column on phones. */
+:root {
+  --bg: #eef1f5;
+  --surface: #ffffff;
+  --ink: #17202c;
+  --muted: #5b6676;
+  --line: #d9dee6;
+  --accent: #2346d8;
+  --accent-ink: #ffffff;
+  --a1: #2346d8; --a2: #b4398b; --a3: #0f8a7a; --a4: #c06a12;
+  --working: #b7791f; --working-bg: #fdf3e1;
+  --changes: #c2410c; --changes-bg: #fde9df;
+  --review: #2346d8; --review-bg: #e3e9fd;
+  --free: #4b6b5a; --free-bg: #e4efe8;
+  --ok: #157f4c;
+  --danger: #b42318;
+  --shadow: 0 1px 2px rgba(20,30,50,.06), 0 4px 14px rgba(20,30,50,.06);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --r: 14px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141b; --surface: #171e28; --ink: #e8edf4; --muted: #9aa6b6; --line: #2a3442;
+    --accent: #7d98ff; --accent-ink: #0d1424;
+    --a1: #7d98ff; --a2: #e58bc6; --a3: #4cc7b4; --a4: #f0a65a;
+    --working: #f2c063; --working-bg: #3a2d14;
+    --changes: #ff9a6b; --changes-bg: #41241a;
+    --review: #9fb3ff; --review-bg: #1f2a4d;
+    --free: #8fc0a3; --free-bg: #1d3027;
+    --ok: #5fd39b; --danger: #ff8a7e;
+    --shadow: 0 1px 2px rgba(0,0,0,.4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141b; --surface: #171e28; --ink: #e8edf4; --muted: #9aa6b6; --line: #2a3442;
+  --accent: #7d98ff; --accent-ink: #0d1424;
+  --a1: #7d98ff; --a2: #e58bc6; --a3: #4cc7b4; --a4: #f0a65a;
+  --working: #f2c063; --working-bg: #3a2d14;
+  --changes: #ff9a6b; --changes-bg: #41241a;
+  --review: #9fb3ff; --review-bg: #1f2a4d;
+  --free: #8fc0a3; --free-bg: #1d3027;
+  --ok: #5fd39b; --danger: #ff8a7e;
+  --shadow: 0 1px 2px rgba(0,0,0,.4);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); -webkit-text-size-adjust: 100%; }
+h1, h2, h3, h4 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+button, input, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.top-inner { max-width: 1240px; margin: 0 auto; padding: 12px 16px 0; display: grid; gap: 10px; }
+.brand { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand h1 { font-size: 26px; }
+.brand small { color: var(--muted); font-size: 13px; }
+.summary { display: flex; gap: 8px; flex-wrap: wrap; font-size: 13px; font-variant-numeric: tabular-nums; }
+.summary span { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
+.summary b { font-weight: 700; }
+nav.tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+nav.tabs a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14px; padding: 8px 12px 10px; border-bottom: 2px solid transparent; white-space: nowrap; }
+nav.tabs a:hover, nav.tabs a.on { color: var(--ink); border-color: var(--accent); }
+nav.tabs .count { display: inline-block; min-width: 20px; text-align: center; background: var(--review-bg); color: var(--review); border-radius: 999px; font-size: 12px; padding: 0 6px; margin-left: 4px; }
+
+main { max-width: 1240px; margin: 0 auto; padding: 8px 16px 64px; display: grid; gap: 28px; }
+section { scroll-margin-top: 130px; display: grid; gap: 12px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 14px; }
+.sec-head h2 { font-size: 20px; }
+.sec-head p { margin: 0; color: var(--muted); font-size: 13px; }
+.notice { background: var(--surface); border: 1px dashed var(--line); border-radius: var(--r); padding: 14px 16px; color: var(--muted); }
+.notice.warn { border-style: solid; border-color: var(--working); color: var(--ink); background: var(--working-bg); }
+
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+.pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.st-working { color: var(--working); background: var(--working-bg); }
+.st-working::before { animation: pulse 1.2s ease-in-out infinite; }
+.st-changes { color: var(--changes); background: var(--changes-bg); }
+.st-changes::before { animation: pulse 1.2s ease-in-out infinite; }
+.st-review { color: var(--review); background: var(--review-bg); }
+.st-free { color: var(--free); background: var(--free-bg); }
+.st-done { color: var(--ok); background: var(--free-bg); }
+.st-error { color: var(--danger); background: var(--changes-bg); }
+@keyframes pulse { 50% { opacity: .3; } }
+@media (prefers-reduced-motion: reduce) { .pill::before { animation: none !important; } }
+
+.mono { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 15px; color: #fff; background: var(--c, var(--accent)); }
+:root[data-theme="dark"] .mono { color: #0d1424; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mono { color: #0d1424; } }
+.mono.sm { width: 26px; height: 26px; border-radius: 8px; font-size: 11px; }
+
+/* Agents */
+.agents { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); }
+.agent { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px; display: grid; gap: 12px; align-content: start; border-top: 4px solid var(--c); }
+.agent header { display: flex; gap: 12px; align-items: flex-start; }
+.agent header > div:not(.mono) { flex: 1; min-width: 0; }
+.agent h3 { font-size: 17px; line-height: 1.25; }
+.agent .role { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.meta { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; font-size: 13px; }
+.meta dt { color: var(--muted); }
+.meta dd { margin: 0; }
+.load { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; min-height: 1.5em; }
+.composer { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 12px; }
+.composer textarea { width: 100%; min-height: 76px; resize: vertical; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 10px 12px; font-size: 16px; line-height: 1.4; }
+.composer textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.row { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.files { display: flex; flex-wrap: wrap; gap: 6px; }
+.files:empty { display: none; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 3px 4px 3px 8px; max-width: 100%; }
+.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 180px; }
+.chip button { border: 0; background: none; cursor: pointer; color: var(--muted); padding: 2px 6px; border-radius: 6px; }
+.chip a { color: var(--accent); }
+
+.btn { min-height: 42px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); padding: 8px 14px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; color: var(--ink); }
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.approve { background: var(--ok); border-color: var(--ok); color: #fff; }
+:root[data-theme="dark"] .btn.approve { color: #0d1424; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.approve { color: #0d1424; } }
+.btn.changes { color: var(--changes); border-color: color-mix(in srgb, var(--changes) 45%, var(--line)); }
+.btn.ghost { background: transparent; }
+.btn[disabled] { opacity: .55; cursor: not-allowed; }
+.btn.small { min-height: 34px; padding: 4px 10px; font-size: 13px; }
+
+/* Review strip */
+.strip { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 2px 10px; margin: 0 -2px; }
+.rcard { scroll-snap-align: start; flex: 0 0 min(86vw, 340px); background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--review); border-radius: var(--r); box-shadow: var(--shadow); padding: 14px; display: grid; gap: 8px; align-content: start; }
+.rhead { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.rhead .ver { margin-left: auto; font-weight: 700; color: var(--review); font-variant-numeric: tabular-nums; }
+.rcard h4 { font-size: 16px; line-height: 1.3; }
+.excerpt { margin: 0; color: var(--muted); font-size: 13px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.ractions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+.ractions .open { grid-column: 1 / -1; }
+
+/* Board */
+.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min(84vw, 270px), 1fr); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; }
+.col { scroll-snap-align: start; background: color-mix(in srgb, var(--surface) 55%, var(--bg)); border: 1px solid var(--line); border-radius: var(--r); padding: 10px; display: grid; gap: 8px; align-content: start; min-height: 160px; }
+.col > header { display: flex; align-items: center; justify-content: space-between; padding: 2px 4px 4px; }
+.col > header h3 { font-size: 14px; }
+.col > header span { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tcard { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: grid; gap: 6px; cursor: pointer; text-align: left; width: 100%; }
+.tcard:hover { border-color: var(--muted); }
+.tcard .t-top { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.tcard .t-top time { margin-left: auto; font-variant-numeric: tabular-nums; }
+.tcard strong { font-size: 14px; line-height: 1.3; font-weight: 600; }
+.live { font-size: 12px; color: var(--muted); background: var(--bg); border-radius: 6px; padding: 6px 8px; max-height: 64px; overflow: hidden; white-space: pre-wrap; font-family: ui-monospace, Menlo, monospace; }
+.empty { color: var(--muted); font-size: 13px; padding: 6px 4px; }
+.err { color: var(--danger); font-size: 12px; }
+
+/* Sheet */
+dialog.sheet { border: 0; padding: 0; width: min(760px, 100%); max-height: min(92vh, 900px); border-radius: 18px; background: var(--surface); color: var(--ink); box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+dialog.sheet::backdrop { background: rgba(10,15,25,.5); }
+.sheet-inner { display: grid; grid-template-rows: auto 1fr auto; max-height: min(92vh, 900px); }
+.sheet-head { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px 12px; border-bottom: 1px solid var(--line); }
+.sheet-head > div { flex: 1; min-width: 0; }
+.sheet-head h2 { font-size: 19px; line-height: 1.25; }
+.sheet-head p { margin: 4px 0 0; font-size: 13px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.sheet-body { overflow-y: auto; padding: 16px 18px; display: grid; gap: 14px; align-content: start; }
+.sheet-foot { border-top: 1px solid var(--line); padding: 12px 18px calc(12px + env(safe-area-inset-bottom)); display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.sheet-foot .btn { flex: 1 1 140px; }
+.close { border: 0; background: var(--bg); width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 20px; line-height: 1; }
+details.brief { background: var(--bg); border-radius: 10px; padding: 10px 12px; font-size: 14px; }
+details.brief summary { cursor: pointer; font-weight: 600; }
+details.brief p { margin: 8px 0 0; white-space: pre-wrap; }
+.feedback-box { display: grid; gap: 8px; }
+.feedback-box label { font-weight: 600; }
+.feedback-box textarea { min-height: 120px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); font-size: 16px; resize: vertical; }
+.lastfb { border-left: 3px solid var(--changes); background: var(--changes-bg); padding: 8px 12px; border-radius: 0 8px 8px 0; font-size: 14px; }
+.lastfb b { display: block; font-size: 12px; color: var(--changes); }
+@media (max-width: 640px) {
+  dialog.sheet { margin: auto 0 0; width: 100%; max-width: 100%; border-radius: 18px 18px 0 0; max-height: 94vh; }
+  .sheet-inner { max-height: 94vh; }
+  .brand h1 { font-size: 22px; }
+  .brand small { display: none; }
+  .summary { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; width: 100%; }
+  .summary span { white-space: nowrap; }
+  section { scroll-margin-top: 110px; }
+}
+
+/* Deliverable markdown */
+.md { font-size: 15px; line-height: 1.6; overflow-wrap: anywhere; }
+.md > :first-child { margin-top: 0; }
+.md h1, .md h2, .md h3, .md h4 { margin: 1.2em 0 .4em; line-height: 1.3; }
+.md h1 { font-size: 20px; } .md h2 { font-size: 18px; } .md h3 { font-size: 16px; } .md h4 { font-size: 15px; }
+.md p { margin: .5em 0; }
+.md ul, .md ol { padding-left: 1.3em; margin: .5em 0; }
+.md li { margin: .2em 0; }
+.md code { background: var(--bg); padding: 1px 5px; border-radius: 5px; font-size: .92em; }
+.md blockquote { margin: .6em 0; padding: 4px 12px; border-left: 3px solid var(--line); color: var(--muted); }
+.md hr { border: 0; border-top: 1px solid var(--line); margin: 1em 0; }
+.md .tbl { overflow-x: auto; margin: .6em 0; }
+.md table { border-collapse: collapse; font-size: 13px; min-width: 100%; }
+.md th, .md td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+.md th { background: var(--bg); }
+
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 14px; z-index: 50; max-width: calc(100% - 32px); box-shadow: var(--shadow); }
+.toast[hidden] { display: none; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div>
+        <h1>The Office</h1>
+        <small>Oficina de agentes de Marketing · Director: tú. Nada sale sin tu aprobación.</small>
+      </div>
+      <div class="summary" id="summary" aria-live="polite">
+        <span>Cargando la oficina…</span>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="#agentes" data-nav="agentes">Agentes</a>
+      <a href="#revisar" data-nav="revisar">Para revisar <span class="count" id="navcount">0</span></a>
+      <a href="#pizarron" data-nav="pizarron">Pizarrón</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div id="banner"></div>
+
+  <section id="agentes" aria-labelledby="h-agentes">
+    <div class="sec-head">
+      <h2 id="h-agentes">Agentes</h2>
+      <p>Escríbele a un agente y pulsa Encargar: empieza a trabajar enseguida.</p>
+    </div>
+    <div class="agents" id="agents"><div class="notice">Cargando agentes…</div></div>
+  </section>
+
+  <section id="revisar" aria-labelledby="h-revisar">
+    <div class="sec-head">
+      <h2 id="h-revisar">Entregas para revisar</h2>
+      <p>Si pides cambios, el agente rehace la entrega y la devuelve aquí.</p>
+    </div>
+    <div class="strip" id="strip"></div>
+  </section>
+
+  <section id="pizarron" aria-labelledby="h-pizarron">
+    <div class="sec-head">
+      <h2 id="h-pizarron">Pizarrón</h2>
+      <p>Todo lo que está en curso, de un vistazo.</p>
+    </div>
+    <div class="board" id="board"></div>
+  </section>
+</main>
+
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-inner" id="sheet-inner"></div>
+</dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(() => {
+  "use strict";
+
+  const RULES = `Eres un agente de la "oficina de IA" del Coordinador de Marketing del Colegio Americano de Guayaquil (Ecuador). Él es el director y aprueba todo.
+Reglas obligatorias:
+- Solo produces BORRADORES para que el director los apruebe. Nunca digas que enviaste, publicaste, pausaste campañas o modificaste hojas: no puedes hacerlo.
+- En este tablero no tienes acceso a Gmail, Calendar, Meta Ads, Google Ads, TikTok Ads ni Google Sheets. Trabaja con el encargo y los archivos adjuntos. Si te falta un dato, márcalo como "⚠️ falta: ..." y nunca inventes cifras, fechas, nombres, RUC ni resultados.
+- Si una pieza o cobertura incluye estudiantes, márcala con "👦 MENORES — confirmar autorización de imagen".
+- No incluyas datos personales de estudiantes o familias.
+- Idioma: español de Ecuador, tono institucional, cercano y positivo. Zona horaria America/Guayaquil. Calendario escolar régimen Costa.`;
+
+  const FORMAT = `Formato de respuesta (Markdown, sin preámbulo ni despedida):
+1. Empieza con "## Para aprobar": lista numerada y corta de las decisiones que el director debe tomar.
+2. Después, el entregable completo y listo para usar, con encabezados "##" y tablas cuando ayuden.
+3. Si faltan datos, termina con "## Datos que necesito".`;
+
+  const COLORS = ["var(--a1)", "var(--a2)", "var(--a3)", "var(--a4)"];
+  const TEXT_EXT = /\.(txt|md|markdown|csv|tsv|json|html?|xml|ya?ml)$/i;
+  const MAX_FILES = 8;
+  const STALE_MS = 4 * 60 * 1000;
+
+  let db = null, assets = null, sample = null, sampleImages = false;
+  const agents = new Map();
+  const tasks = new Map();
+  const drafts = {};
+  const pendingFiles = {};
+  const imageCache = new Map();
+  const running = new Set();
+  const live = new Map();
+  let agentsLoaded = false, tasksLoaded = false;
+  let sheetTaskId = null, sheetMode = "view";
+  let writeBlocked = false;
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 4200);
+  }
+
+  function ago(ts) {
+    if (!ts) return "";
+    const s = Math.max(0, (Date.now() - ts) / 1000);
+    if (s < 60) return "ahora";
+    if (s < 3600) return `hace ${Math.round(s / 60)} min`;
+    if (s < 86400) return `hace ${Math.round(s / 3600)} h`;
+    return new Date(ts).toLocaleDateString("es-EC", { day: "numeric", month: "short" });
+  }
+
+  function agentColor(a) {
+    const i = Math.max(0, (Number(a?.order) || 1) - 1) % COLORS.length;
+    return COLORS[i];
+  }
+  function initials(a) {
+    if (a?.initials) return a.initials;
+    return String(a?.name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  }
+
+  /* ---------- Markdown (small, safe: escapes first) ---------- */
+  function inline(s) {
+    return esc(s)
+      .replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+  }
+  function md(src) {
+    const lines = String(src || "").replace(/\r/g, "").split("\n");
+    let out = "", i = 0;
+    const isRow = (l) => /^\s*\|.*\|\s*$/.test(l);
+    while (i < lines.length) {
+      const l = lines[i];
+      if (!l.trim()) { i++; continue; }
+      let m;
+      if ((m = l.match(/^(#{1,4})\s+(.*)$/))) { const n = m[1].length; out += `<h${n}>${inline(m[2])}</h${n}>`; i++; continue; }
+      if (/^\s*(-{3,}|\*{3,})\s*$/.test(l)) { out += "<hr>"; i++; continue; }
+      if (isRow(l) && i + 1 < lines.length && /^\s*\|?[\s:-]+\|[\s|:-]*$/.test(lines[i + 1])) {
+        const cells = (r) => r.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+        let h = `<div class="tbl"><table><thead><tr>${cells(l).map((c) => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>`;
+        i += 2;
+        while (i < lines.length && isRow(lines[i])) { h += `<tr>${cells(lines[i]).map((c) => `<td>${inline(c)}</td>`).join("")}</tr>`; i++; }
+        out += h + "</tbody></table></div>"; continue;
+      }
+      if (/^\s*[-*•]\s+/.test(l)) {
+        out += "<ul>";
+        while (i < lines.length && /^\s*[-*•]\s+/.test(lines[i])) { out += `<li>${inline(lines[i].replace(/^\s*[-*•]\s+/, ""))}</li>`; i++; }
+        out += "</ul>"; continue;
+      }
+      if (/^\s*\d+[.)]\s+/.test(l)) {
+        out += "<ol>";
+        while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])) { out += `<li>${inline(lines[i].replace(/^\s*\d+[.)]\s+/, ""))}</li>`; i++; }
+        out += "</ol>"; continue;
+      }
+      if (/^\s*>/.test(l)) {
+        let q = [];
+        while (i < lines.length && /^\s*>/.test(lines[i])) { q.push(lines[i].replace(/^\s*>\s?/, "")); i++; }
+        out += `<blockquote>${inline(q.join(" "))}</blockquote>`; continue;
+      }
+      let p = [];
+      while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|\s*[-*•]\s+|\s*\d+[.)]\s+|\s*>)/.test(lines[i]) && !isRow(lines[i])) { p.push(lines[i]); i++; }
+      if (!p.length) { p.push(lines[i]); i++; }
+      out += `<p>${p.map(inline).join("<br>")}</p>`;
+    }
+    return out;
+  }
+  const plain = (s) => String(s || "").replace(/[#*|`>_-]+/g, " ").replace(/\s+/g, " ").trim();
+
+  /* ---------- Derived state ---------- */
+  const taskList = () => [...tasks.values()];
+  function isStale(t) {
+    return (t.status === "trabajando" || t.status === "cambios") && !running.has(t.id) && Date.now() - (t.updatedAt || 0) > STALE_MS;
+  }
+  function agentStatus(id) {
+    const mine = taskList().filter((t) => t.agentId === id);
+    if (mine.some((t) => t.status === "trabajando" && !isStale(t))) return "working";
+    if (mine.some((t) => t.status === "cambios" && !isStale(t))) return "changes";
+    if (mine.some((t) => t.status === "revision")) return "review";
+    return "free";
+  }
+  const STATUS_LABEL = { working: "Trabajando", changes: "Con cambios", review: "Para revisar", free: "Libre" };
+  const TASK_LABEL = { trabajando: ["Trabajando", "st-working"], cambios: ["Rehaciendo con cambios", "st-changes"], revision: ["Para revisar", "st-review"], aprobado: ["Aprobada", "st-done"], error: ["Se detuvo", "st-error"] };
+
+  /* ---------- Render: summary ---------- */
+  function renderSummary() {
+    const all = taskList();
+    const working = all.filter((t) => (t.status === "trabajando" || t.status === "cambios") && !isStale(t)).length;
+    const review = all.filter((t) => t.status === "revision").length;
+    const weekAgo = Date.now() - 7 * 864e5;
+    const approved = all.filter((t) => t.status === "aprobado" && (t.approvedAt || 0) > weekAgo).length;
+    $("#summary").innerHTML = `<span><b>${working}</b> en curso</span><span><b>${review}</b> para revisar</span><span><b>${approved}</b> aprobadas esta semana</span>`;
+    $("#navcount").textContent = review;
+  }
+
+  /* ---------- Render: agents ---------- */
+  function sortedAgents() { return [...agents.values()].sort((a, b) => (a.order || 99) - (b.order || 99)); }
+
+  function renderAgents() {
+    const box = $("#agents");
+    if (!agentsLoaded) return;
+    const list = sortedAgents();
+    if (!list.length) { box.innerHTML = `<div class="notice">Todavía no hay agentes en la base de datos.</div>`; return; }
+    box.innerHTML = list.map((a) => {
+      const c = agentColor(a);
+      return `<article class="agent" style="--c:${c}" data-agent="${esc(a.id)}">
+        <header>
+          <div class="mono" aria-hidden="true">${esc(initials(a))}</div>
+          <div><h3>${esc(a.name)}</h3><p class="role">${esc(a.role)}</p></div>
+          <span class="pill" data-status-for="${esc(a.id)}"></span>
+        </header>
+        <dl class="meta">
+          <dt>Horario</dt><dd>${esc(a.schedule)}</dd>
+          <dt>Tipo</dt><dd>${esc(a.kind)}</dd>
+          <dt>Entrega</dt><dd>${esc(a.delivers)}</dd>
+        </dl>
+        <div class="load" data-load-for="${esc(a.id)}"></div>
+        <form class="composer" data-agent="${esc(a.id)}">
+          <label class="sr" for="brief-${esc(a.id)}">Encargo para ${esc(a.name)}</label>
+          <textarea id="brief-${esc(a.id)}" data-brief="${esc(a.id)}" placeholder="${esc(a.placeholder || "Escribe el encargo…")}">${esc(drafts[a.id] || "")}</textarea>
+          <div class="files" data-files-for="${esc(a.id)}"></div>
+          <div class="row">
+            <label class="btn ghost small" for="file-${esc(a.id)}">Adjuntar archivos</label>
+            <input class="sr" type="file" multiple id="file-${esc(a.id)}" data-file="${esc(a.id)}">
+            <button class="btn primary" type="submit" data-submit="${esc(a.id)}">Encargar</button>
+          </div>
+        </form>
+      </article>`;
+    }).join("");
+    list.forEach((a) => renderFiles(a.id));
+    renderAgentStatus();
+  }
+
+  function renderAgentStatus() {
+    for (const a of agents.values()) {
+      const st = agentStatus(a.id);
+      const pill = document.querySelector(`[data-status-for="${CSS.escape(a.id)}"]`);
+      if (pill) { pill.className = `pill st-${st}`; pill.textContent = STATUS_LABEL[st]; }
+      const load = document.querySelector(`[data-load-for="${CSS.escape(a.id)}"]`);
+      if (load) {
+        const mine = taskList().filter((t) => t.agentId === a.id);
+        const cur = mine.filter((t) => t.status === "trabajando" || t.status === "cambios").length;
+        const rev = mine.filter((t) => t.status === "revision").length;
+        const done = mine.filter((t) => t.status === "aprobado").length;
+        load.textContent = mine.length ? `${cur} en curso · ${rev} para revisar · ${done} aprobadas` : "Sin encargos todavía";
+      }
+    }
+  }
+
+  function renderFiles(agentId) {
+    const box = document.querySelector(`[data-files-for="${CSS.escape(agentId)}"]`);
+    if (!box) return;
+    const files = pendingFiles[agentId] || [];
+    box.innerHTML = files.map((f, i) => `<span class="chip"><span title="${esc(f.name)}">${esc(f.name)}</span><button type="button" aria-label="Quitar ${esc(f.name)}" data-unfile="${esc(agentId)}" data-idx="${i}">×</button></span>`).join("");
+  }
+
+  /* ---------- Render: review strip ---------- */
+  function renderStrip() {
+    const box = $("#strip");
+    if (!tasksLoaded) { box.innerHTML = `<div class="notice">Cargando entregas…</div>`; return; }
+    const list = taskList().filter((t) => t.status === "revision").sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    if (!list.length) { box.innerHTML = `<div class="notice">Nada pendiente de revisión. Cuando un agente termine, su entrega aparecerá aquí.</div>`; return; }
+    box.innerHTML = list.map((t) => {
+      const a = agents.get(t.agentId);
+      return `<article class="rcard">
+        <div class="rhead"><span class="mono sm" style="--c:${agentColor(a)}" aria-hidden="true">${esc(initials(a))}</span><span>${esc(a?.name || "Agente")}</span><span class="ver">v${esc(t.version || 1)}</span></div>
+        <h4>${esc(t.title)}</h4>
+        <p class="excerpt">${esc(plain(t.deliverable).slice(0, 260))}</p>
+        <div class="ractions">
+          <button class="btn small open" data-open="${esc(t.id)}">Ver entrega completa</button>
+          <button class="btn approve small" data-approve="${esc(t.id)}">Aprobar</button>
+          <button class="btn changes small" data-changes="${esc(t.id)}">Pedir cambios</button>
+        </div>
+      </article>`;
+    }).join("");
+  }
+
+  /* ---------- Render: board ---------- */
+  function renderBoard() {
+    const box = $("#board");
+    if (!tasksLoaded) { box.innerHTML = ""; return; }
+    const all = taskList();
+    const byUpd = (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0);
+    const cols = [
+      { key: "trabajando", title: "Trabajando", items: all.filter((t) => t.status === "trabajando" || t.status === "error").sort(byUpd) },
+      { key: "cambios", title: "Rehaciendo con cambios", items: all.filter((t) => t.status === "cambios").sort(byUpd) },
+      { key: "revision", title: "Para revisar", items: all.filter((t) => t.status === "revision").sort(byUpd) },
+      { key: "aprobado", title: "Aprobadas recientes", items: all.filter((t) => t.status === "aprobado").sort((a, b) => (b.approvedAt || 0) - (a.approvedAt || 0)).slice(0, 8) },
+    ];
+    box.innerHTML = cols.map((c) => `<div class="col" aria-label="${esc(c.title)}">
+      <header><h3>${esc(c.title)}</h3><span>${c.items.length}</span></header>
+      ${c.items.length ? c.items.map(taskCard).join("") : `<div class="empty">Vacío</div>`}
+    </div>`).join("");
+  }
+
+  function taskCard(t) {
+    const a = agents.get(t.agentId);
+    const stale = isStale(t);
+    const liveText = live.get(t.id);
+    let extra = "";
+    if (liveText) extra = `<div class="live">${esc(liveText.slice(-220))}</div>`;
+    else if (running.has(t.id)) extra = `<div class="live">Pensando…</div>`;
+    if (t.status === "error") extra += `<div class="err">Se detuvo: ${esc(t.error || "error desconocido")}</div>`;
+    if (stale) extra += `<div class="err">Se interrumpió (se cerró la página mientras trabajaba).</div>`;
+    const retry = (t.status === "error" || stale) ? `<span class="btn small" role="button" tabindex="0" data-retry="${esc(t.id)}">Reintentar</span>` : "";
+    return `<div class="tcard" role="button" tabindex="0" data-open="${esc(t.id)}">
+      <div class="t-top"><span class="mono sm" style="--c:${agentColor(a)}" aria-hidden="true">${esc(initials(a))}</span><span>${esc(a?.name || "Agente")}</span><time>${esc(ago(t.status === "aprobado" ? t.approvedAt : t.updatedAt))}</time></div>
+      <strong>${esc(t.title)}</strong>
+      ${t.version ? `<span style="font-size:12px;color:var(--muted)">Versión ${esc(t.version)}</span>` : ""}
+      ${extra}${retry}
+    </div>`;
+  }
+
+  /* ---------- Sheet ---------- */
+  function openSheet(id, mode = "view") {
+    sheetTaskId = id; sheetMode = mode;
+    renderSheet();
+    const d = $("#sheet");
+    if (!d.open) { try { d.showModal(); } catch { d.setAttribute("open", ""); } }
+    if (mode === "changes") setTimeout(() => $("#fb")?.focus(), 50);
+  }
+  function closeSheet() {
+    const d = $("#sheet");
+    sheetTaskId = null; sheetMode = "view";
+    if (d.open) d.close();
+  }
+  function renderSheet() {
+    const t = tasks.get(sheetTaskId);
+    const box = $("#sheet-inner");
+    if (!t) { box.innerHTML = ""; return; }
+    const a = agents.get(t.agentId);
+    const [label, cls] = TASK_LABEL[t.status] || ["", ""];
+    const liveText = live.get(t.id);
+    const atts = (t.attachments || []).map((f) => f.url
+      ? `<a class="chip" href="${esc(f.url)}" target="_blank" rel="noopener"><span>${esc(f.name)}</span></a>`
+      : `<span class="chip"><span>${esc(f.name)}</span></span>`).join("");
+    let body = `<details class="brief"><summary>Encargo original</summary><p>${esc(t.brief)}</p>${atts ? `<div class="files" style="margin-top:8px">${atts}</div>` : ""}</details>`;
+    if (t.feedback && (t.status === "cambios" || t.status === "revision")) body += `<div class="lastfb"><b>Cambios que pediste${t.status === "revision" ? " (ya aplicados)" : ""}</b>${esc(t.feedback)}</div>`;
+    if (sheetMode === "changes") {
+      body += `<div class="feedback-box"><label for="fb">¿Qué debe cambiar ${esc(a?.name || "el agente")}?</label><textarea id="fb" placeholder="Ej.: el hook es muy largo, hazlo de 3 segundos y agrega una versión para TikTok."></textarea></div>`;
+    }
+    if (liveText != null || running.has(t.id)) body += `<div class="md">${liveText ? md(liveText) : "<p>Pensando…</p>"}</div>`;
+    else if (t.deliverable) body += `<div class="md">${md(t.deliverable)}</div>`;
+    else if (t.status === "error") body += `<p class="err">Se detuvo: ${esc(t.error || "")}</p>`;
+    else body += `<p class="empty">Aún no hay entrega.</p>`;
+
+    let foot = "";
+    if (sheetMode === "changes") {
+      foot = `<button class="btn ghost" data-cancel-changes>Cancelar</button><button class="btn primary" data-send-changes="${esc(t.id)}">Enviar y rehacer</button>`;
+    } else if (t.status === "revision") {
+      foot = `<button class="btn ghost" data-copy="${esc(t.id)}">Copiar</button><button class="btn changes" data-changes="${esc(t.id)}">Pedir cambios</button><button class="btn approve" data-approve="${esc(t.id)}">Aprobar</button>`;
+    } else if (t.status === "error" || isStale(t)) {
+      foot = `<button class="btn primary" data-retry="${esc(t.id)}">Reintentar</button>`;
+    } else if (t.deliverable) {
+      foot = `<button class="btn ghost" data-copy="${esc(t.id)}">Copiar</button>`;
+    }
+    box.innerHTML = `<div class="sheet-head">
+        <span class="mono" style="--c:${agentColor(a)}" aria-hidden="true">${esc(initials(a))}</span>
+        <div><h2 id="sheet-title">${esc(t.title)}</h2><p><span>${esc(a?.name || "Agente")}</span>${t.version ? `<span>· v${esc(t.version)}</span>` : ""}<span class="pill ${cls}">${esc(label)}</span></p></div>
+        <button class="close" data-close aria-label="Cerrar">×</button>
+      </div>
+      <div class="sheet-body">${body}</div>
+      ${foot ? `<div class="sheet-foot">${foot}</div>` : ""}`;
+  }
+
+  /* ---------- Render scheduling ---------- */
+  let raf = 0;
+  function renderAll() {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      renderSummary(); renderAgentStatus(); renderStrip(); renderBoard();
+      if (sheetTaskId && sheetMode === "view") renderSheet();
+    });
+  }
+
+  /* ---------- Data ---------- */
+  async function patchTask(id, data) {
+    const cur = tasks.get(id) || {};
+    tasks.set(id, { ...cur, ...data, id });
+    renderAll();
+    try { await db.doc("tasks/" + id).update(data); }
+    catch (e) { handleWriteError(e); throw e; }
+  }
+  function handleWriteError(e) {
+    if (e?.code === "invalid_argument") { writeBlocked = true; toast("No tienes permiso para cambiar este tablero."); }
+    else if (e?.code === "quota_exceeded") toast("La base de datos está llena. Borra entregas antiguas para seguir.");
+    else toast("No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.");
+  }
+
+  function buildPrompt(a, t) {
+    let p = `${RULES}\n\n# Tu rol: ${a?.name || "Agente"}\n${a?.prompt || a?.role || ""}\n\n# Encargo del director\n${t.brief}\n`;
+    const atts = t.attachments || [];
+    if (atts.length) {
+      p += `\n# Archivos adjuntos\n`;
+      for (const f of atts) {
+        p += `\n## ${f.name} (${f.type || "archivo"})\n`;
+        if (f.text) p += "```\n" + f.text + "\n```\n";
+        else if (/^image\//.test(f.type || "")) p += sampleImages ? "(imagen incluida en el mensaje)\n" : "(imagen adjunta; no puedes verla aquí)\n";
+        else p += "(no puedes leer el contenido de este tipo de archivo aquí; pídele al director lo esencial si lo necesitas)\n";
+      }
+    }
+    if (t.status === "cambios" && t.previous) {
+      p += `\n# Tu entrega anterior (versión ${t.version || 1})\n${t.previous}\n\n# Cambios que pide el director\n${t.feedback || "(sin detalle: mejora la entrega)"}\n\nRehaz la entrega completa aplicando TODOS los cambios. Entrega la versión nueva completa, no solo las diferencias. Al inicio de "Para aprobar", resume en una línea qué cambiaste.\n`;
+    }
+    p += `\n${FORMAT}`;
+    return p;
+  }
+
+  async function imagesFor(t) {
+    if (!sampleImages) return [];
+    const out = [];
+    for (const f of (t.attachments || []).filter((f) => /^image\//.test(f.type || ""))) {
+      const key = t.id + ":" + f.name;
+      if (imageCache.has(key)) { out.push(imageCache.get(key)); continue; }
+      if (!f.url) continue;
+      try { const r = await fetch(f.url); if (r.ok) { const b = await r.blob(); imageCache.set(key, b); out.push(b); } } catch {}
+    }
+    return out.slice(0, 5);
+  }
+
+  async function runTask(id) {
+    const t = tasks.get(id);
+    if (!t) return;
+    if (!sample) { toast("Los agentes no pueden trabajar en esta vista: falta el permiso para usar a Claude."); return; }
+    const a = agents.get(t.agentId);
+    running.add(id); live.set(id, ""); renderAll();
+    try {
+      const imgs = await imagesFor(t);
+      const opts = { cache: false, modelTier: "default", onText: ({ text }) => { live.set(id, text); renderAll(); } };
+      if (imgs.length) opts.images = imgs;
+      const res = await sample(buildPrompt(a, t), opts);
+      const text = String(res?.text || "").trim();
+      if (!text) throw { message: "El agente devolvió una respuesta vacía." };
+      const v = (t.status === "cambios" ? (t.version || 1) + 1 : (t.version || 0) + 1);
+      const log = [...(t.log || []), { at: Date.now(), what: `Entregó la versión ${v}` }].slice(-20);
+      running.delete(id); live.delete(id);
+      await patchTask(id, { status: "revision", deliverable: text + (res?.truncated ? "\n\n⚠️ La respuesta se cortó por largo." : ""), version: v, previous: null, updatedAt: Date.now(), error: null, log });
+    } catch (e) {
+      running.delete(id); live.delete(id);
+      const msg = e?.code === "not_granted" ? "no diste permiso para usar a Claude"
+        : e?.code === "rate_limited" ? "límite de uso alcanzado; intenta en unos minutos"
+        : (e?.message || "error desconocido");
+      try { await patchTask(id, { status: "error", error: msg, updatedAt: Date.now() }); } catch {}
+      toast(`El agente se detuvo: ${msg}`);
+    } finally {
+      running.delete(id); live.delete(id); renderAll();
+    }
+  }
+
+  async function submitBrief(agentId) {
+    if (!db) return toast("La base de datos no está disponible en esta vista.");
+    if (writeBlocked) return toast("No tienes permiso para cambiar este tablero.");
+    const brief = (drafts[agentId] || "").trim();
+    const files = pendingFiles[agentId] || [];
+    if (!brief) { toast("Escribe primero qué necesitas."); document.getElementById("brief-" + agentId)?.focus(); return; }
+    const btn = document.querySelector(`[data-submit="${CSS.escape(agentId)}"]`);
+    if (btn) { btn.disabled = true; btn.textContent = files.length ? "Subiendo archivos…" : "Encargando…"; }
+    try {
+      const attachments = [];
+      const imgs = [];
+      for (const f of files) {
+        const att = { name: f.name, type: f.type || "", size: f.size };
+        if (/^text\//.test(f.type) || TEXT_EXT.test(f.name)) { try { att.text = (await f.text()).slice(0, 15000); } catch {} }
+        if (assets) {
+          try { const r = await assets.upload(f); att.id = r.id; att.url = r.url || ("/_blob/" + r.id); }
+          catch { att.uploadError = true; }
+        }
+        if (/^image\//.test(f.type)) imgs.push([f.name, f]);
+        attachments.push(att);
+      }
+      const ref = db.collection("tasks").doc();
+      const now = Date.now();
+      const firstLine = brief.split("\n")[0];
+      const data = {
+        agentId, brief, attachments,
+        title: firstLine.length > 80 ? firstLine.slice(0, 77) + "…" : firstLine,
+        status: "trabajando", version: 0, deliverable: "", feedback: "", previous: null,
+        createdAt: now, updatedAt: now, approvedAt: null, error: null,
+        log: [{ at: now, what: "Encargo recibido" }],
+      };
+      await ref.set(data);
+      tasks.set(ref.id, { ...data, id: ref.id });
+      imgs.forEach(([n, b]) => imageCache.set(ref.id + ":" + n, b));
+      drafts[agentId] = ""; pendingFiles[agentId] = [];
+      const ta = document.getElementById("brief-" + agentId); if (ta) ta.value = "";
+      renderFiles(agentId);
+      if (attachments.some((x) => x.uploadError)) toast("Algún archivo no se pudo guardar; el agente igual recibe su texto si es legible.");
+      else toast(`${agents.get(agentId)?.name || "El agente"} empezó a trabajar.`);
+      renderAll();
+      runTask(ref.id);
+    } catch (e) {
+      if (!e?.code) toast("No se pudo crear el encargo.");
+      else handleWriteError(e);
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = "Encargar"; }
+    }
+  }
+
+  async function approve(id) {
+    const t = tasks.get(id); if (!t) return;
+    try {
+      await patchTask(id, { status: "aprobado", approvedAt: Date.now(), updatedAt: Date.now(), log: [...(t.log || []), { at: Date.now(), what: `Aprobada la versión ${t.version || 1}` }].slice(-20) });
+      toast("Aprobada.");
+      if (sheetTaskId === id) closeSheet();
+    } catch {}
+  }
+
+  async function sendChanges(id) {
+    const t = tasks.get(id); if (!t) return;
+    const fb = ($("#fb")?.value || "").trim();
+    if (!fb) { toast("Cuéntale al agente qué debe cambiar."); $("#fb")?.focus(); return; }
+    try {
+      await patchTask(id, { status: "cambios", feedback: fb, previous: t.deliverable || "", updatedAt: Date.now(), log: [...(t.log || []), { at: Date.now(), what: `Pidió cambios a la versión ${t.version || 1}` }].slice(-20) });
+      sheetMode = "view"; renderSheet();
+      toast("El agente está rehaciendo la entrega.");
+      runTask(id);
+    } catch {}
+  }
+
+  async function retry(id) {
+    const t = tasks.get(id); if (!t) return;
+    const status = t.previous ? "cambios" : "trabajando";
+    try { await patchTask(id, { status, error: null, updatedAt: Date.now() }); runTask(id); } catch {}
+  }
+
+  async function copyTask(id) {
+    const t = tasks.get(id); if (!t) return;
+    try { await navigator.clipboard.writeText(t.deliverable || ""); toast("Copiado."); }
+    catch { toast("No se pudo copiar desde esta vista."); }
+  }
+
+  /* ---------- Events ---------- */
+  document.addEventListener("input", (e) => {
+    const id = e.target?.dataset?.brief;
+    if (id != null) drafts[id] = e.target.value;
+  });
+  document.addEventListener("change", (e) => {
+    const id = e.target?.dataset?.file;
+    if (id == null) return;
+    const cur = pendingFiles[id] || [];
+    const add = [...(e.target.files || [])];
+    const big = add.filter((f) => f.size > 20 * 1024 * 1024);
+    pendingFiles[id] = [...cur, ...add.filter((f) => f.size <= 20 * 1024 * 1024)].slice(0, MAX_FILES);
+    if (big.length) toast("Los archivos de más de 20 MB no se pueden adjuntar.");
+    if (cur.length + add.length > MAX_FILES) toast(`Máximo ${MAX_FILES} archivos por encargo.`);
+    e.target.value = "";
+    renderFiles(id);
+  });
+  document.addEventListener("submit", (e) => {
+    const f = e.target.closest("form.composer");
+    if (!f) return;
+    e.preventDefault();
+    submitBrief(f.dataset.agent);
+  });
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "Enter" && e.target?.dataset?.brief) { e.preventDefault(); submitBrief(e.target.dataset.brief); }
+    if ((e.key === "Enter" || e.key === " ") && e.target?.matches?.('[role="button"]')) { e.preventDefault(); e.target.click(); }
+  });
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-unfile],[data-open],[data-approve],[data-changes],[data-send-changes],[data-cancel-changes],[data-retry],[data-copy],[data-close]");
+    if (!el) return;
+    const d = el.dataset;
+    if (d.unfile != null) { (pendingFiles[d.unfile] || []).splice(Number(d.idx), 1); renderFiles(d.unfile); return; }
+    if (d.retry) { e.stopPropagation(); retry(d.retry); return; }
+    if (d.approve) return approve(d.approve);
+    if (d.changes) return openSheet(d.changes, "changes");
+    if (d.sendChanges) return sendChanges(d.sendChanges);
+    if (d.cancelChanges != null) { sheetMode = "view"; renderSheet(); return; }
+    if (d.copy) return copyTask(d.copy);
+    if (d.close != null) return closeSheet();
+    if (d.open) return openSheet(d.open, "view");
+  });
+  $("#sheet").addEventListener("close", () => { sheetTaskId = null; sheetMode = "view"; });
+  $("#sheet").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeSheet(); });
+
+  // highlight current section in nav
+  const navLinks = [...document.querySelectorAll("[data-nav]")];
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) navLinks.forEach((l) => l.classList.toggle("on", l.dataset.nav === en.target.id)); });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    ["agentes", "revisar", "pizarron"].forEach((id) => io.observe(document.getElementById(id)));
+  }
+  setInterval(renderAll, 60000);
+
+  /* ---------- Boot ---------- */
+  renderStrip(); renderBoard();
+  (async () => {
+    const use = (n) => (window.claude?.use ? window.claude.use(n).catch(() => null) : Promise.resolve(null));
+    [db, assets, sample] = await Promise.all([use("db"), use("assets"), use("sample")]);
+    if (sample?.limits) { try { sampleImages = !!(await sample.limits())?.images; } catch {} }
+    const banner = $("#banner");
+    const notes = [];
+    if (!db) {
+      notes.push("La base de datos no está disponible en esta vista. Abre The Office desde claude.ai con tu sesión iniciada.");
+      agentsLoaded = tasksLoaded = true; renderAgents(); renderAll();
+    }
+    if (!sample) notes.push("Los agentes no pueden trabajar en esta vista (falta el permiso para usar a Claude). Puedes revisar y aprobar, pero no encargar.");
+    banner.innerHTML = notes.map((n) => `<div class="notice warn">${esc(n)}</div>`).join("");
+    if (!db) return;
+
+    const timer = setTimeout(() => {
+      if (!agentsLoaded || !tasksLoaded) banner.insertAdjacentHTML("beforeend", `<div class="notice warn">No se puede llegar a la base de datos todavía. Lo que ves puede estar desactualizado.</div>`);
+    }, 10000);
+
+    db.collection("agents").onSnapshot((snap) => {
+      agents.clear();
+      snap.docs.forEach((d) => agents.set(d.id, { ...d.data(), id: d.id }));
+      if (!snap.metadata.fromCache) { agentsLoaded = true; if (tasksLoaded) clearTimeout(timer); }
+      else if (snap.size) agentsLoaded = true;
+      renderAgents(); renderAll();
+    }, () => { agentsLoaded = true; renderAgents(); });
+
+    db.collection("tasks").orderBy("updatedAt", "desc").limit(300).onSnapshot((snap) => {
+      const seen = new Set();
+      snap.docs.forEach((d) => { seen.add(d.id); tasks.set(d.id, { ...d.data(), id: d.id }); });
+      for (const id of [...tasks.keys()]) if (!seen.has(id) && !running.has(id)) tasks.delete(id);
+      if (!snap.metadata.fromCache) { tasksLoaded = true; if (agentsLoaded) clearTimeout(timer); }
+      else if (snap.size) tasksLoaded = true;
+      renderAll();
+    }, () => { tasksLoaded = true; renderAll(); });
+  })();
+})();
+</script>
+</body>
+</html>

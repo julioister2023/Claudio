@@ -36,3 +36,7 @@ En una sesión de Claude Code sobre este repositorio, pídelo por nombre:
 - [ ] Pegar en `config.md` los enlaces de la hoja de KPIs, la hoja de presupuesto y el modelo de orden de compra
 - [ ] Completar los datos del equipo y los umbrales de alerta en `config.md`
 - [ ] Activar las tareas programadas
+
+## Tablero "The Office"
+Tablero en claude.ai con los 4 agentes, entregas para revisar (Aprobar / Pedir cambios) y pizarrón: https://claude.ai/artifact/GBpdy6epsKVRRBBtTBvd1M
+Código: [`the-office/index.html`](the-office/index.html). Los agentes y encargos viven en su base de datos (`agents/*`, `tasks/*`).
