@@ -6,190 +6,156 @@
 <title>The Office</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Layout: sticky header + section nav, then three stacked sections (agents grid, review strip, kanban board). One column on phones. */
+/* Layout: a pixel-art isometric office (canvas) is the hero; desks row, review queue and corkboard below. Single fixed "night office" theme. */
 :root {
-  --bg: #eef1f5;
-  --surface: #ffffff;
-  --ink: #17202c;
-  --muted: #5b6676;
-  --line: #d9dee6;
-  --accent: #2346d8;
-  --accent-ink: #ffffff;
-  --a1: #2346d8; --a2: #b4398b; --a3: #0f8a7a; --a4: #c06a12;
-  --working: #b7791f; --working-bg: #fdf3e1;
-  --changes: #c2410c; --changes-bg: #fde9df;
-  --review: #2346d8; --review-bg: #e3e9fd;
-  --free: #4b6b5a; --free-bg: #e4efe8;
-  --ok: #157f4c;
-  --danger: #b42318;
-  --shadow: 0 1px 2px rgba(20,30,50,.06), 0 4px 14px rgba(20,30,50,.06);
-  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --r: 14px;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f141b; --surface: #171e28; --ink: #e8edf4; --muted: #9aa6b6; --line: #2a3442;
-    --accent: #7d98ff; --accent-ink: #0d1424;
-    --a1: #7d98ff; --a2: #e58bc6; --a3: #4cc7b4; --a4: #f0a65a;
-    --working: #f2c063; --working-bg: #3a2d14;
-    --changes: #ff9a6b; --changes-bg: #41241a;
-    --review: #9fb3ff; --review-bg: #1f2a4d;
-    --free: #8fc0a3; --free-bg: #1d3027;
-    --ok: #5fd39b; --danger: #ff8a7e;
-    --shadow: 0 1px 2px rgba(0,0,0,.4);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f141b; --surface: #171e28; --ink: #e8edf4; --muted: #9aa6b6; --line: #2a3442;
-  --accent: #7d98ff; --accent-ink: #0d1424;
-  --a1: #7d98ff; --a2: #e58bc6; --a3: #4cc7b4; --a4: #f0a65a;
-  --working: #f2c063; --working-bg: #3a2d14;
-  --changes: #ff9a6b; --changes-bg: #41241a;
-  --review: #9fb3ff; --review-bg: #1f2a4d;
-  --free: #8fc0a3; --free-bg: #1d3027;
-  --ok: #5fd39b; --danger: #ff8a7e;
-  --shadow: 0 1px 2px rgba(0,0,0,.4);
+  --night: #1b1f2c;
+  --night-2: #262b3b;
+  --paper: #f2ebd7;
+  --paper-2: #e6dcc1;
+  --ink: #1b1f2c;
+  --muted: #6b6553;
+  --light: #f2ebd7;
+  --accent: #f0c048;
+  --a1: #3b6fd1; --a2: #c2457f; --a3: #24937c; --a4: #d9822b;
+  --working: #d99a1e; --changes: #d4552b; --review: #3b6fd1; --free: #4f8a63; --ok: #2f8a4e; --danger: #c23a2b;
+  --pixel: "Silkscreen", "Courier New", monospace;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); -webkit-text-size-adjust: 100%; }
-h1, h2, h3, h4 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+body { background: var(--night); color: var(--light); font: 15px/1.5 var(--body); -webkit-text-size-adjust: 100%; }
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
 button, input, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-.top-inner { max-width: 1240px; margin: 0 auto; padding: 12px 16px 0; display: grid; gap: 10px; }
-.brand { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.brand h1 { font-size: 26px; }
-.brand small { color: var(--muted); font-size: 13px; }
-.summary { display: flex; gap: 8px; flex-wrap: wrap; font-size: 13px; font-variant-numeric: tabular-nums; }
-.summary span { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
-.summary b { font-weight: 700; }
-nav.tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-nav.tabs a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14px; padding: 8px 12px 10px; border-bottom: 2px solid transparent; white-space: nowrap; }
-nav.tabs a:hover, nav.tabs a.on { color: var(--ink); border-color: var(--accent); }
-nav.tabs .count { display: inline-block; min-width: 20px; text-align: center; background: var(--review-bg); color: var(--review); border-radius: 999px; font-size: 12px; padding: 0 6px; margin-left: 4px; }
+/* pixel frame */
+.px { background: var(--paper); color: var(--ink); box-shadow: 0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink), 6px 6px 0 0 rgba(0,0,0,.35); }
 
-main { max-width: 1240px; margin: 0 auto; padding: 8px 16px 64px; display: grid; gap: 28px; }
-section { scroll-margin-top: 130px; display: grid; gap: 12px; }
-.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 14px; }
-.sec-head h2 { font-size: 20px; }
-.sec-head p { margin: 0; color: var(--muted); font-size: 13px; }
-.notice { background: var(--surface); border: 1px dashed var(--line); border-radius: var(--r); padding: 14px 16px; color: var(--muted); }
-.notice.warn { border-style: solid; border-color: var(--working); color: var(--ink); background: var(--working-bg); }
+.top { max-width: 1100px; margin: 0 auto; padding: 16px 16px 6px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.brand h1 { font-family: var(--pixel); font-weight: 700; font-size: 30px; letter-spacing: 1px; line-height: 1; color: var(--paper); text-shadow: 3px 3px 0 #000; }
+.brand p { margin: 6px 0 0; font-size: 13px; color: #b8b2a0; }
+.controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.summary { display: flex; gap: 8px; flex-wrap: wrap; font-family: var(--pixel); font-size: 11px; }
+.summary span { background: var(--night-2); border: 2px solid #3a4157; padding: 4px 8px; }
+.summary b { color: var(--accent); }
 
-.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
-.pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.st-working { color: var(--working); background: var(--working-bg); }
-.st-working::before { animation: pulse 1.2s ease-in-out infinite; }
-.st-changes { color: var(--changes); background: var(--changes-bg); }
-.st-changes::before { animation: pulse 1.2s ease-in-out infinite; }
-.st-review { color: var(--review); background: var(--review-bg); }
-.st-free { color: var(--free); background: var(--free-bg); }
-.st-done { color: var(--ok); background: var(--free-bg); }
-.st-error { color: var(--danger); background: var(--changes-bg); }
-@keyframes pulse { 50% { opacity: .3; } }
-@media (prefers-reduced-motion: reduce) { .pill::before { animation: none !important; } }
+.btn { font-family: var(--pixel); font-size: 12px; min-height: 42px; padding: 8px 14px; border: 0; cursor: pointer; background: var(--paper); color: var(--ink); box-shadow: inset -3px -3px 0 0 rgba(0,0,0,.22), 0 0 0 3px var(--ink); display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; }
+.btn:hover { filter: brightness(1.06); }
+.btn:active { box-shadow: inset 3px 3px 0 0 rgba(0,0,0,.22), 0 0 0 3px var(--ink); }
+.btn.primary { background: var(--accent); }
+.btn.approve { background: #57b36f; }
+.btn.changes { background: #ef8a5f; }
+.btn.ghost { background: var(--paper-2); }
+.btn.small { min-height: 34px; font-size: 11px; padding: 4px 10px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.btn.demo-on { background: #b58cf0; }
 
-.mono { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 15px; color: #fff; background: var(--c, var(--accent)); }
-:root[data-theme="dark"] .mono { color: #0d1424; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mono { color: #0d1424; } }
-.mono.sm { width: 26px; height: 26px; border-radius: 8px; font-size: 11px; }
+main { max-width: 1100px; margin: 0 auto; padding: 8px 16px 64px; display: grid; gap: 26px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.sec-head h2 { font-family: var(--pixel); font-size: 16px; color: var(--paper); }
+.sec-head p { margin: 0; color: #b8b2a0; font-size: 13px; }
+section { display: grid; gap: 12px; scroll-margin-top: 16px; }
 
-/* Agents */
-.agents { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); }
-.agent { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px; display: grid; gap: 12px; align-content: start; border-top: 4px solid var(--c); }
-.agent header { display: flex; gap: 12px; align-items: flex-start; }
-.agent header > div:not(.mono) { flex: 1; min-width: 0; }
-.agent h3 { font-size: 17px; line-height: 1.25; }
-.agent .role { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
-.meta { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; font-size: 13px; }
-.meta dt { color: var(--muted); }
-.meta dd { margin: 0; }
-.load { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; min-height: 1.5em; }
-.composer { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 12px; }
-.composer textarea { width: 100%; min-height: 76px; resize: vertical; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 10px 12px; font-size: 16px; line-height: 1.4; }
-.composer textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
-.row { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-.files { display: flex; flex-wrap: wrap; gap: 6px; }
-.files:empty { display: none; }
-.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 3px 4px 3px 8px; max-width: 100%; }
-.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 180px; }
-.chip button { border: 0; background: none; cursor: pointer; color: var(--muted); padding: 2px 6px; border-radius: 6px; }
-.chip a { color: var(--accent); }
+.banner { display: grid; gap: 8px; }
+.banner:empty { display: none; }
+.notice { padding: 10px 14px; font-size: 14px; }
+.notice.demo { background: #e5d6fb; }
 
-.btn { min-height: 42px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); padding: 8px 14px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; color: var(--ink); }
-.btn:hover { border-color: var(--muted); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-.btn.primary:hover { filter: brightness(1.08); }
-.btn.approve { background: var(--ok); border-color: var(--ok); color: #fff; }
-:root[data-theme="dark"] .btn.approve { color: #0d1424; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.approve { color: #0d1424; } }
-.btn.changes { color: var(--changes); border-color: color-mix(in srgb, var(--changes) 45%, var(--line)); }
-.btn.ghost { background: transparent; }
-.btn[disabled] { opacity: .55; cursor: not-allowed; }
-.btn.small { min-height: 34px; padding: 4px 10px; font-size: 13px; }
+/* Scene */
+.scene-wrap { position: relative; width: 100%; background: #12151f; box-shadow: 0 0 0 3px #000, 6px 6px 0 0 rgba(0,0,0,.4); overflow: hidden; }
+.scene-wrap canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
+.tags { position: absolute; inset: 0; pointer-events: none; }
+.tag { position: absolute; transform: translate(-50%, -100%); pointer-events: auto; font-family: var(--pixel); font-size: 10px; line-height: 1; padding: 4px 5px 3px; border: 0; cursor: pointer; color: #fff; background: var(--c); box-shadow: 0 0 0 2px #000; white-space: nowrap; display: flex; gap: 4px; align-items: center; }
+.tag i { font-style: normal; display: inline-block; width: 7px; height: 7px; background: var(--s); box-shadow: 0 0 0 1px #000; }
+.tag.boss { --c: #f2ebd7; color: var(--ink); }
+.tag .n { background: var(--accent); color: var(--ink); padding: 0 3px; }
+.scene-badge { position: absolute; left: 10px; top: 10px; font-family: var(--pixel); font-size: 11px; background: #b58cf0; color: var(--ink); padding: 4px 8px; box-shadow: 0 0 0 2px #000; }
+.scene-badge[hidden] { display: none; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--pixel); font-size: 10px; color: #b8b2a0; }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+.legend i { width: 9px; height: 9px; display: inline-block; box-shadow: 0 0 0 1px #000; }
 
-/* Review strip */
-.strip { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 2px 10px; margin: 0 -2px; }
-.rcard { scroll-snap-align: start; flex: 0 0 min(86vw, 340px); background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--review); border-radius: var(--r); box-shadow: var(--shadow); padding: 14px; display: grid; gap: 8px; align-content: start; }
-.rhead { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
-.rhead .ver { margin-left: auto; font-weight: 700; color: var(--review); font-variant-numeric: tabular-nums; }
+/* Desks row */
+.desks { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+.desk { padding: 12px; display: grid; gap: 8px; text-align: left; cursor: pointer; border: 0; font: inherit; }
+.desk:hover { background: #fbf5e4; }
+.desk header { display: flex; gap: 10px; align-items: center; }
+.avatar { flex: none; width: 36px; height: 36px; image-rendering: pixelated; background: var(--paper-2); box-shadow: 0 0 0 2px var(--ink); }
+.desk h3 { font-size: 15px; line-height: 1.2; }
+.desk .st { font-family: var(--pixel); font-size: 10px; display: inline-flex; gap: 5px; align-items: center; margin-top: 2px; }
+.desk .st i, .pill i { width: 8px; height: 8px; display: inline-block; background: var(--s); box-shadow: 0 0 0 1px #000; }
+.desk p { margin: 0; font-size: 13px; color: var(--muted); }
+.desk .cta { font-family: var(--pixel); font-size: 10px; color: var(--ink); }
+
+/* Review queue */
+.strip { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 6px 14px; }
+.rcard { scroll-snap-align: start; flex: 0 0 min(84vw, 330px); padding: 14px; display: grid; gap: 8px; align-content: start; position: relative; }
+.rcard .num { position: absolute; top: -12px; left: 10px; font-family: var(--pixel); font-size: 10px; background: var(--accent); color: var(--ink); padding: 3px 6px; box-shadow: 0 0 0 2px var(--ink); }
+.rhead { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); padding-top: 4px; }
+.rhead .ver { margin-left: auto; font-family: var(--pixel); font-size: 11px; color: var(--review); }
 .rcard h4 { font-size: 16px; line-height: 1.3; }
 .excerpt { margin: 0; color: var(--muted); font-size: 13px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-.ractions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+.ractions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; padding: 3px; }
 .ractions .open { grid-column: 1 / -1; }
+.empty-q { font-size: 14px; padding: 14px; }
 
-/* Board */
-.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min(84vw, 270px), 1fr); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; }
-.col { scroll-snap-align: start; background: color-mix(in srgb, var(--surface) 55%, var(--bg)); border: 1px solid var(--line); border-radius: var(--r); padding: 10px; display: grid; gap: 8px; align-content: start; min-height: 160px; }
-.col > header { display: flex; align-items: center; justify-content: space-between; padding: 2px 4px 4px; }
-.col > header h3 { font-size: 14px; }
-.col > header span { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.tcard { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: grid; gap: 6px; cursor: pointer; text-align: left; width: 100%; }
-.tcard:hover { border-color: var(--muted); }
-.tcard .t-top { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
-.tcard .t-top time { margin-left: auto; font-variant-numeric: tabular-nums; }
-.tcard strong { font-size: 14px; line-height: 1.3; font-weight: 600; }
-.live { font-size: 12px; color: var(--muted); background: var(--bg); border-radius: 6px; padding: 6px 8px; max-height: 64px; overflow: hidden; white-space: pre-wrap; font-family: ui-monospace, Menlo, monospace; }
-.empty { color: var(--muted); font-size: 13px; padding: 6px 4px; }
+/* Corkboard */
+.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min(80vw, 250px), 1fr); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 14px; background: #9a6b3f; background-image: radial-gradient(#8a5d34 1px, transparent 1px); background-size: 6px 6px; box-shadow: 0 0 0 4px #5b3a1d, 6px 6px 0 2px rgba(0,0,0,.4); }
+.col { scroll-snap-align: start; display: grid; gap: 10px; align-content: start; min-height: 150px; }
+.col > header { font-family: var(--pixel); font-size: 11px; color: var(--paper); background: var(--ink); padding: 5px 8px; display: flex; justify-content: space-between; }
+.note { padding: 10px; display: grid; gap: 6px; cursor: pointer; text-align: left; border: 0; font: inherit; width: 100%; position: relative; background: #fff7c2; color: var(--ink); box-shadow: 3px 3px 0 0 rgba(0,0,0,.3); }
+.note::before { content: ""; position: absolute; top: -4px; left: 50%; width: 8px; height: 8px; margin-left: -4px; background: var(--pin, #c23a2b); box-shadow: 0 0 0 1px #000; }
+.note:nth-child(3n) { transform: rotate(-1deg); }
+.note:nth-child(3n+1) { transform: rotate(.8deg); }
+.note .t-top { display: flex; gap: 6px; font-size: 12px; color: var(--muted); }
+.note .t-top time { margin-left: auto; }
+.note strong { font-size: 14px; line-height: 1.3; font-weight: 600; }
+.live { font-size: 11px; background: rgba(0,0,0,.06); padding: 5px 6px; max-height: 60px; overflow: hidden; white-space: pre-wrap; font-family: ui-monospace, Menlo, monospace; }
 .err { color: var(--danger); font-size: 12px; }
+.empty { color: #f8e9cf; font-size: 12px; font-family: var(--pixel); padding: 4px; }
 
 /* Sheet */
-dialog.sheet { border: 0; padding: 0; width: min(760px, 100%); max-height: min(92vh, 900px); border-radius: 18px; background: var(--surface); color: var(--ink); box-shadow: 0 20px 60px rgba(0,0,0,.3); }
-dialog.sheet::backdrop { background: rgba(10,15,25,.5); }
-.sheet-inner { display: grid; grid-template-rows: auto 1fr auto; max-height: min(92vh, 900px); }
-.sheet-head { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px 12px; border-bottom: 1px solid var(--line); }
+dialog.sheet { border: 0; padding: 0; width: min(760px, calc(100% - 24px)); max-height: min(90vh, 900px); background: var(--paper); color: var(--ink); box-shadow: 0 0 0 4px var(--ink), 10px 10px 0 0 rgba(0,0,0,.5); }
+dialog.sheet::backdrop { background: rgba(8,10,16,.7); }
+.sheet-inner { display: grid; grid-template-rows: auto 1fr auto; max-height: min(90vh, 900px); }
+.sheet-head { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px 12px; border-bottom: 3px solid var(--ink); background: var(--paper-2); }
 .sheet-head > div { flex: 1; min-width: 0; }
-.sheet-head h2 { font-size: 19px; line-height: 1.25; }
+.sheet-head h2 { font-size: 18px; line-height: 1.25; }
 .sheet-head p { margin: 4px 0 0; font-size: 13px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.sheet-body { overflow-y: auto; padding: 16px 18px; display: grid; gap: 14px; align-content: start; }
-.sheet-foot { border-top: 1px solid var(--line); padding: 12px 18px calc(12px + env(safe-area-inset-bottom)); display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-.sheet-foot .btn { flex: 1 1 140px; }
-.close { border: 0; background: var(--bg); width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 20px; line-height: 1; }
-details.brief { background: var(--bg); border-radius: 10px; padding: 10px 12px; font-size: 14px; }
+.pill { font-family: var(--pixel); font-size: 10px; display: inline-flex; gap: 5px; align-items: center; color: var(--ink); background: #fff; padding: 2px 6px; box-shadow: 0 0 0 2px var(--ink); }
+.sheet-body { overflow-y: auto; padding: 16px; display: grid; gap: 14px; align-content: start; }
+.sheet-foot { border-top: 3px solid var(--ink); padding: 14px 16px calc(14px + env(safe-area-inset-bottom)); display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.sheet-foot .btn { flex: 1 1 130px; }
+.close { border: 0; background: var(--ink); color: var(--paper); width: 38px; height: 38px; cursor: pointer; font-family: var(--pixel); font-size: 16px; }
+details.brief { background: var(--paper-2); padding: 10px 12px; font-size: 14px; }
 details.brief summary { cursor: pointer; font-weight: 600; }
 details.brief p { margin: 8px 0 0; white-space: pre-wrap; }
-.feedback-box { display: grid; gap: 8px; }
-.feedback-box label { font-weight: 600; }
-.feedback-box textarea { min-height: 120px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); font-size: 16px; resize: vertical; }
-.lastfb { border-left: 3px solid var(--changes); background: var(--changes-bg); padding: 8px 12px; border-radius: 0 8px 8px 0; font-size: 14px; }
+.field { display: grid; gap: 8px; }
+.field label { font-weight: 600; }
+textarea { width: 100%; min-height: 110px; resize: vertical; border: 0; box-shadow: inset 0 0 0 2px var(--ink); background: #fffdf5; padding: 10px 12px; font-size: 16px; line-height: 1.4; color: var(--ink); }
+.row { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 3px; }
+.files { display: flex; flex-wrap: wrap; gap: 6px; }
+.files:empty { display: none; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; background: #fff; box-shadow: 0 0 0 2px var(--ink); padding: 3px 4px 3px 8px; max-width: 100%; color: var(--ink); text-decoration: none; }
+.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 180px; }
+.chip button { border: 0; background: none; cursor: pointer; padding: 2px 6px; }
+.lastfb { border-left: 4px solid var(--changes); background: #fbe1d4; padding: 8px 12px; font-size: 14px; }
 .lastfb b { display: block; font-size: 12px; color: var(--changes); }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; font-size: 14px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.tlist { display: grid; gap: 8px; }
+.tlist button { display: flex; gap: 8px; align-items: center; justify-content: space-between; text-align: left; border: 0; background: #fff; box-shadow: 0 0 0 2px var(--ink); padding: 8px 10px; cursor: pointer; font: inherit; color: var(--ink); }
+.tlist h3 { font-family: var(--pixel); font-size: 12px; }
 @media (max-width: 640px) {
-  dialog.sheet { margin: auto 0 0; width: 100%; max-width: 100%; border-radius: 18px 18px 0 0; max-height: 94vh; }
+  dialog.sheet { margin: auto 0 0; width: 100%; max-width: 100%; max-height: 94vh; }
   .sheet-inner { max-height: 94vh; }
-  .brand h1 { font-size: 22px; }
-  .brand small { display: none; }
-  .summary { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; width: 100%; }
-  .summary span { white-space: nowrap; }
-  section { scroll-margin-top: 110px; }
+  .brand h1 { font-size: 24px; }
+  .tag { font-size: 8px; padding: 3px 4px 2px; }
 }
 
 /* Deliverable markdown */
@@ -199,76 +165,72 @@ details.brief p { margin: 8px 0 0; white-space: pre-wrap; }
 .md h1 { font-size: 20px; } .md h2 { font-size: 18px; } .md h3 { font-size: 16px; } .md h4 { font-size: 15px; }
 .md p { margin: .5em 0; }
 .md ul, .md ol { padding-left: 1.3em; margin: .5em 0; }
-.md li { margin: .2em 0; }
-.md code { background: var(--bg); padding: 1px 5px; border-radius: 5px; font-size: .92em; }
-.md blockquote { margin: .6em 0; padding: 4px 12px; border-left: 3px solid var(--line); color: var(--muted); }
-.md hr { border: 0; border-top: 1px solid var(--line); margin: 1em 0; }
+.md code { background: var(--paper-2); padding: 1px 5px; font-size: .92em; }
+.md blockquote { margin: .6em 0; padding: 4px 12px; border-left: 3px solid var(--muted); color: var(--muted); }
+.md hr { border: 0; border-top: 2px solid var(--ink); margin: 1em 0; }
 .md .tbl { overflow-x: auto; margin: .6em 0; }
 .md table { border-collapse: collapse; font-size: 13px; min-width: 100%; }
-.md th, .md td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
-.md th { background: var(--bg); }
+.md th, .md td { border: 2px solid var(--ink); padding: 6px 8px; text-align: left; vertical-align: top; }
+.md th { background: var(--paper-2); }
 
-.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 14px; z-index: 50; max-width: calc(100% - 32px); box-shadow: var(--shadow); }
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--accent); color: var(--ink); font-family: var(--pixel); font-size: 12px; padding: 10px 16px; z-index: 50; max-width: calc(100% - 32px); box-shadow: 0 0 0 3px var(--ink), 5px 5px 0 0 rgba(0,0,0,.4); }
 .toast[hidden] { display: none; }
 </style>
 </head>
 <body>
 <header class="top">
-  <div class="top-inner">
-    <div class="brand">
-      <div>
-        <h1>The Office</h1>
-        <small>Oficina de agentes de Marketing · Director: tú. Nada sale sin tu aprobación.</small>
-      </div>
-      <div class="summary" id="summary" aria-live="polite">
-        <span>Cargando la oficina…</span>
-      </div>
-    </div>
-    <nav class="tabs" aria-label="Secciones">
-      <a href="#agentes" data-nav="agentes">Agentes</a>
-      <a href="#revisar" data-nav="revisar">Para revisar <span class="count" id="navcount">0</span></a>
-      <a href="#pizarron" data-nav="pizarron">Pizarrón</a>
-    </nav>
+  <div class="brand">
+    <h1>The Office</h1>
+    <p>Oficina de agentes de Marketing · Tú diriges. Nada sale sin tu aprobación.</p>
+  </div>
+  <div class="controls">
+    <div class="summary" id="summary" aria-live="polite"><span>Abriendo la oficina…</span></div>
+    <button class="btn" id="demo-btn" type="button" aria-pressed="false">Modo demo</button>
   </div>
 </header>
 
 <main>
-  <div id="banner"></div>
+  <div class="banner" id="banner"></div>
 
-  <section id="agentes" aria-labelledby="h-agentes">
-    <div class="sec-head">
-      <h2 id="h-agentes">Agentes</h2>
-      <p>Escríbele a un agente y pulsa Encargar: empieza a trabajar enseguida.</p>
+  <section aria-labelledby="h-oficina">
+    <h2 id="h-oficina" class="sr">La oficina</h2>
+    <div class="scene-wrap" id="scene-wrap">
+      <canvas id="scene" width="320" height="236" role="img" aria-label="Oficina en pixel art con los escritorios de los agentes, tu escritorio con la fila de entregas y la zona de descanso."></canvas>
+      <div class="tags" id="tags"></div>
+      <div class="scene-badge" id="scene-badge" hidden>DEMO · nada se guarda</div>
     </div>
-    <div class="agents" id="agents"><div class="notice">Cargando agentes…</div></div>
+    <div class="legend" aria-hidden="true">
+      <span><i style="background:var(--working)"></i>Tecleando</span>
+      <span><i style="background:var(--changes)"></i>Rehaciendo con cambios</span>
+      <span><i style="background:var(--review)"></i>En fila para revisión</span>
+      <span><i style="background:var(--free)"></i>Descansando</span>
+    </div>
   </section>
 
-  <section id="revisar" aria-labelledby="h-revisar">
-    <div class="sec-head">
-      <h2 id="h-revisar">Entregas para revisar</h2>
-      <p>Si pides cambios, el agente rehace la entrega y la devuelve aquí.</p>
-    </div>
+  <section id="escritorios" aria-labelledby="h-desks">
+    <div class="sec-head"><h2 id="h-desks">Escritorios</h2><p>Toca un agente (aquí o en la oficina) para encargarle trabajo.</p></div>
+    <div class="desks" id="desks"></div>
+  </section>
+
+  <section id="fila" aria-labelledby="h-fila">
+    <div class="sec-head"><h2 id="h-fila">Fila en tu escritorio</h2><p>Aprueba o pide cambios: el agente vuelve a su escritorio a rehacerlo.</p></div>
     <div class="strip" id="strip"></div>
   </section>
 
-  <section id="pizarron" aria-labelledby="h-pizarron">
-    <div class="sec-head">
-      <h2 id="h-pizarron">Pizarrón</h2>
-      <p>Todo lo que está en curso, de un vistazo.</p>
-    </div>
+  <section id="pizarron" aria-labelledby="h-board">
+    <div class="sec-head"><h2 id="h-board">Pizarrón</h2><p>Todo lo que está en curso.</p></div>
     <div class="board" id="board"></div>
   </section>
 </main>
 
-<dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
-  <div class="sheet-inner" id="sheet-inner"></div>
-</dialog>
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-title"><div class="sheet-inner" id="sheet-inner"></div></dialog>
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script>
 (() => {
   "use strict";
 
+  /* ================= Agent prompt framing ================= */
   const RULES = `Eres un agente de la "oficina de IA" del Coordinador de Marketing del Colegio Americano de Guayaquil (Ecuador). Él es el director y aprueba todo.
 Reglas obligatorias:
 - Solo produces BORRADORES para que el director los apruebe. Nunca digas que enviaste, publicaste, pausaste campañas o modificaste hojas: no puedes hacerlo.
@@ -276,39 +238,47 @@ Reglas obligatorias:
 - Si una pieza o cobertura incluye estudiantes, márcala con "👦 MENORES — confirmar autorización de imagen".
 - No incluyas datos personales de estudiantes o familias.
 - Idioma: español de Ecuador, tono institucional, cercano y positivo. Zona horaria America/Guayaquil. Calendario escolar régimen Costa.`;
-
   const FORMAT = `Formato de respuesta (Markdown, sin preámbulo ni despedida):
 1. Empieza con "## Para aprobar": lista numerada y corta de las decisiones que el director debe tomar.
 2. Después, el entregable completo y listo para usar, con encabezados "##" y tablas cuando ayuden.
 3. Si faltan datos, termina con "## Datos que necesito".`;
 
-  const COLORS = ["var(--a1)", "var(--a2)", "var(--a3)", "var(--a4)"];
   const TEXT_EXT = /\.(txt|md|markdown|csv|tsv|json|html?|xml|ya?ml)$/i;
   const MAX_FILES = 8;
   const STALE_MS = 4 * 60 * 1000;
   const SKILL_STALE_MS = 90 * 60 * 1000;
+  const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ================= Looks (original characters) ================= */
+  const LOOKS = [
+    { color: "#3b6fd1", shirt: "#3b6fd1", hair: "#5a3820", skin: "#e8b48a", pants: "#2b2f45", style: "long", tie: null, glasses: false },
+    { color: "#c2457f", shirt: "#c2457f", hair: "#1c1a22", skin: "#c98b5e", pants: "#3a2f3f", style: "bun", tie: null, glasses: false },
+    { color: "#24937c", shirt: "#e9eef0", hair: "#d8b04a", skin: "#f0c7a0", pants: "#3b4a52", style: "short", tie: "#24937c", glasses: true },
+    { color: "#d9822b", shirt: "#d9822b", hair: "#9a9a9a", skin: "#a8704a", pants: "#3d3427", style: "side", tie: "#6b3410", glasses: false },
+  ];
+  const BOSS = { color: "#f2ebd7", shirt: "#ffffff", hair: "#2a2220", skin: "#d39a6e", pants: "#22273a", style: "short", tie: "#b33a3a", glasses: false };
+  const STATUS = {
+    working: { label: "Tecleando", color: "var(--working)" },
+    changes: { label: "Rehaciendo con cambios", color: "var(--changes)" },
+    review: { label: "En fila para revisión", color: "var(--review)" },
+    free: { label: "Descansando", color: "var(--free)" },
+  };
+  const TASK_LABEL = { trabajando: ["Trabajando", "var(--working)"], cambios: ["Rehaciendo con cambios", "var(--changes)"], revision: ["Para revisar", "var(--review)"], aprobado: ["Aprobada", "var(--ok)"], error: ["Se detuvo", "var(--danger)"] };
+
+  /* ================= State ================= */
   let db = null, assets = null, sample = null, sampleImages = false;
-  const agents = new Map();
-  const tasks = new Map();
-  const drafts = {};
-  const pendingFiles = {};
-  const imageCache = new Map();
-  const running = new Set();
-  const live = new Map();
-  let agentsLoaded = false, tasksLoaded = false;
-  let sheetTaskId = null, sheetMode = "view";
-  let writeBlocked = false;
+  const LIVE = { agents: new Map(), tasks: new Map() };
+  const DEMO = { agents: new Map(), tasks: new Map(), timers: new Set(), seq: 0 };
+  let mode = "live";
+  const S = () => (mode === "demo" ? DEMO : LIVE);
+  const drafts = {}, pendingFiles = {};
+  const imageCache = new Map(), running = new Set(), liveText = new Map();
+  let agentsLoaded = false, tasksLoaded = false, writeBlocked = false;
+  let sheet = { kind: null, id: null, mode: "view" };
 
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-
-  function toast(msg) {
-    const t = $("#toast");
-    t.textContent = msg; t.hidden = false;
-    clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 4200);
-  }
-
+  function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 4200); }
   function ago(ts) {
     if (!ts) return "";
     const s = Math.max(0, (Date.now() - ts) / 1000);
@@ -317,31 +287,23 @@ Reglas obligatorias:
     if (s < 86400) return `hace ${Math.round(s / 3600)} h`;
     return new Date(ts).toLocaleDateString("es-EC", { day: "numeric", month: "short" });
   }
+  const sortedAgents = () => [...S().agents.values()].sort((a, b) => (a.order || 99) - (b.order || 99));
+  const agentIndex = (id) => Math.max(0, sortedAgents().findIndex((a) => a.id === id)) % 4;
+  const lookOf = (id) => LOOKS[agentIndex(id)];
+  const initials = (a) => a?.initials || String(a?.name || "?").split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  const taskList = () => [...S().tasks.values()];
 
-  function agentColor(a) {
-    const i = Math.max(0, (Number(a?.order) || 1) - 1) % COLORS.length;
-    return COLORS[i];
-  }
-  function initials(a) {
-    if (a?.initials) return a.initials;
-    return String(a?.name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
-  }
-
-  /* ---------- Markdown (small, safe: escapes first) ---------- */
+  /* ================= Markdown ================= */
   function inline(s) {
-    return esc(s)
-      .replace(/`([^`]+)`/g, "<code>$1</code>")
-      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-      .replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
   }
   function md(src) {
     const lines = String(src || "").replace(/\r/g, "").split("\n");
     let out = "", i = 0;
     const isRow = (l) => /^\s*\|.*\|\s*$/.test(l);
     while (i < lines.length) {
-      const l = lines[i];
+      const l = lines[i]; let m;
       if (!l.trim()) { i++; continue; }
-      let m;
       if ((m = l.match(/^(#{1,4})\s+(.*)$/))) { const n = m[1].length; out += `<h${n}>${inline(m[2])}</h${n}>`; i++; continue; }
       if (/^\s*(-{3,}|\*{3,})\s*$/.test(l)) { out += "<hr>"; i++; continue; }
       if (isRow(l) && i + 1 < lines.length && /^\s*\|?[\s:-]+\|[\s|:-]*$/.test(lines[i + 1])) {
@@ -351,22 +313,10 @@ Reglas obligatorias:
         while (i < lines.length && isRow(lines[i])) { h += `<tr>${cells(lines[i]).map((c) => `<td>${inline(c)}</td>`).join("")}</tr>`; i++; }
         out += h + "</tbody></table></div>"; continue;
       }
-      if (/^\s*[-*•]\s+/.test(l)) {
-        out += "<ul>";
-        while (i < lines.length && /^\s*[-*•]\s+/.test(lines[i])) { out += `<li>${inline(lines[i].replace(/^\s*[-*•]\s+/, ""))}</li>`; i++; }
-        out += "</ul>"; continue;
-      }
-      if (/^\s*\d+[.)]\s+/.test(l)) {
-        out += "<ol>";
-        while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])) { out += `<li>${inline(lines[i].replace(/^\s*\d+[.)]\s+/, ""))}</li>`; i++; }
-        out += "</ol>"; continue;
-      }
-      if (/^\s*>/.test(l)) {
-        let q = [];
-        while (i < lines.length && /^\s*>/.test(lines[i])) { q.push(lines[i].replace(/^\s*>\s?/, "")); i++; }
-        out += `<blockquote>${inline(q.join(" "))}</blockquote>`; continue;
-      }
-      let p = [];
+      if (/^\s*[-*•]\s+/.test(l)) { out += "<ul>"; while (i < lines.length && /^\s*[-*•]\s+/.test(lines[i])) { out += `<li>${inline(lines[i].replace(/^\s*[-*•]\s+/, ""))}</li>`; i++; } out += "</ul>"; continue; }
+      if (/^\s*\d+[.)]\s+/.test(l)) { out += "<ol>"; while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])) { out += `<li>${inline(lines[i].replace(/^\s*\d+[.)]\s+/, ""))}</li>`; i++; } out += "</ol>"; continue; }
+      if (/^\s*>/.test(l)) { const q = []; while (i < lines.length && /^\s*>/.test(lines[i])) { q.push(lines[i].replace(/^\s*>\s?/, "")); i++; } out += `<blockquote>${inline(q.join(" "))}</blockquote>`; continue; }
+      const p = [];
       while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|\s*[-*•]\s+|\s*\d+[.)]\s+|\s*>)/.test(lines[i]) && !isRow(lines[i])) { p.push(lines[i]); i++; }
       if (!p.length) { p.push(lines[i]); i++; }
       out += `<p>${p.map(inline).join("<br>")}</p>`;
@@ -375,10 +325,11 @@ Reglas obligatorias:
   }
   const plain = (s) => String(s || "").replace(/[#*|`>_-]+/g, " ").replace(/\s+/g, " ").trim();
 
-  /* ---------- Derived state ---------- */
-  const taskList = () => [...tasks.values()];
+  /* ================= Derived status ================= */
   function isStale(t) {
-    return (t.status === "trabajando" || t.status === "cambios") && !running.has(t.id) && Date.now() - (t.updatedAt || 0) > (t.source === "skill" && t.status === "trabajando" ? SKILL_STALE_MS : STALE_MS);
+    if (mode === "demo") return false;
+    const lim = t.source === "skill" && t.status === "trabajando" ? SKILL_STALE_MS : STALE_MS;
+    return (t.status === "trabajando" || t.status === "cambios") && !running.has(t.id) && Date.now() - (t.updatedAt || 0) > lim;
   }
   function agentStatus(id) {
     const mine = taskList().filter((t) => t.agentId === id);
@@ -387,95 +338,371 @@ Reglas obligatorias:
     if (mine.some((t) => t.status === "revision")) return "review";
     return "free";
   }
-  const STATUS_LABEL = { working: "Trabajando", changes: "Con cambios", review: "Para revisar", free: "Libre" };
-  const TASK_LABEL = { trabajando: ["Trabajando", "st-working"], cambios: ["Rehaciendo con cambios", "st-changes"], revision: ["Para revisar", "st-review"], aprobado: ["Aprobada", "st-done"], error: ["Se detuvo", "st-error"] };
+  const reviewQueue = () => taskList().filter((t) => t.status === "revision").sort((a, b) => (a.updatedAt || 0) - (b.updatedAt || 0));
 
-  /* ---------- Render: summary ---------- */
+  /* =====================================================================
+     PIXEL ISOMETRIC OFFICE (drawn entirely with code)
+     ===================================================================== */
+  const W = 320, H = 236, OX = 148, OY = 74, GX = 10, GY = 8, WALL = 58;
+  const cv = $("#scene"), g = cv.getContext("2d");
+  g.imageSmoothingEnabled = false;
+  const iso = (gx, gy) => ({ x: OX + (gx - gy) * 16, y: OY + (gx + gy) * 8 });
+  function poly(pts, fill) { g.fillStyle = fill; g.beginPath(); pts.forEach((p, i) => (i ? g.lineTo(Math.round(p.x), Math.round(p.y)) : g.moveTo(Math.round(p.x), Math.round(p.y)))); g.closePath(); g.fill(); }
+  const up = (p, h) => ({ x: p.x, y: p.y - h });
+  function box(gx, gy, w, d, h, c, z = 0) {
+    const a = up(iso(gx, gy), z), b = up(iso(gx + w, gy), z), cc = up(iso(gx + w, gy + d), z), e = up(iso(gx, gy + d), z);
+    poly([e, cc, up(cc, h), up(e, h)], c[1]);
+    poly([b, cc, up(cc, h), up(b, h)], c[2]);
+    poly([up(a, h), up(b, h), up(cc, h), up(e, h)], c[0]);
+  }
+  const R = (x, y, w, h, c) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
+  const WOOD = ["#c58a4e", "#9a6434", "#7d4f28"], DWOOD = ["#8a5a32", "#6a4222", "#56351a"], GREY = ["#b9bcc6", "#8b8f9c", "#70737f"], DARK = ["#4a4e5c", "#33363f", "#272a31"];
+
+  /* layout (grid units) */
+  const DESKS = [{ gx: 2.0, gy: 1.7 }, { gx: 4.6, gy: 1.7 }, { gx: 2.0, gy: 4.0 }, { gx: 4.6, gy: 4.0 }];
+  const SEATS = DESKS.map((d) => ({ x: d.gx + 0.8, y: d.gy - 0.8 }));
+  const SIDE_X = [1.55, 4.1, 1.55, 4.1];
+  const CORRIDOR = 5.65;
+  const BOSS_DESK = { gx: 7.5, gy: 2.0 }, BOSS_SEAT = { x: 8.45, y: 1.2 };
+  const QUEUE = [{ x: 8.45, y: 3.85 }, { x: 8.45, y: 4.75 }, { x: 8.45, y: 5.65 }, { x: 8.45, y: 6.55 }];
+  const REST = [{ x: 0.95, y: 7.25, couch: true }, { x: 1.75, y: 7.25, couch: true }, { x: 1.0, y: 5.25, couch: false }, { x: 2.55, y: 7.25, couch: true }];
+
+  function drawRoom(t) {
+    g.fillStyle = "#12151f"; g.fillRect(0, 0, W, H);
+    // walls
+    poly([iso(0, GY), iso(0, 0), up(iso(0, 0), WALL), up(iso(0, GY), WALL)], "#d9cfb2");
+    poly([iso(0, 0), iso(GX, 0), up(iso(GX, 0), WALL), up(iso(0, 0), WALL)], "#cdbf9d");
+    poly([iso(0, GY), iso(0, 0), up(iso(0, 0), 4), up(iso(0, GY), 4)], "#8f7f5c");
+    poly([iso(0, 0), iso(GX, 0), up(iso(GX, 0), 4), up(iso(0, 0), 4)], "#7e6f50");
+    // wall top trim
+    poly([up(iso(0, GY), WALL), up(iso(0, 0), WALL), up(iso(0, 0), WALL + 3), up(iso(0, GY), WALL + 3)], "#efe6cc");
+    poly([up(iso(0, 0), WALL), up(iso(GX, 0), WALL), up(iso(GX, 0), WALL + 3), up(iso(0, 0), WALL + 3)], "#e4d9bb");
+    // windows with blinds (right wall)
+    [1.2, 4.2, 7.2].forEach((gx0) => {
+      const a = iso(gx0, 0), b = iso(gx0 + 2.0, 0);
+      poly([up(a, 16), up(b, 16), up(b, 48), up(a, 48)], "#5b7fa6");
+      poly([up(a, 30), up(b, 30), up(b, 48), up(a, 48)], "#7ea6cc");
+      for (let h = 18; h < 48; h += 3) poly([up(a, h), up(b, h), up(b, h + 1), up(a, h + 1)], "rgba(240,235,215,.55)");
+      poly([up(a, 14), up(b, 14), up(b, 16), up(a, 16)], "#efe6cc");
+    });
+    // whiteboard (left wall)
+    { const a = iso(0, 1.4), b = iso(0, 4.0);
+      poly([up(a, 20), up(b, 20), up(b, 46), up(a, 46)], "#9b9fa8");
+      poly([up(a, 22), up(b, 22), up(b, 44), up(a, 44)], "#fbfbf7");
+      const s = (k, h, len, c) => { const p = iso(0, 1.6 + k), q = iso(0, 1.6 + k + len); poly([up(p, h), up(q, h), up(q, h + 1), up(p, h + 1)], c); };
+      s(0.1, 39, 1.2, "#3b6fd1"); s(0.1, 35, 1.8, "#3b6fd1"); s(0.1, 30, 0.8, "#c23a2b"); s(1.1, 30, 0.9, "#24937c"); s(0.1, 26, 1.5, "#33363f");
+    }
+    // wall clock (left wall)
+    { const c = up(iso(0, 6.0), 40); R(c.x - 4, c.y - 4, 8, 8, "#1b1f2c"); R(c.x - 3, c.y - 3, 6, 6, "#fbfbf7"); R(c.x, c.y - 2, 1, 2, "#1b1f2c");
+      const m = Math.floor(t / 1000) % 4; const hand = [[1, 0], [0, 1], [-1, 0], [0, -1]][m]; R(c.x + hand[0], c.y + hand[1], 1, 1, "#c23a2b"); }
+    // carpet
+    for (let x = 0; x < GX; x++) for (let y = 0; y < GY; y++) {
+      const c = (x + y) % 2 ? "#6f7d92" : "#76849a";
+      poly([iso(x, y), iso(x + 1, y), iso(x + 1, y + 1), iso(x, y + 1)], c);
+    }
+    // break-area rug
+    poly([iso(0.2, 6.1), iso(3.3, 6.1), iso(3.3, 8), iso(0.2, 8)], "#8a6a4a");
+    poly([iso(0.4, 6.3), iso(3.1, 6.3), iso(3.1, 7.85), iso(0.4, 7.85)], "#a07d57");
+    // boss rug
+    poly([iso(7.1, 3.3), iso(9.8, 3.3), iso(9.8, 7.4), iso(7.1, 7.4)], "#6a5f87");
+  }
+
+  /* static furniture as depth-sorted drawables */
+  function furniture(status) {
+    const items = [];
+    const add = (depth, fn) => items.push({ depth, fn });
+    DESKS.forEach((d, i) => {
+      const s = status[i];
+      add(d.gx + d.gy - 0.9, () => { // chair back
+        box(d.gx + 0.58, d.gy - 0.98, 0.45, 0.14, 13, DARK);
+        box(d.gx + 0.55, d.gy - 0.98, 0.5, 0.45, 2, DARK, 5);
+      });
+      add(d.gx + d.gy + 1.2, (t) => {
+        box(d.gx, d.gy, 1.6, 0.8, 11, WOOD);
+        // monitor (side-on) + keyboard + mug
+        box(d.gx + 0.1, d.gy + 0.15, 0.5, 0.12, 9, GREY, 11);
+        box(d.gx + 0.28, d.gy + 0.25, 0.12, 0.1, 2, DARK, 11);
+        const scr = up(iso(d.gx + 0.1, d.gy + 0.15), 15);
+        if (s === "working" || s === "changes") {
+          const f = Math.floor(t / 180) % 3;
+          R(scr.x - 1, scr.y - 4, 3, 7, s === "changes" ? "#ffb08a" : "#9fe0ff");
+          R(scr.x, scr.y - 3 + f * 2, 1, 1, "#ffffff");
+        } else R(scr.x - 1, scr.y - 4, 3, 7, "#2b3140");
+        const kb = up(iso(d.gx + 0.75, d.gy + 0.15), 11); R(kb.x - 3, kb.y - 1, 7, 2, "#3a3e4a");
+        const mug = up(iso(d.gx + 1.35, d.gy + 0.35), 11); R(mug.x - 1, mug.y - 3, 3, 3, LOOKS[i].color); R(mug.x + 2, mug.y - 2, 1, 1, LOOKS[i].color);
+        // nameplate
+        const np = up(iso(d.gx + 0.8, d.gy + 0.8), 5); R(np.x - 5, np.y - 2, 10, 3, "#e8d9a8"); R(np.x - 3, np.y - 1, 6, 1, "#6b5a2e");
+      });
+    });
+    // boss desk
+    add(BOSS_DESK.gx + BOSS_DESK.gy - 0.9, () => box(BOSS_SEAT.x - 0.3, BOSS_SEAT.y + 0.05, 0.6, 0.22, 22, ["#5a2d2d", "#3f1f1f", "#331818"]));
+    add(BOSS_DESK.gx + BOSS_DESK.gy + 1.4, () => {
+      box(BOSS_DESK.gx, BOSS_DESK.gy, 1.9, 0.9, 12, DWOOD);
+      box(BOSS_DESK.gx + 1.3, BOSS_DESK.gy + 0.2, 0.5, 0.12, 9, GREY, 12);
+      const tray = up(iso(BOSS_DESK.gx + 0.35, BOSS_DESK.gy + 0.45), 12);
+      R(tray.x - 4, tray.y - 2, 8, 3, "#3a3e4a"); R(tray.x - 3, tray.y - 4, 6, 2, "#ffffff");
+      const np = up(iso(BOSS_DESK.gx + 0.95, BOSS_DESK.gy + 0.9), 6); R(np.x - 7, np.y - 2, 14, 4, "#f0c048"); R(np.x - 5, np.y - 1, 10, 1, "#6b5a2e");
+    });
+    // couch (break area)
+    add(6.2 + 0.3, () => box(0.3, 6.35, 2.75, 0.35, 16, ["#4a7a8c", "#335a68", "#2a4a56"]));
+    add(7.0, () => { box(0.3, 6.7, 2.75, 0.75, 7, ["#5a91a5", "#3e6e80", "#335d6c"]); box(0.15, 6.35, 0.15, 1.1, 11, ["#4a7a8c", "#335a68", "#2a4a56"]); box(3.05, 6.35, 0.15, 1.1, 11, ["#4a7a8c", "#335a68", "#2a4a56"]); });
+    // coffee machine + water cooler + printer + plants + bookshelf
+    add(0.25 + 4.75 + 0.3, (t) => {
+      box(0.15, 4.7, 0.5, 0.5, 14, ["#3a3e4a", "#272a31", "#1d1f25"]);
+      box(0.15, 4.7, 0.5, 0.5, 6, ["#8b8f9c", "#70737f", "#5a5d67"], 14);
+      const led = up(iso(0.65, 5.0), 10); R(led.x - 1, led.y, 1, 1, Math.floor(t / 500) % 2 ? "#ff5a4a" : "#5a1d1d");
+    });
+    add(6.4 + 0.3, (t) => {
+      box(6.3, 0.15, 0.4, 0.4, 16, ["#e9eef0", "#c3c9cc", "#a9b0b4"]);
+      box(6.35, 0.2, 0.3, 0.3, 9, ["#9fd3f0", "#6fb3dc", "#5aa0c9"], 16);
+      const b = up(iso(6.5, 0.35), 22 + (Math.floor(t / 400) % 6)); R(b.x, b.y, 1, 1, "#ffffff");
+    });
+    add(0.3 + 2.2, () => { box(0.1, 2.4 - 0.1, 0.6, 0.0 + 0.6, 7, GREY); box(0.15, 2.35, 0.5, 0.5, 3, ["#e9eef0", "#c3c9cc", "#a9b0b4"], 7); });
+    const plant = (gx, gy) => add(gx + gy + 0.3, (t) => {
+      box(gx, gy, 0.35, 0.35, 6, ["#b8693c", "#8d4c28", "#743d20"]);
+      const p = up(iso(gx + 0.17, gy + 0.17), 6); const sway = REDUCED ? 0 : Math.round(Math.sin(t / 900 + gx) * 1);
+      R(p.x - 4 + sway, p.y - 9, 8, 6, "#3f8a4a"); R(p.x - 2 + sway, p.y - 13, 5, 5, "#56a85f"); R(p.x - 5 + sway, p.y - 6, 3, 3, "#2f6b39"); R(p.x + 2 + sway, p.y - 7, 3, 3, "#2f6b39");
+    });
+    plant(9.35, 0.25); plant(0.25, 0.25); plant(3.45, 6.7);
+    add(1.5 + 0.2, () => { box(0.9, 0.12, 1.1, 0.35, 30, ["#7d4f28", "#9a6434", "#6a4222"]);
+      [[0.95, 22, "#c23a2b"], [1.2, 22, "#3b6fd1"], [1.45, 22, "#f0c048"], [1.05, 12, "#24937c"], [1.4, 12, "#c2457f"], [1.7, 12, "#efe6cc"]].forEach(([x, h, c]) => { const p = up(iso(x, 0.47), h); R(p.x, p.y - 6, 3, 7, c); });
+    });
+    return items;
+  }
+
+  /* person sprite. pose: type | sit | stand | queue | walk | rest */
+  function person(px, py, lk, pose, t, extra = {}) {
+    const x = Math.round(px), y = Math.round(py);
+    const P = (dx, dy, w, h, c) => R(x + dx, y + dy, w, h, c);
+    const seated = pose === "type" || pose === "sit" || pose === "rest";
+    const bob = (pose === "queue" || pose === "stand") && !REDUCED ? (Math.floor(t / 650 + (extra.phase || 0)) % 2) : 0;
+    const by = (seated ? 4 : 0) + bob;
+    if (!seated) P(-4, -1, 9, 2, "rgba(0,0,0,.22)");
+    // legs
+    if (pose === "walk") {
+      const f = REDUCED ? 0 : Math.floor(t / 140) % 2;
+      P(-3, -5, 2, 5 - f, lk.pants); P(1, -5, 2, 4 + f, lk.pants);
+      P(-3, -1 - f, 2, 1, "#1b1f2c"); P(1, -2 + f, 2, 1, "#1b1f2c");
+    } else if (seated) {
+      P(-3, -3 + 1, 6, 2, lk.pants); P(-3, -1 + 1, 2, 3, lk.pants); P(1, -1 + 1, 2, 3, lk.pants);
+      P(-3, 3, 2, 1, "#1b1f2c"); P(1, 3, 2, 1, "#1b1f2c");
+    } else {
+      P(-3, -5, 2, 5, lk.pants); P(1, -5, 2, 5, lk.pants); P(-3, -1, 2, 1, "#1b1f2c"); P(1, -1, 2, 1, "#1b1f2c");
+    }
+    // torso
+    P(-3, -11 + by, 6, 6, lk.shirt);
+    P(-1, -11 + by, 2, 1, "#ffffff");
+    if (lk.tie) P(0, -10 + by, 1, 4, lk.tie);
+    // arms & hands
+    if (pose === "type") {
+      const f = REDUCED ? 0 : Math.floor(t / (extra.fast ? 70 : 120)) % 2;
+      P(-4, -10 + by, 1, 3, lk.shirt); P(3, -10 + by, 1, 3, lk.shirt);
+      P(-3, -7 + by - f, 2, 1, lk.skin); P(1, -7 + by - (1 - f), 2, 1, lk.skin);
+    } else if (pose === "queue") {
+      P(-4, -10 + by, 1, 3, lk.shirt); P(3, -10 + by, 1, 3, lk.shirt);
+      P(-3, -9 + by, 6, 5, "#ffffff"); P(-2, -8 + by, 4, 1, "#9aa3b5"); P(-2, -6 + by, 3, 1, "#9aa3b5");
+      P(-4, -7 + by, 1, 1, lk.skin); P(3, -7 + by, 1, 1, lk.skin);
+    } else if (pose === "rest") {
+      P(-4, -10 + by, 1, 4, lk.shirt); P(3, -10 + by, 1, 3, lk.shirt);
+      P(2, -8 + by, 3, 3, "#efe6cc"); P(5, -7 + by, 1, 1, "#efe6cc"); P(3, -9 + by, 1, 1, "#6b4a2a");
+      if (!REDUCED) { const s = Math.floor(t / 300) % 4; P(3, -11 + by - s, 1, 1, "rgba(255,255,255,.7)"); }
+    } else {
+      const sw = pose === "walk" && !REDUCED ? Math.floor(t / 140) % 2 : 0;
+      P(-4, -10 + by + sw, 1, 5, lk.shirt); P(3, -10 + by + (1 - sw), 1, 5, lk.shirt);
+      P(-4, -5 + by + sw, 1, 1, lk.skin); P(3, -5 + by + (1 - sw), 1, 1, lk.skin);
+    }
+    // head
+    P(-3, -17 + by, 6, 6, lk.skin);
+    P(-1, -12 + by, 2, 1, lk.skin);
+    // hair
+    const hy = -18 + by;
+    if (lk.style === "long") { P(-3, hy, 6, 2, lk.hair); P(-4, hy + 1, 1, 7, lk.hair); P(3, hy + 1, 1, 7, lk.hair); }
+    else if (lk.style === "bun") { P(-3, hy, 6, 2, lk.hair); P(-1, hy - 2, 3, 2, lk.hair); P(-3, hy + 2, 1, 2, lk.hair); P(2, hy + 2, 1, 2, lk.hair); }
+    else if (lk.style === "side") { P(-3, hy + 1, 6, 1, lk.hair); P(-3, hy + 2, 1, 3, lk.hair); P(2, hy + 2, 1, 3, lk.hair); }
+    else { P(-3, hy, 6, 2, lk.hair); P(-3, hy + 2, 1, 2, lk.hair); }
+    // face
+    const sleepy = pose === "rest" && extra.sleepy;
+    if (sleepy) { P(-2, -14 + by, 2, 1, "#1b1f2c"); P(1, -14 + by, 2, 1, "#1b1f2c"); }
+    else if (pose === "walk" || pose === "queue" || pose === "stand" || pose === "rest") { P(-2, -14 + by, 1, 1, "#1b1f2c"); P(1, -14 + by, 1, 1, "#1b1f2c"); }
+    else { P(-2, -15 + by, 1, 1, "#1b1f2c"); P(1, -15 + by, 1, 1, "#1b1f2c"); } // looking down at screen
+    if (lk.glasses) { P(-3, -15 + by, 3, 1, "#1b1f2c"); P(1, -15 + by, 3, 1, "#1b1f2c"); }
+    if (extra.glow) { P(-3, -17 + by, 2, 6, "rgba(160,225,255,.25)"); }
+    // status bubbles
+    if (pose === "type" && extra.fast) { P(-1, -24 + by, 2, 4, "#d4552b"); P(-1, -19 + by, 2, 1, "#d4552b"); }
+    if (sleepy && !REDUCED) {
+      const k = Math.floor(t / 400) % 3;
+      P(5, -20 + by - k * 2, 3, 1, "#f2ebd7"); P(6, -19 + by - k * 2, 1, 1, "#f2ebd7"); P(5, -18 + by - k * 2, 3, 1, "#f2ebd7");
+    }
+  }
+
+  /* actors: animated characters bound to agents */
+  const actors = new Map();
+  function targetFor(id, idx, st, qpos) {
+    if (st === "working" || st === "changes") return { key: "seat", pt: SEATS[idx], pose: "type" };
+    if (st === "review") { const q = Math.min(qpos, QUEUE.length - 1); return { key: "q" + q, pt: QUEUE[q], pose: "queue" }; }
+    const r = REST[idx]; return { key: "rest", pt: r, pose: r.couch ? "rest" : "stand" };
+  }
+  function planPath(actor, idx, to) {
+    const from = { x: actor.x, y: actor.y };
+    const fk = actor.walking ? "mid" : actor.key || "seat";
+    if (fk[0] === "q" && to.key[0] === "q") return [to.pt];
+    const pts = [];
+    if (fk === "seat") pts.push({ x: SIDE_X[idx], y: from.y });
+    const exitX = fk === "seat" ? SIDE_X[idx] : from.x;
+    pts.push({ x: exitX, y: CORRIDOR });
+    const entryX = to.key === "seat" ? SIDE_X[idx] : to.pt.x;
+    pts.push({ x: entryX, y: CORRIDOR });
+    if (to.key === "seat") pts.push({ x: SIDE_X[idx], y: to.pt.y });
+    pts.push({ x: to.pt.x, y: to.pt.y });
+    return pts;
+  }
+  function updateActors(dt) {
+    const list = sortedAgents();
+    const q = reviewQueue();
+    const queueOrder = [];
+    q.forEach((t) => { if (!queueOrder.includes(t.agentId)) queueOrder.push(t.agentId); });
+    const ids = new Set();
+    list.slice(0, 4).forEach((a, idx) => {
+      ids.add(a.id);
+      const st = agentStatus(a.id);
+      const tgt = targetFor(a.id, idx, st, Math.max(0, queueOrder.indexOf(a.id)));
+      let ac = actors.get(a.id);
+      if (!ac) { ac = { x: tgt.pt.x, y: tgt.pt.y, key: tgt.key, path: [], walking: false, pose: tgt.pose, phase: idx * 0.7 }; actors.set(a.id, ac); }
+      if (ac.goal !== tgt.key) {
+        ac.goal = tgt.key; ac.pose = tgt.pose; ac.status = st;
+        if (REDUCED) { ac.x = tgt.pt.x; ac.y = tgt.pt.y; ac.key = tgt.key; ac.path = []; ac.walking = false; }
+        else { ac.path = planPath(ac, idx, tgt); ac.walking = true; }
+      }
+      ac.status = st; ac.finalPose = tgt.pose; ac.idx = idx;
+      if (ac.walking && ac.path.length) {
+        let step = 2.4 * dt;
+        while (step > 0 && ac.path.length) {
+          const p = ac.path[0], dx = p.x - ac.x, dy = p.y - ac.y, dist = Math.hypot(dx, dy);
+          if (dist <= step) { ac.x = p.x; ac.y = p.y; ac.path.shift(); step -= dist; }
+          else { ac.x += (dx / dist) * step; ac.y += (dy / dist) * step; step = 0; }
+        }
+        if (!ac.path.length) { ac.walking = false; ac.key = ac.goal; }
+      }
+    });
+    for (const id of [...actors.keys()]) if (!ids.has(id)) actors.delete(id);
+  }
+
+  const tagsBox = $("#tags");
+  function syncTags() {
+    const list = sortedAgents().slice(0, 4);
+    const want = list.map((a) => a.id).join("|") + "|" + mode;
+    if (tagsBox.dataset.k !== want) {
+      tagsBox.dataset.k = want;
+      tagsBox.innerHTML = list.map((a) => `<button class="tag" data-agent-open="${esc(a.id)}" data-tag="${esc(a.id)}" style="--c:${lookOf(a.id).color}" aria-label="${esc(a.name)}"><i></i><span>${esc(initials(a))}</span></button>`).join("")
+        + `<button class="tag boss" data-boss data-tag="boss" aria-label="Tu escritorio: abrir la primera entrega de la fila">TÚ <span class="n" data-boss-n>0</span></button>`;
+    }
+  }
+  function placeTag(el, gx, gy, lift) {
+    const p = iso(gx, gy);
+    el.style.left = (p.x / W) * 100 + "%";
+    el.style.top = ((p.y - lift) / H) * 100 + "%";
+  }
+
+  let lastT = performance.now();
+  function frame(t) {
+    const dt = Math.min(0.1, (t - lastT) / 1000); lastT = t;
+    updateActors(dt);
+    const list = sortedAgents().slice(0, 4);
+    const statusByDesk = [0, 1, 2, 3].map((i) => { const a = list[i]; return a ? agentStatus(a.id) : "free"; });
+    drawRoom(t);
+    const items = furniture(statusByDesk);
+    // empty desks still exist; characters:
+    list.forEach((a) => {
+      const ac = actors.get(a.id); if (!ac) return;
+      const lk = lookOf(a.id);
+      const pose = ac.walking ? "walk" : ac.finalPose;
+      const onCouch = !ac.walking && ac.key === "rest" && REST[ac.idx].couch;
+      const depth = onCouch ? 9 : ac.x + ac.y;
+      items.push({ depth, fn: (tt) => { const p = iso(ac.x, ac.y); person(p.x, p.y - (onCouch ? 6 : 0), lk, pose, tt, { fast: ac.status === "changes", glow: pose === "type", sleepy: pose === "rest", phase: ac.phase }); } });
+    });
+    // boss
+    const nQ = reviewQueue().length;
+    items.push({ depth: BOSS_SEAT.x + BOSS_SEAT.y, fn: (tt) => { const p = iso(BOSS_SEAT.x, BOSS_SEAT.y); person(p.x, p.y, BOSS, nQ ? "queue" : "type", tt, {}); } });
+    items.sort((a, b) => a.depth - b.depth).forEach((it) => it.fn(t));
+    // tags
+    syncTags();
+    list.forEach((a) => {
+      const el = tagsBox.querySelector(`[data-tag="${CSS.escape(a.id)}"]`); const ac = actors.get(a.id);
+      if (!el || !ac) return;
+      const onCouch = !ac.walking && ac.key === "rest" && REST[ac.idx].couch;
+      placeTag(el, ac.x, ac.y, (ac.finalPose === "type" && !ac.walking ? 22 : 25) + (onCouch ? 10 : 0));
+      el.style.setProperty("--s", STATUS[ac.status]?.color || "var(--free)");
+      el.title = `${a.name}: ${STATUS[ac.status]?.label || ""}`;
+    });
+    const be = tagsBox.querySelector('[data-tag="boss"]'); if (be) { placeTag(be, BOSS_SEAT.x, BOSS_SEAT.y, 30); const n = be.querySelector("[data-boss-n]"); if (n.textContent !== String(nQ)) n.textContent = nQ; }
+    requestAnimationFrame(frame);
+  }
+
+  /* small avatar for cards */
+  function avatarURL(id) {
+    const c = document.createElement("canvas"); c.width = 18; c.height = 18;
+    const save = g; const ctx = c.getContext("2d");
+    // temporarily draw with ctx
+    const old = R;
+    ctx.fillStyle = "#e6dcc1"; ctx.fillRect(0, 0, 18, 18);
+    const lk = id === "boss" ? BOSS : lookOf(id);
+    const P = (x, y, w, h, col) => { ctx.fillStyle = col; ctx.fillRect(x, y, w, h); };
+    P(5, 12, 8, 6, lk.shirt); if (lk.tie) P(9, 13, 1, 5, lk.tie);
+    P(6, 4, 7, 8, lk.skin);
+    if (lk.style === "long") { P(6, 3, 7, 2, lk.hair); P(5, 4, 1, 9, lk.hair); P(13, 4, 1, 9, lk.hair); }
+    else if (lk.style === "bun") { P(6, 3, 7, 2, lk.hair); P(8, 1, 3, 2, lk.hair); }
+    else if (lk.style === "side") { P(6, 4, 1, 3, lk.hair); P(12, 4, 1, 3, lk.hair); P(6, 3, 7, 1, lk.hair); }
+    else { P(6, 3, 7, 2, lk.hair); P(6, 5, 1, 2, lk.hair); }
+    P(7, 7, 1, 1, "#1b1f2c"); P(11, 7, 1, 1, "#1b1f2c"); P(8, 10, 3, 1, "#a0522d");
+    if (lk.glasses) { P(6, 7, 3, 1, "#1b1f2c"); P(10, 7, 3, 1, "#1b1f2c"); }
+    void save; void old;
+    return c.toDataURL();
+  }
+  const avatarCache = {};
+  const avatar = (id) => (avatarCache[id + agentIndex(id)] ||= avatarURL(id));
+
+  /* ================= Render: summary / desks / queue / board / sheet ================= */
   function renderSummary() {
     const all = taskList();
     const working = all.filter((t) => (t.status === "trabajando" || t.status === "cambios") && !isStale(t)).length;
     const review = all.filter((t) => t.status === "revision").length;
-    const weekAgo = Date.now() - 7 * 864e5;
-    const approved = all.filter((t) => t.status === "aprobado" && (t.approvedAt || 0) > weekAgo).length;
-    $("#summary").innerHTML = `<span><b>${working}</b> en curso</span><span><b>${review}</b> para revisar</span><span><b>${approved}</b> aprobadas esta semana</span>`;
-    $("#navcount").textContent = review;
+    const approved = all.filter((t) => t.status === "aprobado" && (t.approvedAt || 0) > Date.now() - 7 * 864e5).length;
+    $("#summary").innerHTML = `<span><b>${working}</b> tecleando</span><span><b>${review}</b> en fila</span><span><b>${approved}</b> aprobadas 7 días</span>`;
   }
 
-  /* ---------- Render: agents ---------- */
-  function sortedAgents() { return [...agents.values()].sort((a, b) => (a.order || 99) - (b.order || 99)); }
-
-  function renderAgents() {
-    const box = $("#agents");
-    if (!agentsLoaded) return;
+  function renderDesks() {
+    const box = $("#desks");
     const list = sortedAgents();
-    if (!list.length) { box.innerHTML = `<div class="notice">Todavía no hay agentes en la base de datos.</div>`; return; }
+    if (mode === "live" && !agentsLoaded) { box.innerHTML = `<div class="notice px">Cargando agentes…</div>`; return; }
+    if (!list.length) { box.innerHTML = `<div class="notice px">No hay agentes en la base de datos. Prueba el modo demo.</div>`; return; }
     box.innerHTML = list.map((a) => {
-      const c = agentColor(a);
-      return `<article class="agent" style="--c:${c}" data-agent="${esc(a.id)}">
-        <header>
-          <div class="mono" aria-hidden="true">${esc(initials(a))}</div>
-          <div><h3>${esc(a.name)}</h3><p class="role">${esc(a.role)}</p></div>
-          <span class="pill" data-status-for="${esc(a.id)}"></span>
-        </header>
-        <dl class="meta">
-          <dt>Horario</dt><dd>${esc(a.schedule)}</dd>
-          <dt>Tipo</dt><dd>${esc(a.kind)}</dd>
-          <dt>Entrega</dt><dd>${esc(a.delivers)}</dd>
-        </dl>
-        <div class="load" data-load-for="${esc(a.id)}"></div>
-        <form class="composer" data-agent="${esc(a.id)}">
-          <label class="sr" for="brief-${esc(a.id)}">Encargo para ${esc(a.name)}</label>
-          <textarea id="brief-${esc(a.id)}" data-brief="${esc(a.id)}" placeholder="${esc(a.placeholder || "Escribe el encargo…")}">${esc(drafts[a.id] || "")}</textarea>
-          <div class="files" data-files-for="${esc(a.id)}"></div>
-          <div class="row">
-            <label class="btn ghost small" for="file-${esc(a.id)}">Adjuntar archivos</label>
-            <input class="sr" type="file" multiple id="file-${esc(a.id)}" data-file="${esc(a.id)}">
-            <button class="btn primary" type="submit" data-submit="${esc(a.id)}">Encargar</button>
-          </div>
-        </form>
-      </article>`;
-    }).join("");
-    list.forEach((a) => renderFiles(a.id));
-    renderAgentStatus();
-  }
-
-  function renderAgentStatus() {
-    for (const a of agents.values()) {
       const st = agentStatus(a.id);
-      const pill = document.querySelector(`[data-status-for="${CSS.escape(a.id)}"]`);
-      if (pill) { pill.className = `pill st-${st}`; pill.textContent = STATUS_LABEL[st]; }
-      const load = document.querySelector(`[data-load-for="${CSS.escape(a.id)}"]`);
-      if (load) {
-        const mine = taskList().filter((t) => t.agentId === a.id);
-        const cur = mine.filter((t) => t.status === "trabajando" || t.status === "cambios").length;
-        const rev = mine.filter((t) => t.status === "revision").length;
-        const done = mine.filter((t) => t.status === "aprobado").length;
-        load.textContent = mine.length ? `${cur} en curso · ${rev} para revisar · ${done} aprobadas` : "Sin encargos todavía";
-      }
-    }
+      const mine = taskList().filter((t) => t.agentId === a.id);
+      const cur = mine.filter((t) => t.status === "trabajando" || t.status === "cambios").length;
+      const rev = mine.filter((t) => t.status === "revision").length;
+      return `<button class="desk px" data-agent-open="${esc(a.id)}" style="--s:${STATUS[st].color}">
+        <header><img class="avatar" src="${avatar(a.id)}" alt=""><div><h3>${esc(a.name)}</h3><span class="st"><i></i>${STATUS[st].label}</span></div></header>
+        <p>${esc(a.role)}</p>
+        <p>${cur} en curso · ${rev} en fila · ${esc(a.schedule || "")}</p>
+        <span class="cta">Encargar trabajo →</span>
+      </button>`;
+    }).join("");
   }
 
-  function renderFiles(agentId) {
-    const box = document.querySelector(`[data-files-for="${CSS.escape(agentId)}"]`);
-    if (!box) return;
-    const files = pendingFiles[agentId] || [];
-    box.innerHTML = files.map((f, i) => `<span class="chip"><span title="${esc(f.name)}">${esc(f.name)}</span><button type="button" aria-label="Quitar ${esc(f.name)}" data-unfile="${esc(agentId)}" data-idx="${i}">×</button></span>`).join("");
-  }
-
-  /* ---------- Render: review strip ---------- */
   function renderStrip() {
     const box = $("#strip");
-    if (!tasksLoaded) { box.innerHTML = `<div class="notice">Cargando entregas…</div>`; return; }
-    const list = taskList().filter((t) => t.status === "revision").sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-    if (!list.length) { box.innerHTML = `<div class="notice">Nada pendiente de revisión. Cuando un agente termine, su entrega aparecerá aquí.</div>`; return; }
-    box.innerHTML = list.map((t) => {
-      const a = agents.get(t.agentId);
-      return `<article class="rcard">
-        <div class="rhead"><span class="mono sm" style="--c:${agentColor(a)}" aria-hidden="true">${esc(initials(a))}</span><span>${esc(a?.name || "Agente")}</span><span class="ver">v${esc(t.version || 1)}</span></div>
+    if (mode === "live" && !tasksLoaded) { box.innerHTML = `<div class="notice px">Cargando entregas…</div>`; return; }
+    const list = reviewQueue();
+    if (!list.length) { box.innerHTML = `<div class="empty-q px">Nadie en la fila. Cuando un agente termine, vendrá a tu escritorio con su entrega.</div>`; return; }
+    box.innerHTML = list.map((t, i) => {
+      const a = S().agents.get(t.agentId);
+      return `<article class="rcard px">
+        <span class="num">#${i + 1} en la fila</span>
+        <div class="rhead"><img class="avatar" style="width:26px;height:26px" src="${avatar(t.agentId)}" alt=""><span>${esc(a?.name || "Agente")}</span><span class="ver">V${esc(t.version || 1)}</span></div>
         <h4>${esc(t.title)}</h4>
         <p class="excerpt">${esc(plain(t.deliverable).slice(0, 260))}</p>
         <div class="ractions">
-          <button class="btn small open" data-open="${esc(t.id)}">Ver entrega completa</button>
+          <button class="btn small open" data-open="${esc(t.id)}">Ver entrega</button>
           <button class="btn approve small" data-approve="${esc(t.id)}">Aprobar</button>
           <button class="btn changes small" data-changes="${esc(t.id)}">Pedir cambios</button>
         </div>
@@ -483,119 +710,121 @@ Reglas obligatorias:
     }).join("");
   }
 
-  /* ---------- Render: board ---------- */
   function renderBoard() {
     const box = $("#board");
-    if (!tasksLoaded) { box.innerHTML = ""; return; }
+    if (mode === "live" && !tasksLoaded) { box.innerHTML = ""; return; }
     const all = taskList();
     const byUpd = (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0);
     const cols = [
-      { key: "trabajando", title: "Trabajando", items: all.filter((t) => t.status === "trabajando" || t.status === "error").sort(byUpd) },
-      { key: "cambios", title: "Rehaciendo con cambios", items: all.filter((t) => t.status === "cambios").sort(byUpd) },
-      { key: "revision", title: "Para revisar", items: all.filter((t) => t.status === "revision").sort(byUpd) },
-      { key: "aprobado", title: "Aprobadas recientes", items: all.filter((t) => t.status === "aprobado").sort((a, b) => (b.approvedAt || 0) - (a.approvedAt || 0)).slice(0, 8) },
+      { title: "Tecleando", pin: "var(--working)", items: all.filter((t) => t.status === "trabajando" || t.status === "error").sort(byUpd) },
+      { title: "Rehaciendo", pin: "var(--changes)", items: all.filter((t) => t.status === "cambios").sort(byUpd) },
+      { title: "En fila", pin: "var(--review)", items: reviewQueue() },
+      { title: "Aprobadas", pin: "var(--ok)", items: all.filter((t) => t.status === "aprobado").sort((a, b) => (b.approvedAt || 0) - (a.approvedAt || 0)).slice(0, 8) },
     ];
-    box.innerHTML = cols.map((c) => `<div class="col" aria-label="${esc(c.title)}">
-      <header><h3>${esc(c.title)}</h3><span>${c.items.length}</span></header>
-      ${c.items.length ? c.items.map(taskCard).join("") : `<div class="empty">Vacío</div>`}
-    </div>`).join("");
+    box.innerHTML = cols.map((c) => `<div class="col" aria-label="${esc(c.title)}"><header><span>${esc(c.title)}</span><span>${c.items.length}</span></header>${c.items.length ? c.items.map((t) => note(t, c.pin)).join("") : `<div class="empty">Vacío</div>`}</div>`).join("");
   }
-
-  function taskCard(t) {
-    const a = agents.get(t.agentId);
-    const stale = isStale(t);
-    const liveText = live.get(t.id);
+  function note(t, pin) {
+    const a = S().agents.get(t.agentId);
+    const stale = isStale(t), lt = liveText.get(t.id);
     let extra = "";
-    if (liveText) extra = `<div class="live">${esc(liveText.slice(-220))}</div>`;
+    if (lt) extra = `<div class="live">${esc(lt.slice(-200))}</div>`;
     else if (running.has(t.id)) extra = `<div class="live">Pensando…</div>`;
+    else if (t.source === "skill" && t.status === "trabajando" && !stale) extra = `<div class="live">Trabajando desde Claude Code…</div>`;
     if (t.status === "error") extra += `<div class="err">Se detuvo: ${esc(t.error || "error desconocido")}</div>`;
     if (stale) extra += `<div class="err">${t.source === "skill" ? "Sin noticias del agente desde hace más de 90 min." : "Se interrumpió (se cerró la página mientras trabajaba)."}</div>`;
-    if (t.source === "skill" && t.status === "trabajando" && !stale) extra += `<div class="live">Trabajando desde Claude Code…</div>`;
-    const retry = (t.status === "error" || stale) ? `<span class="btn small" role="button" tabindex="0" data-retry="${esc(t.id)}">Reintentar</span>` : "";
-    return `<div class="tcard" role="button" tabindex="0" data-open="${esc(t.id)}">
-      <div class="t-top"><span class="mono sm" style="--c:${agentColor(a)}" aria-hidden="true">${esc(initials(a))}</span><span>${esc(a?.name || "Agente")}</span><time>${esc(ago(t.status === "aprobado" ? t.approvedAt : t.updatedAt))}</time></div>
-      <strong>${esc(t.title)}</strong>
-      ${t.version ? `<span style="font-size:12px;color:var(--muted)">Versión ${esc(t.version)}</span>` : ""}
-      ${extra}${retry}
-    </div>`;
+    const retry = t.status === "error" || stale ? `<span class="btn small" role="button" tabindex="0" data-retry="${esc(t.id)}">Reintentar</span>` : "";
+    return `<div class="note" role="button" tabindex="0" style="--pin:${pin}" data-open="${esc(t.id)}">
+      <div class="t-top"><span>${esc(initials(a))} · ${esc(a?.name || "Agente")}</span><time>${esc(ago(t.status === "aprobado" ? t.approvedAt : t.updatedAt))}</time></div>
+      <strong>${esc(t.title)}</strong>${t.version ? `<span style="font-size:12px;color:var(--muted)">Versión ${esc(t.version)}</span>` : ""}${extra}${retry}</div>`;
   }
 
-  /* ---------- Sheet ---------- */
-  function openSheet(id, mode = "view") {
-    sheetTaskId = id; sheetMode = mode;
+  function openSheet(kind, id, m = "view") {
+    sheet = { kind, id, mode: m };
     renderSheet();
     const d = $("#sheet");
     if (!d.open) { try { d.showModal(); } catch { d.setAttribute("open", ""); } }
-    if (mode === "changes") setTimeout(() => $("#fb")?.focus(), 50);
+    if (m === "changes") setTimeout(() => $("#fb")?.focus(), 50);
   }
-  function closeSheet() {
-    const d = $("#sheet");
-    sheetTaskId = null; sheetMode = "view";
-    if (d.open) d.close();
-  }
+  function closeSheet() { sheet = { kind: null, id: null, mode: "view" }; const d = $("#sheet"); if (d.open) d.close(); }
+
   function renderSheet() {
-    const t = tasks.get(sheetTaskId);
     const box = $("#sheet-inner");
+    if (sheet.kind === "agent") return renderAgentSheet(box);
+    const t = S().tasks.get(sheet.id);
     if (!t) { box.innerHTML = ""; return; }
-    const a = agents.get(t.agentId);
-    const [label, cls] = TASK_LABEL[t.status] || ["", ""];
-    const liveText = live.get(t.id);
-    const atts = (t.attachments || []).map((f) => f.url
-      ? `<a class="chip" href="${esc(f.url)}" target="_blank" rel="noopener"><span>${esc(f.name)}</span></a>`
-      : `<span class="chip"><span>${esc(f.name)}</span></span>`).join("");
+    const a = S().agents.get(t.agentId);
+    const [label, col] = TASK_LABEL[t.status] || ["", ""];
+    const lt = liveText.get(t.id);
+    const atts = (t.attachments || []).map((f) => (f.url ? `<a class="chip" href="${esc(f.url)}" target="_blank" rel="noopener"><span>${esc(f.name)}</span></a>` : `<span class="chip"><span>${esc(f.name)}</span></span>`)).join("");
     let body = `<details class="brief"><summary>Encargo original</summary><p>${esc(t.brief)}</p>${atts ? `<div class="files" style="margin-top:8px">${atts}</div>` : ""}</details>`;
     if (t.feedback && (t.status === "cambios" || t.status === "revision")) body += `<div class="lastfb"><b>Cambios que pediste${t.status === "revision" ? " (ya aplicados)" : ""}</b>${esc(t.feedback)}</div>`;
-    if (sheetMode === "changes") {
-      body += `<div class="feedback-box"><label for="fb">¿Qué debe cambiar ${esc(a?.name || "el agente")}?</label><textarea id="fb" placeholder="Ej.: el hook es muy largo, hazlo de 3 segundos y agrega una versión para TikTok."></textarea></div>`;
-    }
-    if (liveText != null || running.has(t.id)) body += `<div class="md">${liveText ? md(liveText) : "<p>Pensando…</p>"}</div>`;
+    if (sheet.mode === "changes") body += `<div class="field"><label for="fb">¿Qué debe cambiar ${esc(a?.name || "el agente")}?</label><textarea id="fb" placeholder="Ej.: el hook es muy largo; hazlo de 3 segundos y agrega una versión para TikTok."></textarea></div>`;
+    if (lt != null || running.has(t.id)) body += `<div class="md">${lt ? md(lt) : "<p>Pensando…</p>"}</div>`;
     else if (t.deliverable) body += `<div class="md">${md(t.deliverable)}</div>`;
     else if (t.status === "error") body += `<p class="err">Se detuvo: ${esc(t.error || "")}</p>`;
-    else body += `<p class="empty">Aún no hay entrega.</p>`;
-
+    else body += `<p>El agente está trabajando en esto.</p>`;
     let foot = "";
-    if (sheetMode === "changes") {
-      foot = `<button class="btn ghost" data-cancel-changes>Cancelar</button><button class="btn primary" data-send-changes="${esc(t.id)}">Enviar y rehacer</button>`;
-    } else if (t.status === "revision") {
-      foot = `<button class="btn ghost" data-copy="${esc(t.id)}">Copiar</button><button class="btn changes" data-changes="${esc(t.id)}">Pedir cambios</button><button class="btn approve" data-approve="${esc(t.id)}">Aprobar</button>`;
-    } else if (t.status === "error" || isStale(t)) {
-      foot = `<button class="btn primary" data-retry="${esc(t.id)}">Reintentar</button>`;
-    } else if (t.deliverable) {
-      foot = `<button class="btn ghost" data-copy="${esc(t.id)}">Copiar</button>`;
-    }
-    box.innerHTML = `<div class="sheet-head">
-        <span class="mono" style="--c:${agentColor(a)}" aria-hidden="true">${esc(initials(a))}</span>
-        <div><h2 id="sheet-title">${esc(t.title)}</h2><p><span>${esc(a?.name || "Agente")}</span>${t.version ? `<span>· v${esc(t.version)}</span>` : ""}<span class="pill ${cls}">${esc(label)}</span></p></div>
-        <button class="close" data-close aria-label="Cerrar">×</button>
-      </div>
-      <div class="sheet-body">${body}</div>
-      ${foot ? `<div class="sheet-foot">${foot}</div>` : ""}`;
+    if (sheet.mode === "changes") foot = `<button class="btn ghost" data-cancel-changes>Cancelar</button><button class="btn primary" data-send-changes="${esc(t.id)}">Enviar y rehacer</button>`;
+    else if (t.status === "revision") foot = `<button class="btn ghost" data-copy="${esc(t.id)}">Copiar</button><button class="btn changes" data-changes="${esc(t.id)}">Pedir cambios</button><button class="btn approve" data-approve="${esc(t.id)}">Aprobar</button>`;
+    else if (t.status === "error" || isStale(t)) foot = `<button class="btn primary" data-retry="${esc(t.id)}">Reintentar</button>`;
+    else if (t.deliverable) foot = `<button class="btn ghost" data-copy="${esc(t.id)}">Copiar</button>`;
+    box.innerHTML = `<div class="sheet-head"><img class="avatar" src="${avatar(t.agentId)}" alt="">
+      <div><h2 id="sheet-title">${esc(t.title)}</h2><p><span>${esc(a?.name || "Agente")}</span>${t.version ? `<span>· v${esc(t.version)}</span>` : ""}<span class="pill" style="--s:${col}"><i></i>${esc(label)}</span></p></div>
+      <button class="close" data-close aria-label="Cerrar">X</button></div>
+      <div class="sheet-body">${body}</div>${foot ? `<div class="sheet-foot">${foot}</div>` : ""}`;
   }
 
-  /* ---------- Render scheduling ---------- */
+  function renderAgentSheet(box) {
+    const a = S().agents.get(sheet.id);
+    if (!a) { box.innerHTML = ""; return; }
+    const st = agentStatus(a.id);
+    const mine = taskList().filter((t) => t.agentId === a.id).sort((x, y) => (y.updatedAt || 0) - (x.updatedAt || 0)).slice(0, 8);
+    const files = (pendingFiles[a.id] || []).map((f, i) => `<span class="chip"><span title="${esc(f.name)}">${esc(f.name)}</span><button type="button" aria-label="Quitar ${esc(f.name)}" data-unfile="${esc(a.id)}" data-idx="${i}">×</button></span>`).join("");
+    box.innerHTML = `<div class="sheet-head"><img class="avatar" src="${avatar(a.id)}" alt="">
+      <div><h2 id="sheet-title">${esc(a.name)}</h2><p><span class="pill" style="--s:${STATUS[st].color}"><i></i>${STATUS[st].label}</span></p></div>
+      <button class="close" data-close aria-label="Cerrar">X</button></div>
+      <div class="sheet-body">
+        <dl class="facts"><dt>Hace</dt><dd>${esc(a.role)}</dd><dt>Horario</dt><dd>${esc(a.schedule)}</dd><dt>Entrega</dt><dd>${esc(a.delivers)}</dd></dl>
+        <form class="field" id="composer" data-agent="${esc(a.id)}">
+          <label for="brief">Encárgale trabajo</label>
+          <textarea id="brief" data-brief="${esc(a.id)}" placeholder="${esc(a.placeholder || "Escribe el encargo…")}">${esc(drafts[a.id] || "")}</textarea>
+          <div class="files" id="files">${files}</div>
+          <div class="row">
+            <label class="btn ghost small" for="file-in">Adjuntar archivos</label>
+            <input class="sr" type="file" multiple id="file-in" data-file="${esc(a.id)}">
+            <button class="btn primary" type="submit" id="submit-brief">Encargar</button>
+          </div>
+        </form>
+        ${mine.length ? `<div class="tlist"><h3>Sus encargos</h3>${mine.map((t) => `<button data-open="${esc(t.id)}"><span>${esc(t.title)}</span><span class="pill" style="--s:${(TASK_LABEL[t.status] || [])[1]}"><i></i>${esc((TASK_LABEL[t.status] || [""])[0])}</span></button>`).join("")}</div>` : ""}
+      </div>`;
+  }
+  function renderFilesOnly(agentId) {
+    const el = $("#files"); if (!el) return;
+    el.innerHTML = (pendingFiles[agentId] || []).map((f, i) => `<span class="chip"><span title="${esc(f.name)}">${esc(f.name)}</span><button type="button" aria-label="Quitar ${esc(f.name)}" data-unfile="${esc(agentId)}" data-idx="${i}">×</button></span>`).join("");
+  }
+
   let raf = 0;
   function renderAll() {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
-      renderSummary(); renderAgentStatus(); renderStrip(); renderBoard();
-      if (sheetTaskId && sheetMode === "view") renderSheet();
+      renderSummary(); renderDesks(); renderStrip(); renderBoard();
+      if (sheet.kind === "task" && sheet.mode === "view") renderSheet();
     });
   }
 
-  /* ---------- Data ---------- */
+  /* ================= Live data actions ================= */
   async function patchTask(id, data) {
-    const cur = tasks.get(id) || {};
-    tasks.set(id, { ...cur, ...data, id });
+    const cur = S().tasks.get(id) || {};
+    S().tasks.set(id, { ...cur, ...data, id });
     renderAll();
-    try { await db.doc("tasks/" + id).update(data); }
-    catch (e) { handleWriteError(e); throw e; }
+    if (mode === "demo") return;
+    try { await db.doc("tasks/" + id).update(data); } catch (e) { handleWriteError(e); throw e; }
   }
   function handleWriteError(e) {
     if (e?.code === "invalid_argument") { writeBlocked = true; toast("No tienes permiso para cambiar este tablero."); }
-    else if (e?.code === "quota_exceeded") toast("La base de datos está llena. Borra entregas antiguas para seguir.");
-    else toast("No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.");
+    else if (e?.code === "quota_exceeded") toast("La base de datos está llena. Borra entregas antiguas.");
+    else toast("No se pudo guardar. Revisa tu conexión.");
   }
-
   function buildPrompt(a, t) {
     let p = `${RULES}\n\n# Tu rol: ${a?.name || "Agente"}\n${a?.prompt || a?.role || ""}\n\n# Encargo del director\n${t.brief}\n`;
     const atts = t.attachments || [];
@@ -605,16 +834,12 @@ Reglas obligatorias:
         p += `\n## ${f.name} (${f.type || "archivo"})\n`;
         if (f.text) p += "```\n" + f.text + "\n```\n";
         else if (/^image\//.test(f.type || "")) p += sampleImages ? "(imagen incluida en el mensaje)\n" : "(imagen adjunta; no puedes verla aquí)\n";
-        else p += "(no puedes leer el contenido de este tipo de archivo aquí; pídele al director lo esencial si lo necesitas)\n";
+        else p += "(no puedes leer este tipo de archivo aquí; pide lo esencial si lo necesitas)\n";
       }
     }
-    if (t.status === "cambios" && t.previous) {
-      p += `\n# Tu entrega anterior (versión ${t.version || 1})\n${t.previous}\n\n# Cambios que pide el director\n${t.feedback || "(sin detalle: mejora la entrega)"}\n\nRehaz la entrega completa aplicando TODOS los cambios. Entrega la versión nueva completa, no solo las diferencias. Al inicio de "Para aprobar", resume en una línea qué cambiaste.\n`;
-    }
-    p += `\n${FORMAT}`;
-    return p;
+    if (t.status === "cambios" && t.previous) p += `\n# Tu entrega anterior (versión ${t.version || 1})\n${t.previous}\n\n# Cambios que pide el director\n${t.feedback || "(sin detalle: mejora la entrega)"}\n\nRehaz la entrega completa aplicando TODOS los cambios. Entrega la versión nueva completa. Al inicio de "Para aprobar", resume en una línea qué cambiaste.\n`;
+    return p + `\n${FORMAT}`;
   }
-
   async function imagesFor(t) {
     if (!sampleImages) return [];
     const out = [];
@@ -626,206 +851,246 @@ Reglas obligatorias:
     }
     return out.slice(0, 5);
   }
-
   async function runTask(id) {
-    const t = tasks.get(id);
+    const t = LIVE.tasks.get(id);
     if (!t) return;
     if (!sample) { toast("Los agentes no pueden trabajar en esta vista: falta el permiso para usar a Claude."); return; }
-    const a = agents.get(t.agentId);
-    running.add(id); live.set(id, ""); renderAll();
+    const a = LIVE.agents.get(t.agentId);
+    running.add(id); liveText.set(id, ""); renderAll();
     try {
       const imgs = await imagesFor(t);
-      const opts = { cache: false, modelTier: "default", onText: ({ text }) => { live.set(id, text); renderAll(); } };
+      const opts = { cache: false, modelTier: "default", onText: ({ text }) => { liveText.set(id, text); renderAll(); } };
       if (imgs.length) opts.images = imgs;
       const res = await sample(buildPrompt(a, t), opts);
       const text = String(res?.text || "").trim();
       if (!text) throw { message: "El agente devolvió una respuesta vacía." };
-      const v = (t.status === "cambios" ? (t.version || 1) + 1 : (t.version || 0) + 1);
+      const v = t.status === "cambios" ? (t.version || 1) + 1 : (t.version || 0) + 1;
       const log = [...(t.log || []), { at: Date.now(), what: `Entregó la versión ${v}` }].slice(-20);
-      running.delete(id); live.delete(id);
-      await patchTask(id, { status: "revision", deliverable: text + (res?.truncated ? "\n\n⚠️ La respuesta se cortó por largo." : ""), version: v, previous: null, updatedAt: Date.now(), error: null, log });
+      running.delete(id); liveText.delete(id);
+      await patchLive(id, { status: "revision", deliverable: text + (res?.truncated ? "\n\n⚠️ La respuesta se cortó por largo." : ""), version: v, previous: null, updatedAt: Date.now(), error: null, log });
     } catch (e) {
-      running.delete(id); live.delete(id);
-      const msg = e?.code === "not_granted" ? "no diste permiso para usar a Claude"
-        : e?.code === "rate_limited" ? "límite de uso alcanzado; intenta en unos minutos"
-        : (e?.message || "error desconocido");
-      try { await patchTask(id, { status: "error", error: msg, updatedAt: Date.now() }); } catch {}
+      running.delete(id); liveText.delete(id);
+      const msg = e?.code === "not_granted" ? "no diste permiso para usar a Claude" : e?.code === "rate_limited" ? "límite de uso alcanzado; intenta en unos minutos" : e?.message || "error desconocido";
+      try { await patchLive(id, { status: "error", error: msg, updatedAt: Date.now() }); } catch {}
       toast(`El agente se detuvo: ${msg}`);
-    } finally {
-      running.delete(id); live.delete(id); renderAll();
-    }
+    } finally { running.delete(id); liveText.delete(id); renderAll(); }
+  }
+  async function patchLive(id, data) {
+    const cur = LIVE.tasks.get(id) || {};
+    LIVE.tasks.set(id, { ...cur, ...data, id });
+    renderAll();
+    try { await db.doc("tasks/" + id).update(data); } catch (e) { handleWriteError(e); throw e; }
   }
 
   async function submitBrief(agentId) {
-    if (!db) return toast("La base de datos no está disponible en esta vista.");
-    if (writeBlocked) return toast("No tienes permiso para cambiar este tablero.");
     const brief = (drafts[agentId] || "").trim();
     const files = pendingFiles[agentId] || [];
-    if (!brief) { toast("Escribe primero qué necesitas."); document.getElementById("brief-" + agentId)?.focus(); return; }
-    const btn = document.querySelector(`[data-submit="${CSS.escape(agentId)}"]`);
-    if (btn) { btn.disabled = true; btn.textContent = files.length ? "Subiendo archivos…" : "Encargando…"; }
+    if (!brief) { toast("Escribe primero qué necesitas."); $("#brief")?.focus(); return; }
+    if (mode === "demo") { demoCreate(agentId, brief, files.map((f) => ({ name: f.name, type: f.type }))); drafts[agentId] = ""; pendingFiles[agentId] = []; closeSheet(); return; }
+    if (!db) return toast("La base de datos no está disponible aquí. Prueba el modo demo.");
+    if (writeBlocked) return toast("No tienes permiso para cambiar este tablero.");
+    const btn = $("#submit-brief");
+    if (btn) { btn.disabled = true; btn.textContent = files.length ? "Subiendo…" : "Encargando…"; }
     try {
-      const attachments = [];
-      const imgs = [];
+      const attachments = [], imgs = [];
       for (const f of files) {
         const att = { name: f.name, type: f.type || "", size: f.size };
         if (/^text\//.test(f.type) || TEXT_EXT.test(f.name)) { try { att.text = (await f.text()).slice(0, 15000); } catch {} }
-        if (assets) {
-          try { const r = await assets.upload(f); att.id = r.id; att.url = r.url || ("/_blob/" + r.id); }
-          catch { att.uploadError = true; }
-        }
+        if (assets) { try { const r = await assets.upload(f); att.id = r.id; att.url = r.url || "/_blob/" + r.id; } catch { att.uploadError = true; } }
         if (/^image\//.test(f.type)) imgs.push([f.name, f]);
         attachments.push(att);
       }
       const ref = db.collection("tasks").doc();
       const now = Date.now();
-      const firstLine = brief.split("\n")[0];
-      const data = {
-        agentId, brief, attachments,
-        title: firstLine.length > 80 ? firstLine.slice(0, 77) + "…" : firstLine,
-        status: "trabajando", version: 0, deliverable: "", feedback: "", previous: null,
-        createdAt: now, updatedAt: now, approvedAt: null, error: null,
-        log: [{ at: now, what: "Encargo recibido" }],
-      };
+      const first = brief.split("\n")[0];
+      const data = { agentId, brief, attachments, title: first.length > 80 ? first.slice(0, 77) + "…" : first, status: "trabajando", version: 0, deliverable: "", feedback: "", previous: null, createdAt: now, updatedAt: now, approvedAt: null, error: null, source: "tablero", log: [{ at: now, what: "Encargo recibido" }] };
       await ref.set(data);
-      tasks.set(ref.id, { ...data, id: ref.id });
+      LIVE.tasks.set(ref.id, { ...data, id: ref.id });
       imgs.forEach(([n, b]) => imageCache.set(ref.id + ":" + n, b));
       drafts[agentId] = ""; pendingFiles[agentId] = [];
-      const ta = document.getElementById("brief-" + agentId); if (ta) ta.value = "";
-      renderFiles(agentId);
-      if (attachments.some((x) => x.uploadError)) toast("Algún archivo no se pudo guardar; el agente igual recibe su texto si es legible.");
-      else toast(`${agents.get(agentId)?.name || "El agente"} empezó a trabajar.`);
-      renderAll();
+      toast(attachments.some((x) => x.uploadError) ? "Algún archivo no se pudo guardar." : `${LIVE.agents.get(agentId)?.name || "El agente"} vuelve a su escritorio a teclear.`);
+      closeSheet(); renderAll();
       runTask(ref.id);
-    } catch (e) {
-      if (!e?.code) toast("No se pudo crear el encargo.");
-      else handleWriteError(e);
-    } finally {
-      if (btn) { btn.disabled = false; btn.textContent = "Encargar"; }
-    }
+    } catch (e) { e?.code ? handleWriteError(e) : toast("No se pudo crear el encargo."); }
+    finally { if (btn) { btn.disabled = false; btn.textContent = "Encargar"; } }
   }
 
   async function approve(id) {
-    const t = tasks.get(id); if (!t) return;
+    const t = S().tasks.get(id); if (!t) return;
     try {
       await patchTask(id, { status: "aprobado", approvedAt: Date.now(), updatedAt: Date.now(), log: [...(t.log || []), { at: Date.now(), what: `Aprobada la versión ${t.version || 1}` }].slice(-20) });
-      toast("Aprobada.");
-      if (sheetTaskId === id) closeSheet();
+      toast("Aprobada. A descansar.");
+      if (sheet.id === id) closeSheet();
     } catch {}
   }
-
   async function sendChanges(id) {
-    const t = tasks.get(id); if (!t) return;
+    const t = S().tasks.get(id); if (!t) return;
     const fb = ($("#fb")?.value || "").trim();
     if (!fb) { toast("Cuéntale al agente qué debe cambiar."); $("#fb")?.focus(); return; }
     try {
       await patchTask(id, { status: "cambios", feedback: fb, previous: t.deliverable || "", updatedAt: Date.now(), log: [...(t.log || []), { at: Date.now(), what: `Pidió cambios a la versión ${t.version || 1}` }].slice(-20) });
-      sheetMode = "view"; renderSheet();
-      toast("El agente está rehaciendo la entrega.");
-      runTask(id);
+      sheet.mode = "view"; renderSheet();
+      toast("De vuelta a su escritorio a rehacerlo.");
+      if (mode === "demo") demoFinish(id, 5000 + Math.random() * 3000); else runTask(id);
     } catch {}
   }
-
   async function retry(id) {
-    const t = tasks.get(id); if (!t) return;
-    const status = t.previous ? "cambios" : "trabajando";
-    try { await patchTask(id, { status, error: null, updatedAt: Date.now() }); runTask(id); } catch {}
+    const t = S().tasks.get(id); if (!t) return;
+    try { await patchTask(id, { status: t.previous ? "cambios" : "trabajando", error: null, updatedAt: Date.now() }); mode === "demo" ? demoFinish(id, 4000) : runTask(id); } catch {}
   }
-
   async function copyTask(id) {
-    const t = tasks.get(id); if (!t) return;
-    try { await navigator.clipboard.writeText(t.deliverable || ""); toast("Copiado."); }
-    catch { toast("No se pudo copiar desde esta vista."); }
+    const t = S().tasks.get(id); if (!t) return;
+    try { await navigator.clipboard.writeText(t.deliverable || ""); toast("Copiado."); } catch { toast("No se pudo copiar desde esta vista."); }
   }
 
-  /* ---------- Events ---------- */
-  document.addEventListener("input", (e) => {
-    const id = e.target?.dataset?.brief;
-    if (id != null) drafts[id] = e.target.value;
-  });
+  /* ================= Demo mode (in memory only) ================= */
+  const DEMO_AGENTS = [
+    { id: "asistente", order: 1, initials: "AC", name: "Asistente de Coordinación", role: "Correos, agenda de coberturas y encargos al equipo", schedule: "Lun–Vie 7:00", delivers: "Resumen del día y briefs", placeholder: "Ej.: Agenda de coberturas de la próxima semana…" },
+    { id: "estratega", order: 2, initials: "EC", name: "Estratega de Contenido", role: "Calendario editorial, ideas y guiones", schedule: "Lunes 7:30", delivers: "Plan semanal y guiones", placeholder: "Ej.: Guion de Reel para la casa abierta…" },
+    { id: "analista", order: 3, initials: "AP", name: "Analista de Pauta y KPIs", role: "Meta, Google y TikTok Ads; KPIs", schedule: "Diario 8:00", delivers: "Alertas y reportes", placeholder: "Ej.: Reporte semanal de pauta…" },
+    { id: "presupuesto", order: 4, initials: "CP", name: "Control de Presupuesto", role: "Presupuesto por partida y órdenes de compra", schedule: "Viernes 15:00", delivers: "Semáforo y órdenes de compra", placeholder: "Ej.: Orden de compra para la imprenta…" },
+  ];
+  const DEMO_BRIEFS = {
+    asistente: ["Agenda de coberturas de la semana", "Resumen de correos de hoy", "Brief para la diseñadora: afiche de admisiones"],
+    estratega: ["Guion de Reel: casa abierta de admisiones", "Plan de contenido semanal", "Copies para el aniversario del colegio"],
+    analista: ["Reporte semanal de pauta en Meta", "Alerta: costo por lead subió", "Valores para el formato de KPIs"],
+    presupuesto: ["Corte semanal de presupuesto", "Orden de compra: imprenta de trípticos", "Proyección de gasto al cierre"],
+  };
+  function demoDeliverable(agentId, title, v, fb) {
+    const head = `*Ejemplo del modo demo: contenido ficticio.*\n\n## Para aprobar\n${fb ? `1. Cambié lo que pediste: "${fb}".\n2.` : "1."} Revisar "${title}" y aprobar si está bien.\n${fb ? "3." : "2."} Confirmar fechas antes de enviar al equipo.\n\n`;
+    const body = {
+      asistente: "## Agenda de coberturas\n| Día | Evento | Hora | Responsable |\n|---|---|---|---|\n| Lun | Acto cívico | 07:30 | Filmmaker |\n| Mié | Básquet intercolegial | 15:00 | Diseñadora (fotos) |\n| Vie | Feria de ciencias | 09:00 | Filmmaker |\n\n👦 MENORES — confirmar autorización de imagen.",
+      estratega: "## Guion (30 s)\n| Toma | Acción | Texto en pantalla | Duración |\n|---|---|---|---|\n| 1 | Puerta del colegio se abre | ¿Ya conoces tu próximo colegio? | 3 s |\n| 2 | Recorrido por laboratorios | Aprender haciendo | 8 s |\n| 3 | Familias en la casa abierta | Te esperamos el sábado | 6 s |\n\n**Copy Instagram:** Ven a conocernos este sábado…",
+      analista: "## Rendimiento Meta Ads (ejemplo)\n| Métrica | Semana | Var. |\n|---|---|---|\n| Inversión | $— | ⚠️ sin dato |\n| Leads | — | ⚠️ sin dato |\n\n## Recomendaciones\n1. Rotar el creativo con frecuencia alta.\n2. Probar público de familias con hijos de 3–5 años.",
+      presupuesto: "## Semáforo por partida (ejemplo)\n| Partida | % ejecutado | Estado |\n|---|---|---|\n| Pauta digital | 72 % | 🟢 |\n| Producción audiovisual | 88 % | 🟡 |\n| Imprenta | 95 % | 🔴 |",
+    }[agentId] || "## Entrega\nContenido de ejemplo.";
+    return head + body + (v > 1 ? `\n\n_Versión ${v}._` : "");
+  }
+  function demoTimer(fn, ms) { const h = setTimeout(() => { DEMO.timers.delete(h); if (mode === "demo") fn(); }, ms); DEMO.timers.add(h); }
+  function demoCreate(agentId, brief, attachments = []) {
+    const id = "demo-" + ++DEMO.seq, now = Date.now();
+    DEMO.tasks.set(id, { id, agentId, brief, title: brief.split("\n")[0].slice(0, 80), attachments, status: "trabajando", version: 0, deliverable: "", feedback: "", previous: null, createdAt: now, updatedAt: now, log: [] });
+    renderAll();
+    demoFinish(id, 5500 + Math.random() * 5000);
+    return id;
+  }
+  function demoFinish(id, ms) {
+    demoTimer(() => {
+      const t = DEMO.tasks.get(id); if (!t || (t.status !== "trabajando" && t.status !== "cambios")) return;
+      const v = t.status === "cambios" ? (t.version || 1) + 1 : 1;
+      DEMO.tasks.set(id, { ...t, status: "revision", version: v, deliverable: demoDeliverable(t.agentId, t.title, v, t.status === "cambios" ? t.feedback : ""), previous: null, updatedAt: Date.now() });
+      renderAll();
+    }, ms);
+  }
+  function demoAutoplay() {
+    demoTimer(() => {
+      const free = DEMO_AGENTS.filter((a) => agentStatus(a.id) === "free");
+      if (free.length && Math.random() < 0.7) {
+        const a = free[Math.floor(Math.random() * free.length)];
+        const opts = DEMO_BRIEFS[a.id]; demoCreate(a.id, opts[Math.floor(Math.random() * opts.length)]);
+      }
+      demoAutoplay();
+    }, 6000 + Math.random() * 4000);
+  }
+  function startDemo() {
+    mode = "demo";
+    DEMO.agents.clear(); DEMO.tasks.clear(); DEMO.timers.forEach(clearTimeout); DEMO.timers.clear(); DEMO.seq = 0;
+    DEMO_AGENTS.forEach((a) => DEMO.agents.set(a.id, a));
+    actors.clear();
+    const now = Date.now();
+    const seed = (agentId, title, status, v, ago) => { const id = "demo-" + ++DEMO.seq; DEMO.tasks.set(id, { id, agentId, title, brief: title, status, version: v, deliverable: status === "revision" || status === "aprobado" ? demoDeliverable(agentId, title, v) : "", feedback: "", previous: null, createdAt: now - ago, updatedAt: now - ago, approvedAt: status === "aprobado" ? now - ago : null, log: [] }); return id; };
+    seed("estratega", "Guion de Reel: casa abierta de admisiones", "revision", 1, 120000);
+    seed("analista", "Reporte semanal de pauta en Meta", "revision", 2, 60000);
+    seed("presupuesto", "Corte semanal de presupuesto", "aprobado", 1, 3600000);
+    const w = seed("asistente", "Agenda de coberturas de la semana", "trabajando", 0, 2000);
+    demoFinish(w, 9000);
+    demoAutoplay();
+    $("#demo-btn").textContent = "Salir del demo"; $("#demo-btn").classList.add("demo-on"); $("#demo-btn").setAttribute("aria-pressed", "true");
+    $("#scene-badge").hidden = false;
+    renderBanner();
+    if (location.hash !== "#demo") history.replaceState(null, "", "#demo");
+    closeSheet(); renderAll();
+  }
+  function stopDemo() {
+    mode = "live"; DEMO.timers.forEach(clearTimeout); DEMO.timers.clear(); actors.clear();
+    $("#demo-btn").textContent = "Modo demo"; $("#demo-btn").classList.remove("demo-on"); $("#demo-btn").setAttribute("aria-pressed", "false");
+    $("#scene-badge").hidden = true;
+    if (location.hash === "#demo") history.replaceState(null, "", location.pathname + location.search);
+    renderBanner(); closeSheet(); renderAll();
+  }
+
+  /* ================= Banner ================= */
+  let liveNotes = [];
+  function renderBanner() {
+    const notes = mode === "demo"
+      ? [`<div class="notice px demo">Modo demo: datos de ejemplo que se mueven solos. Encarga, aprueba o pide cambios para ver a los personajes. Nada se guarda ni usa a Claude.</div>`]
+      : liveNotes.map((n) => `<div class="notice px">${esc(n)}</div>`);
+    $("#banner").innerHTML = notes.join("");
+  }
+
+  /* ================= Events ================= */
+  document.addEventListener("input", (e) => { const id = e.target?.dataset?.brief; if (id != null) drafts[id] = e.target.value; });
   document.addEventListener("change", (e) => {
-    const id = e.target?.dataset?.file;
-    if (id == null) return;
-    const cur = pendingFiles[id] || [];
-    const add = [...(e.target.files || [])];
-    const big = add.filter((f) => f.size > 20 * 1024 * 1024);
-    pendingFiles[id] = [...cur, ...add.filter((f) => f.size <= 20 * 1024 * 1024)].slice(0, MAX_FILES);
-    if (big.length) toast("Los archivos de más de 20 MB no se pueden adjuntar.");
-    if (cur.length + add.length > MAX_FILES) toast(`Máximo ${MAX_FILES} archivos por encargo.`);
-    e.target.value = "";
-    renderFiles(id);
+    const id = e.target?.dataset?.file; if (id == null) return;
+    const cur = pendingFiles[id] || [], add = [...(e.target.files || [])];
+    const ok = add.filter((f) => f.size <= 20 * 1024 * 1024);
+    if (ok.length < add.length) toast("Los archivos de más de 20 MB no se pueden adjuntar.");
+    pendingFiles[id] = [...cur, ...ok].slice(0, MAX_FILES);
+    if (cur.length + ok.length > MAX_FILES) toast(`Máximo ${MAX_FILES} archivos por encargo.`);
+    e.target.value = ""; renderFilesOnly(id);
   });
-  document.addEventListener("submit", (e) => {
-    const f = e.target.closest("form.composer");
-    if (!f) return;
-    e.preventDefault();
-    submitBrief(f.dataset.agent);
-  });
+  document.addEventListener("submit", (e) => { const f = e.target.closest("#composer"); if (!f) return; e.preventDefault(); submitBrief(f.dataset.agent); });
   document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === "Enter" && e.target?.dataset?.brief) { e.preventDefault(); submitBrief(e.target.dataset.brief); }
     if ((e.key === "Enter" || e.key === " ") && e.target?.matches?.('[role="button"]')) { e.preventDefault(); e.target.click(); }
   });
   document.addEventListener("click", (e) => {
-    const el = e.target.closest("[data-unfile],[data-open],[data-approve],[data-changes],[data-send-changes],[data-cancel-changes],[data-retry],[data-copy],[data-close]");
+    const el = e.target.closest("[data-unfile],[data-open],[data-approve],[data-changes],[data-send-changes],[data-cancel-changes],[data-retry],[data-copy],[data-close],[data-agent-open],[data-boss]");
     if (!el) return;
     const d = el.dataset;
-    if (d.unfile != null) { (pendingFiles[d.unfile] || []).splice(Number(d.idx), 1); renderFiles(d.unfile); return; }
-    if (d.retry) { e.stopPropagation(); retry(d.retry); return; }
+    if (d.unfile != null) { (pendingFiles[d.unfile] || []).splice(Number(d.idx), 1); renderFilesOnly(d.unfile); return; }
+    if (d.retry) { e.stopPropagation(); return retry(d.retry); }
     if (d.approve) return approve(d.approve);
-    if (d.changes) return openSheet(d.changes, "changes");
+    if (d.changes) return openSheet("task", d.changes, "changes");
     if (d.sendChanges) return sendChanges(d.sendChanges);
-    if (d.cancelChanges != null) { sheetMode = "view"; renderSheet(); return; }
+    if (d.cancelChanges != null) { sheet.mode = "view"; return renderSheet(); }
     if (d.copy) return copyTask(d.copy);
     if (d.close != null) return closeSheet();
-    if (d.open) return openSheet(d.open, "view");
+    if (d.open) return openSheet("task", d.open, "view");
+    if (d.agentOpen) return openSheet("agent", d.agentOpen);
+    if (d.boss != null) { const q = reviewQueue(); if (q.length) openSheet("task", q[0].id); else toast("Nadie en la fila por ahora."); }
   });
-  $("#sheet").addEventListener("close", () => { sheetTaskId = null; sheetMode = "view"; });
+  $("#sheet").addEventListener("close", () => { sheet = { kind: null, id: null, mode: "view" }; });
   $("#sheet").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeSheet(); });
-
-  // highlight current section in nav
-  const navLinks = [...document.querySelectorAll("[data-nav]")];
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => { if (en.isIntersecting) navLinks.forEach((l) => l.classList.toggle("on", l.dataset.nav === en.target.id)); });
-    }, { rootMargin: "-40% 0px -55% 0px" });
-    ["agentes", "revisar", "pizarron"].forEach((id) => io.observe(document.getElementById(id)));
-  }
+  $("#demo-btn").addEventListener("click", () => (mode === "demo" ? stopDemo() : startDemo()));
+  window.addEventListener("hashchange", () => { if (location.hash === "#demo" && mode !== "demo") startDemo(); else if (location.hash !== "#demo" && mode === "demo") stopDemo(); });
   setInterval(renderAll, 60000);
 
-  /* ---------- Boot ---------- */
-  renderStrip(); renderBoard();
+  /* ================= Boot ================= */
+  renderAll();
+  requestAnimationFrame(frame);
+  if (location.hash === "#demo") startDemo();
   (async () => {
     const use = (n) => (window.claude?.use ? window.claude.use(n).catch(() => null) : Promise.resolve(null));
     [db, assets, sample] = await Promise.all([use("db"), use("assets"), use("sample")]);
     if (sample?.limits) { try { sampleImages = !!(await sample.limits())?.images; } catch {} }
-    const banner = $("#banner");
-    const notes = [];
-    if (!db) {
-      notes.push("La base de datos no está disponible en esta vista. Abre The Office desde claude.ai con tu sesión iniciada.");
-      agentsLoaded = tasksLoaded = true; renderAgents(); renderAll();
-    }
-    if (!sample) notes.push("Los agentes no pueden trabajar en esta vista (falta el permiso para usar a Claude). Puedes revisar y aprobar, pero no encargar.");
-    banner.innerHTML = notes.map((n) => `<div class="notice warn">${esc(n)}</div>`).join("");
+    if (!db) { liveNotes.push("La base de datos no está disponible en esta vista. Abre The Office desde claude.ai con tu sesión iniciada, o prueba el modo demo."); agentsLoaded = tasksLoaded = true; }
+    if (!sample) liveNotes.push("Los agentes no pueden trabajar en esta vista (falta el permiso para usar a Claude). Puedes revisar y aprobar.");
+    renderBanner(); renderAll();
     if (!db) return;
-
-    const timer = setTimeout(() => {
-      if (!agentsLoaded || !tasksLoaded) banner.insertAdjacentHTML("beforeend", `<div class="notice warn">No se puede llegar a la base de datos todavía. Lo que ves puede estar desactualizado.</div>`);
-    }, 10000);
-
+    const timer = setTimeout(() => { if (!agentsLoaded || !tasksLoaded) { liveNotes.push("No se puede llegar a la base de datos todavía. Lo que ves puede estar desactualizado."); renderBanner(); } }, 10000);
     db.collection("agents").onSnapshot((snap) => {
-      agents.clear();
-      snap.docs.forEach((d) => agents.set(d.id, { ...d.data(), id: d.id }));
-      if (!snap.metadata.fromCache) { agentsLoaded = true; if (tasksLoaded) clearTimeout(timer); }
-      else if (snap.size) agentsLoaded = true;
-      renderAgents(); renderAll();
-    }, () => { agentsLoaded = true; renderAgents(); });
-
+      LIVE.agents.clear(); snap.docs.forEach((d) => LIVE.agents.set(d.id, { ...d.data(), id: d.id }));
+      if (!snap.metadata.fromCache || snap.size) agentsLoaded = true;
+      if (agentsLoaded && tasksLoaded) clearTimeout(timer);
+      renderAll();
+    }, () => { agentsLoaded = true; renderAll(); });
     db.collection("tasks").orderBy("updatedAt", "desc").limit(300).onSnapshot((snap) => {
       const seen = new Set();
-      snap.docs.forEach((d) => { seen.add(d.id); tasks.set(d.id, { ...d.data(), id: d.id }); });
-      for (const id of [...tasks.keys()]) if (!seen.has(id) && !running.has(id)) tasks.delete(id);
-      if (!snap.metadata.fromCache) { tasksLoaded = true; if (agentsLoaded) clearTimeout(timer); }
-      else if (snap.size) tasksLoaded = true;
+      snap.docs.forEach((d) => { seen.add(d.id); LIVE.tasks.set(d.id, { ...d.data(), id: d.id }); });
+      for (const id of [...LIVE.tasks.keys()]) if (!seen.has(id) && !running.has(id)) LIVE.tasks.delete(id);
+      if (!snap.metadata.fromCache || snap.size) tasksLoaded = true;
+      if (agentsLoaded && tasksLoaded) clearTimeout(timer);
       renderAll();
     }, () => { tasksLoaded = true; renderAll(); });
   })();
