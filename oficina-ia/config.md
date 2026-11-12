@@ -5,7 +5,7 @@ Completa los enlaces marcados con `PENDIENTE`. Los agentes leen este archivo ant
 ## Google Drive / Sheets
 | Recurso | Enlace |
 |---|---|
-| Bandeja de aprobación (carpeta de Drive) | PENDIENTE |
+| Bandeja de aprobación | Tablero The Office: https://claude.ai/artifact/GBpdy6epsKVRRBBtTBvd1M |
 | Formato de seguimiento de KPIs (Google Sheet) | PENDIENTE |
 | Presupuesto de marketing (Google Sheet) | PENDIENTE |
 | Modelo de orden de compra | PENDIENTE |

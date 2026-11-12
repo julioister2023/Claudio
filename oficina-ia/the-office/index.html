@@ -286,6 +286,7 @@ Reglas obligatorias:
   const TEXT_EXT = /\.(txt|md|markdown|csv|tsv|json|html?|xml|ya?ml)$/i;
   const MAX_FILES = 8;
   const STALE_MS = 4 * 60 * 1000;
+  const SKILL_STALE_MS = 90 * 60 * 1000;
 
   let db = null, assets = null, sample = null, sampleImages = false;
   const agents = new Map();
@@ -377,7 +378,7 @@ Reglas obligatorias:
   /* ---------- Derived state ---------- */
   const taskList = () => [...tasks.values()];
   function isStale(t) {
-    return (t.status === "trabajando" || t.status === "cambios") && !running.has(t.id) && Date.now() - (t.updatedAt || 0) > STALE_MS;
+    return (t.status === "trabajando" || t.status === "cambios") && !running.has(t.id) && Date.now() - (t.updatedAt || 0) > (t.source === "skill" && t.status === "trabajando" ? SKILL_STALE_MS : STALE_MS);
   }
   function agentStatus(id) {
     const mine = taskList().filter((t) => t.agentId === id);
@@ -508,7 +509,8 @@ Reglas obligatorias:
     if (liveText) extra = `<div class="live">${esc(liveText.slice(-220))}</div>`;
     else if (running.has(t.id)) extra = `<div class="live">Pensando…</div>`;
     if (t.status === "error") extra += `<div class="err">Se detuvo: ${esc(t.error || "error desconocido")}</div>`;
-    if (stale) extra += `<div class="err">Se interrumpió (se cerró la página mientras trabajaba).</div>`;
+    if (stale) extra += `<div class="err">${t.source === "skill" ? "Sin noticias del agente desde hace más de 90 min." : "Se interrumpió (se cerró la página mientras trabajaba)."}</div>`;
+    if (t.source === "skill" && t.status === "trabajando" && !stale) extra += `<div class="live">Trabajando desde Claude Code…</div>`;
     const retry = (t.status === "error" || stale) ? `<span class="btn small" role="button" tabindex="0" data-retry="${esc(t.id)}">Reintentar</span>` : "";
     return `<div class="tcard" role="button" tabindex="0" data-open="${esc(t.id)}">
       <div class="t-top"><span class="mono sm" style="--c:${agentColor(a)}" aria-hidden="true">${esc(initials(a))}</span><span>${esc(a?.name || "Agente")}</span><time>${esc(ago(t.status === "aprobado" ? t.approvedAt : t.updatedAt))}</time></div>

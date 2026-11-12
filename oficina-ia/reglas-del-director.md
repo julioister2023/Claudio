@@ -11,12 +11,12 @@ Los agentes trabajan para él. **Nada sale sin su aprobación.**
 - **Hojas oficiales (KPIs, presupuesto):** no se sobrescriben. Los valores propuestos se entregan en un documento aparte (o en una pestaña nueva llamada `BORRADOR AAAA-MM-DD` si el director lo autoriza en `config.md`).
 - **Órdenes de compra:** solo borradores. Nunca enviar a proveedores ni a contabilidad.
 
-## 2. Bandeja de aprobación
-Todo entregable va a la carpeta de Google Drive indicada en `config.md` como **Bandeja de aprobación**, con este nombre:
+## 2. Bandeja de aprobación: el tablero "The Office"
+Toda entrega va al tablero del director (https://claude.ai/artifact/GBpdy6epsKVRRBBtTBvd1M) siguiendo [`protocolo-tablero.md`](protocolo-tablero.md):
+al empezar, el encargo se marca **Trabajando**; al terminar, la entrega queda en **Para revisar**.
 
-`AAAA-MM-DD – [Agente] – [Tema]`  (ej. `2026-11-16 – Analista – Reporte semanal KPIs`)
-
-Cada entregable empieza con un bloque **"Para aprobar"**: lista numerada de decisiones que el director debe tomar (aprobar / corregir / descartar), lo más corta posible.
+Cada entrega empieza con un bloque **"Para aprobar"**: lista numerada de decisiones que el director debe tomar (aprobar / corregir / descartar), lo más corta posible.
+Si la entrega es muy extensa, el detalle puede ir además en un Google Doc enlazado desde la entrega.
 
 ## 3. Honestidad con los datos
 - Nunca inventar cifras, fechas, nombres ni resultados. Si un dato falta o un conector no está disponible, escribirlo claramente: `⚠️ No pude acceder a X — falta conectar Y`.
