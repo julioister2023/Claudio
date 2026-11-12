@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Oficina de Luisa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: pixel-art isometric newsroom (canvas) as hero; desks, Luisa's queue, corkboard and Niño Moi's style library below. Single fixed night theme. */
+:root {
+  --night: #1a1d2b;
+  --night-2: #252a3b;
+  --paper: #f2ebd7;
+  --paper-2: #e6dcc1;
+  --ink: #1a1d2b;
+  --muted: #6b6553;
+  --light: #f2ebd7;
+  --accent: #f0c048;
+  --onair: #e2453a;
+  --working: #d99a1e; --changes: #d4552b; --review: #3b6fd1; --free: #4f8a63; --ok: #2f8a4e; --danger: #c23a2b; --hold: #8a5aa8;
+  --pixel: "Silkscreen", "Courier New", monospace;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--night); color: var(--light); font: 15px/1.5 var(--body); -webkit-text-size-adjust: 100%; }
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+button, input, textarea, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.px { background: var(--paper); color: var(--ink); box-shadow: 0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink), 6px 6px 0 0 rgba(0,0,0,.35); }
+
+.top { max-width: 1100px; margin: 0 auto; padding: 16px 16px 6px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.brand h1 { font-family: var(--pixel); font-weight: 700; font-size: 26px; line-height: 1.05; color: var(--paper); text-shadow: 3px 3px 0 #000; display: flex; align-items: center; gap: 10px; }
+.onair { font-size: 10px; background: var(--onair); color: #fff; padding: 4px 6px; text-shadow: none; box-shadow: 0 0 0 2px #000; animation: blink 2s steps(1) infinite; }
+@keyframes blink { 50% { opacity: .55; } }
+.brand p { margin: 6px 0 0; font-size: 13px; color: #b8b2a0; }
+.controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.summary { display: flex; gap: 8px; flex-wrap: wrap; font-family: var(--pixel); font-size: 11px; }
+.summary span { background: var(--night-2); border: 2px solid #3a4157; padding: 4px 8px; white-space: nowrap; }
+.summary b { color: var(--accent); }
+
+.btn { font-family: var(--pixel); font-size: 12px; min-height: 42px; padding: 8px 14px; border: 0; cursor: pointer; background: var(--paper); color: var(--ink); box-shadow: inset -3px -3px 0 0 rgba(0,0,0,.22), 0 0 0 3px var(--ink); display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; text-decoration: none; }
+.btn:hover { filter: brightness(1.06); }
+.btn:active { box-shadow: inset 3px 3px 0 0 rgba(0,0,0,.22), 0 0 0 3px var(--ink); }
+.btn.primary { background: var(--accent); }
+.btn.approve { background: #57b36f; }
+.btn.changes { background: #ef8a5f; }
+.btn.hold { background: #c9a6e6; }
+.btn.ghost { background: var(--paper-2); }
+.btn.small { min-height: 34px; font-size: 11px; padding: 4px 10px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.btn.demo-on { background: #b58cf0; }
+.btn.danger { background: #f2b3a8; }
+
+main { max-width: 1100px; margin: 0 auto; padding: 8px 16px 64px; display: grid; gap: 26px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.sec-head h2 { font-family: var(--pixel); font-size: 16px; color: var(--paper); }
+.sec-head p { margin: 0; color: #b8b2a0; font-size: 13px; max-width: 62ch; }
+section { display: grid; gap: 12px; scroll-margin-top: 16px; }
+.banner { display: grid; gap: 8px; }
+.banner:empty { display: none; }
+.notice { padding: 10px 14px; font-size: 14px; }
+.notice.demo { background: #e5d6fb; }
+
+.scene-wrap { position: relative; width: 100%; background: #10131c; box-shadow: 0 0 0 3px #000, 6px 6px 0 0 rgba(0,0,0,.4); overflow: hidden; }
+.scene-wrap canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
+.tags { position: absolute; inset: 0; pointer-events: none; }
+.tag { position: absolute; transform: translate(-50%, -100%); pointer-events: auto; font-family: var(--pixel); font-size: 10px; line-height: 1; padding: 4px 5px 3px; border: 0; cursor: pointer; color: #fff; background: var(--c); box-shadow: 0 0 0 2px #000; white-space: nowrap; display: flex; gap: 4px; align-items: center; }
+.tag i { font-style: normal; display: inline-block; width: 7px; height: 7px; background: var(--s); box-shadow: 0 0 0 1px #000; }
+.tag.boss { --c: #f2ebd7; color: var(--ink); }
+.tag .n { background: var(--accent); color: var(--ink); padding: 0 3px; }
+.scene-badge { position: absolute; left: 10px; top: 10px; font-family: var(--pixel); font-size: 11px; background: #b58cf0; color: var(--ink); padding: 4px 8px; box-shadow: 0 0 0 2px #000; }
+.scene-badge[hidden] { display: none; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--pixel); font-size: 10px; color: #b8b2a0; }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+.legend i { width: 9px; height: 9px; display: inline-block; box-shadow: 0 0 0 1px #000; }
+
+.desks { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); }
+.desk { padding: 12px; display: grid; gap: 6px; text-align: left; cursor: pointer; border: 0; font: inherit; align-content: start; }
+.desk:hover { background: #fbf5e4; }
+.desk header { display: flex; gap: 10px; align-items: center; }
+.avatar { flex: none; width: 36px; height: 36px; image-rendering: pixelated; background: var(--paper-2); box-shadow: 0 0 0 2px var(--ink); }
+.desk h3 { font-family: var(--pixel); font-size: 13px; line-height: 1.2; }
+.desk .st, .pill { font-family: var(--pixel); font-size: 10px; display: inline-flex; gap: 5px; align-items: center; }
+.desk .st i, .pill i { width: 8px; height: 8px; display: inline-block; background: var(--s); box-shadow: 0 0 0 1px #000; }
+.desk p { margin: 0; font-size: 13px; color: var(--muted); }
+.desk .cta { font-family: var(--pixel); font-size: 10px; color: var(--ink); }
+
+.strip { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 14px 6px 14px; }
+.rcard { scroll-snap-align: start; flex: 0 0 min(84vw, 330px); padding: 14px; display: grid; gap: 8px; align-content: start; position: relative; }
+.rcard .num { position: absolute; top: -12px; left: 10px; font-family: var(--pixel); font-size: 10px; background: var(--accent); color: var(--ink); padding: 3px 6px; box-shadow: 0 0 0 2px var(--ink); }
+.rcard .num.hold { background: #c9a6e6; }
+.rhead { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); padding-top: 4px; }
+.rhead .ver { margin-left: auto; font-family: var(--pixel); font-size: 11px; color: var(--review); }
+.rcard h4 { font-size: 16px; line-height: 1.3; }
+.excerpt { margin: 0; color: var(--muted); font-size: 13px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.ractions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; padding: 3px; }
+.ractions .open { grid-column: 1 / -1; }
+.empty-q { font-size: 14px; padding: 14px; }
+
+.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min(80vw, 240px), 1fr); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 14px; background: #9a6b3f; background-image: radial-gradient(#8a5d34 1px, transparent 1px); background-size: 6px 6px; box-shadow: 0 0 0 4px #5b3a1d, 6px 6px 0 2px rgba(0,0,0,.4); }
+.col { scroll-snap-align: start; display: grid; gap: 10px; align-content: start; min-height: 150px; }
+.col > header { font-family: var(--pixel); font-size: 11px; color: var(--paper); background: var(--ink); padding: 5px 8px; display: flex; justify-content: space-between; }
+.note { padding: 10px; display: grid; gap: 6px; cursor: pointer; text-align: left; border: 0; font: inherit; width: 100%; position: relative; background: #fff7c2; color: var(--ink); box-shadow: 3px 3px 0 0 rgba(0,0,0,.3); }
+.note::before { content: ""; position: absolute; top: -4px; left: 50%; width: 8px; height: 8px; margin-left: -4px; background: var(--pin, #c23a2b); box-shadow: 0 0 0 1px #000; }
+.note:nth-child(3n) { transform: rotate(-1deg); }
+.note:nth-child(3n+1) { transform: rotate(.8deg); }
+.note .t-top { display: flex; gap: 6px; font-size: 12px; color: var(--muted); }
+.note .t-top time { margin-left: auto; }
+.note strong { font-size: 14px; line-height: 1.3; font-weight: 600; }
+.live { font-size: 11px; background: rgba(0,0,0,.06); padding: 5px 6px; max-height: 60px; overflow: hidden; white-space: pre-wrap; font-family: ui-monospace, Menlo, monospace; }
+.err { color: var(--danger); font-size: 12px; }
+.empty { color: #f8e9cf; font-size: 12px; font-family: var(--pixel); padding: 4px; }
+
+.lib { padding: 14px; display: grid; gap: 12px; }
+.lib-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+.lib-chip { padding: 8px 10px; background: #fff; box-shadow: 0 0 0 2px var(--ink); display: grid; gap: 2px; }
+.lib-chip b { font-family: var(--pixel); font-size: 11px; }
+.lib-chip span { font-size: 13px; color: var(--muted); }
+.lib-list { display: grid; gap: 6px; max-height: 260px; overflow-y: auto; padding: 3px; }
+.lib-item { display: flex; gap: 8px; align-items: center; justify-content: space-between; background: #fff; box-shadow: 0 0 0 2px var(--ink); padding: 6px 8px; font-size: 14px; }
+.lib-item span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lib-item small { font-family: var(--pixel); font-size: 10px; color: var(--muted); flex: none; }
+
+dialog.sheet { border: 0; padding: 0; width: min(780px, calc(100% - 24px)); max-height: min(90vh, 920px); background: var(--paper); color: var(--ink); box-shadow: 0 0 0 4px var(--ink), 10px 10px 0 0 rgba(0,0,0,.5); }
+dialog.sheet::backdrop { background: rgba(8,10,16,.7); }
+.sheet-inner { display: grid; grid-template-rows: auto 1fr auto; max-height: min(90vh, 920px); }
+.sheet-head { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px 12px; border-bottom: 3px solid var(--ink); background: var(--paper-2); }
+.sheet-head > div { flex: 1; min-width: 0; }
+.sheet-head h2 { font-size: 18px; line-height: 1.25; }
+.sheet-head p { margin: 4px 0 0; font-size: 13px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pill { color: var(--ink); background: #fff; padding: 2px 6px; box-shadow: 0 0 0 2px var(--ink); }
+.sheet-body { overflow-y: auto; padding: 16px; display: grid; gap: 14px; align-content: start; }
+.sheet-foot { border-top: 3px solid var(--ink); padding: 14px 16px calc(14px + env(safe-area-inset-bottom)); display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.sheet-foot .btn { flex: 1 1 130px; }
+.close { border: 0; background: var(--ink); color: var(--paper); width: 38px; height: 38px; cursor: pointer; font-family: var(--pixel); font-size: 16px; }
+details.brief { background: var(--paper-2); padding: 10px 12px; font-size: 14px; }
+details.brief summary { cursor: pointer; font-weight: 600; }
+details.brief p { margin: 8px 0 0; white-space: pre-wrap; }
+.field { display: grid; gap: 8px; }
+.field label, .field .lbl { font-weight: 600; }
+.opts { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+textarea, select, input[type="text"] { width: 100%; border: 0; box-shadow: inset 0 0 0 2px var(--ink); background: #fffdf5; padding: 10px 12px; font-size: 16px; line-height: 1.4; color: var(--ink); }
+textarea { min-height: 120px; resize: vertical; }
+select { min-height: 44px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; background: #f3e6fb; padding: 10px; box-shadow: 0 0 0 2px var(--ink); }
+.check input { width: 20px; height: 20px; margin: 0; flex: none; }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.row { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 3px; }
+.files { display: flex; flex-wrap: wrap; gap: 6px; }
+.files:empty { display: none; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; background: #fff; box-shadow: 0 0 0 2px var(--ink); padding: 3px 4px 3px 8px; max-width: 100%; color: var(--ink); text-decoration: none; }
+.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+.chip em { font-style: normal; font-size: 11px; color: var(--muted); }
+.chip button { border: 0; background: none; cursor: pointer; padding: 2px 6px; }
+.lastfb { border-left: 4px solid var(--changes); background: #fbe1d4; padding: 8px 12px; font-size: 14px; }
+.lastfb b { display: block; font-size: 12px; color: var(--changes); }
+.holdbox { border-left: 4px solid var(--hold); background: #efe1f8; padding: 8px 12px; font-size: 14px; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; font-size: 14px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.tlist { display: grid; gap: 8px; }
+.tlist button { display: flex; gap: 8px; align-items: center; justify-content: space-between; text-align: left; border: 0; background: #fff; box-shadow: 0 0 0 2px var(--ink); padding: 8px 10px; cursor: pointer; font: inherit; color: var(--ink); }
+.tlist h3 { font-family: var(--pixel); font-size: 12px; }
+@media (max-width: 640px) {
+  dialog.sheet { margin: auto 0 0; width: 100%; max-width: 100%; max-height: 94vh; }
+  .sheet-inner { max-height: 94vh; }
+  .brand h1 { font-size: 20px; }
+  .tag { font-size: 7px; padding: 3px 3px 2px; }
+}
+
+.md { font-size: 15px; line-height: 1.6; overflow-wrap: anywhere; }
+.md > :first-child { margin-top: 0; }
+.md h1, .md h2, .md h3, .md h4 { margin: 1.2em 0 .4em; line-height: 1.3; }
+.md h1 { font-size: 20px; } .md h2 { font-size: 18px; } .md h3 { font-size: 16px; } .md h4 { font-size: 15px; }
+.md p { margin: .5em 0; }
+.md ul, .md ol { padding-left: 1.3em; margin: .5em 0; }
+.md code { background: var(--paper-2); padding: 1px 5px; font-size: .92em; }
+.md mark { background: #ffe94d; color: var(--ink); padding: 0 2px; }
+.md a { color: #2346a8; }
+.md blockquote { margin: .6em 0; padding: 4px 12px; border-left: 3px solid var(--muted); color: var(--muted); }
+.md hr { border: 0; border-top: 2px solid var(--ink); margin: 1em 0; }
+.md .tbl { overflow-x: auto; margin: .6em 0; }
+.md table { border-collapse: collapse; font-size: 13px; min-width: 100%; }
+.md th, .md td { border: 2px solid var(--ink); padding: 6px 8px; text-align: left; vertical-align: top; }
+.md th { background: var(--paper-2); }
+
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--accent); color: var(--ink); font-family: var(--pixel); font-size: 12px; padding: 10px 16px; z-index: 50; max-width: calc(100% - 32px); box-shadow: 0 0 0 3px var(--ink), 5px 5px 0 0 rgba(0,0,0,.4); }
+.toast[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .onair { animation: none; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <h1>La Oficina de Luisa <span class="onair">AL AIRE</span></h1>
+    <p>Mesa de provincias · Luisa es la jefa: nada sale sin su aprobación.</p>
+  </div>
+  <div class="controls">
+    <div class="summary" id="summary" aria-live="polite"><span>Abriendo la oficina…</span></div>
+    <button class="btn" id="demo-btn" type="button" aria-pressed="false">Modo demo</button>
+  </div>
+</header>
+
+<main>
+  <div class="banner" id="banner"></div>
+
+  <section aria-labelledby="h-oficina">
+    <h2 id="h-oficina" class="sr">La oficina</h2>
+    <div class="scene-wrap">
+      <canvas id="scene" width="344" height="240" role="img" aria-label="Sala de redacción en pixel art con los escritorios de los cinco agentes, el escritorio de Luisa con la fila de entregas y la zona de descanso."></canvas>
+      <div class="tags" id="tags"></div>
+      <div class="scene-badge" id="scene-badge" hidden>DEMO · nada se guarda</div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><i style="background:var(--working)"></i>Tecleando</span>
+      <span><i style="background:var(--changes)"></i>Rehaciendo con cambios</span>
+      <span><i style="background:var(--review)"></i>En fila con Luisa</span>
+      <span><i style="background:var(--free)"></i>Descansando</span>
+    </div>
+  </section>
+
+  <section id="escritorios" aria-labelledby="h-desks">
+    <div class="sec-head"><h2 id="h-desks">El equipo</h2><p>Toca a un agente para encargarle trabajo y adjuntar archivos.</p></div>
+    <div class="desks" id="desks"></div>
+  </section>
+
+  <section id="fila" aria-labelledby="h-fila">
+    <div class="sec-head"><h2 id="h-fila">Fila en el escritorio de Luisa</h2><p>Aprueba o pide cambios: el agente vuelve a su escritorio y lo rehace enseguida.</p></div>
+    <div class="strip" id="strip"></div>
+  </section>
+
+  <section id="pizarron" aria-labelledby="h-board">
+    <div class="sec-head"><h2 id="h-board">Pizarrón</h2><p>Todo lo que está en curso.</p></div>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section id="estilos" aria-labelledby="h-lib">
+    <div class="sec-head"><h2 id="h-lib">Biblioteca de estilos de Niño Moi</h2><p>Textos pasados bien escritos, uno por tipo. Con ellos Niño Moi aprende cómo se escribe un Ecuaterra, una crónica, una leída o un en vivo.</p></div>
+    <div class="lib px" id="lib"></div>
+  </section>
+</main>
+
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-title"><div class="sheet-inner" id="sheet-inner"></div></dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ================= Constants ================= */
+  const SHEET_ID = "1o7c_gyNnjJzcbcRuDlfOeLRlqw8Oey4BdE6Kggynm4U";
+  const XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+  const LIBS = {
+    xlsx: { src: "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js", ok: () => window.XLSX },
+    pdf: { src: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", ok: () => window.pdfjsLib },
+    docx: { src: "https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js", ok: () => window.mammoth },
+  };
+  const TIPOS = ["Ecuaterra", "Crónica", "Leída", "En vivo", "Reportaje", "Nota", "Material complementario", "Otro"];
+  const MESES = [["ENE", "Enero"], ["FEB", "Febrero"], ["MAR", "Marzo"], ["ABR", "Abril"], ["MAY", "Mayo"], ["JUN", "Junio"], ["JUL", "Julio"], ["AGO", "Agosto"], ["SEP", "Septiembre"], ["OCT", "Octubre"], ["NOV", "Noviembre"], ["DIC", "Diciembre"], ["ELECCIONES", "Elecciones"]];
+  const TRIMESTRES = { T1: ["ENE", "FEB", "MAR"], T2: ["ABR", "MAY", "JUN"], T3: ["JUL", "AGO", "SEP"], T4: ["OCT", "NOV", "DIC"] };
+  const TEXT_EXT = /\.(txt|md|markdown|csv|tsv|json|html?|xml|ya?ml|rtf)$/i;
+  const MAX_FILES = 12;
+  const STALE_MS = 4 * 60 * 1000;
+  const SKILL_STALE_MS = 90 * 60 * 1000;
+  const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const RULES = `Eres un agente de la oficina de Luisa, jefa de la mesa de provincias de un noticiero de televisión de Ecuador. Luisa es la jefa y aprueba todo.
+Reglas obligatorias:
+- Solo produces BORRADORES para Luisa. Nunca digas que enviaste, publicaste o modificaste algo.
+- Nunca inventes datos: nombres, cifras, fechas, lugares, cargos, citas, montos ni fuentes. Si falta algo, márcalo como "⚠️ falta: ...".
+- En este tablero no navegas por internet. Trabaja con lo que Luisa te da (texto y archivos) y con lo que sabes; marca con "🔎 verificar" todo dato que deba confirmarse.
+- Si hay menores de edad, víctimas o personas vulnerables, señálalo: "⚠️ SENSIBLE — revisar tratamiento".
+- Español de Ecuador, claro y periodístico. Zona horaria America/Guayaquil.`;
+  const FORMAT = `Formato de respuesta (Markdown, sin preámbulo ni despedida):
+1. Empieza con "## Para Luisa": lista numerada y corta de lo que ella debe decidir o saber.
+2. Luego, el trabajo completo, con encabezados "##" y tablas cuando ayuden.
+3. Para resaltar en amarillo algo que Luisa debe revisar, enciérralo entre == y == (ej.: ==revisar esta nota==).`;
+
+  /* ================= Looks (original characters) ================= */
+  const LOOKS = {
+    aldowise: { color: "#2f5aa8", shirt: "#2f5aa8", hair: "#2a2220", skin: "#c98b5e", pants: "#26304a", style: "short", tie: "#c23a2b", glasses: true },
+    macarena: { color: "#d64f7a", shirt: "#e2557a", hair: "#7a3b1a", skin: "#e8b48a", pants: "#3a2f3f", style: "long", tie: null, glasses: false },
+    zendaya: { color: "#2f8a4e", shirt: "#3f8f4a", hair: "#1c1a22", skin: "#a8704a", pants: "#5a4a2a", style: "curly", tie: null, glasses: false },
+    ninomoi: { color: "#c9961c", shirt: "#f0c048", hair: "#3a2a1a", skin: "#f0c7a0", pants: "#2b3a52", style: "spiky", tie: null, glasses: false },
+    mamau: { color: "#8a5aa8", shirt: "#8a5aa8", hair: "#cfcfcf", skin: "#d39a6e", pants: "#3d3427", style: "bun", tie: null, glasses: true },
+  };
+  const FALLBACK_LOOKS = Object.values(LOOKS);
+  const LUISA = { color: "#f2ebd7", shirt: "#c23a2b", hair: "#1c1a22", skin: "#d8a47a", pants: "#22273a", style: "long", tie: null, glasses: false };
+  const STATUS = {
+    working: { label: "Tecleando", color: "var(--working)" },
+    changes: { label: "Rehaciendo con cambios", color: "var(--changes)" },
+    review: { label: "En fila con Luisa", color: "var(--review)" },
+    free: { label: "Descansando", color: "var(--free)" },
+  };
+  const TASK_LABEL = { trabajando: ["Trabajando", "var(--working)"], cambios: ["Rehaciendo con cambios", "var(--changes)"], revision: ["Para revisar", "var(--review)"], aprobado: ["Aprobada", "var(--ok)"], error: ["Se detuvo", "var(--danger)"] };
+
+  /* ================= State ================= */
+  let db = null, assets = null, sample = null, mcp = null, sampleImages = false;
+  const LIVE = { agents: new Map(), tasks: new Map(), estilos: new Map() };
+  const DEMO = { agents: new Map(), tasks: new Map(), estilos: new Map(), timers: new Set(), seq: 0 };
+  let mode = "live";
+  const S = () => (mode === "demo" ? DEMO : LIVE);
+  const drafts = {}, pendingFiles = {}, composerOpts = {};
+  const imageCache = new Map(), running = new Set(), liveText = new Map();
+  let agentsLoaded = false, tasksLoaded = false, writeBlocked = false;
+  let sheet = { kind: null, id: null, mode: "view" };
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 4500); }
+  function ago(ts) {
+    if (!ts) return "";
+    const s = Math.max(0, (Date.now() - ts) / 1000);
+    if (s < 60) return "ahora";
+    if (s < 3600) return `hace ${Math.round(s / 60)} min`;
+    if (s < 86400) return `hace ${Math.round(s / 3600)} h`;
+    return new Date(ts).toLocaleDateString("es-EC", { day: "numeric", month: "short" });
+  }
+  const sortedAgents = () => [...S().agents.values()].sort((a, b) => (a.order || 99) - (b.order || 99));
+  const agentIndex = (id) => Math.max(0, sortedAgents().findIndex((a) => a.id === id));
+  const lookOf = (id) => LOOKS[id] || FALLBACK_LOOKS[agentIndex(id) % FALLBACK_LOOKS.length];
+  const taskList = () => [...S().tasks.values()];
+  const kindOf = (agentId) => S().agents.get(agentId)?.kind || agentId;
+
+  /* ================= Markdown ================= */
+  function inline(s) {
+    return esc(s)
+      .replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/==([^=\n]+)==/g, "<mark>$1</mark>")
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>")
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }
+  function md(src) {
+    const lines = String(src || "").replace(/\r/g, "").split("\n");
+    let out = "", i = 0;
+    const isRow = (l) => /^\s*\|.*\|\s*$/.test(l);
+    while (i < lines.length) {
+      const l = lines[i]; let m;
+      if (!l.trim()) { i++; continue; }
+      if ((m = l.match(/^(#{1,4})\s+(.*)$/))) { const n = m[1].length; out += `<h${n}>${inline(m[2])}</h${n}>`; i++; continue; }
+      if (/^\s*(-{3,}|\*{3,})\s*$/.test(l)) { out += "<hr>"; i++; continue; }
+      if (isRow(l) && i + 1 < lines.length && /^\s*\|?[\s:-]+\|[\s|:-]*$/.test(lines[i + 1])) {
+        const cells = (r) => r.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+        let h = `<div class="tbl"><table><thead><tr>${cells(l).map((c) => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>`;
+        i += 2;
+        while (i < lines.length && isRow(lines[i])) { h += `<tr>${cells(lines[i]).map((c) => `<td>${inline(c)}</td>`).join("")}</tr>`; i++; }
+        out += h + "</tbody></table></div>"; continue;
+      }
+      if (/^\s*[-*•]\s+/.test(l)) { out += "<ul>"; while (i < lines.length && /^\s*[-*•]\s+/.test(lines[i])) { out += `<li>${inline(lines[i].replace(/^\s*[-*•]\s+/, ""))}</li>`; i++; } out += "</ul>"; continue; }
+      if (/^\s*\d+[.)]\s+/.test(l)) { out += "<ol>"; while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])) { out += `<li>${inline(lines[i].replace(/^\s*\d+[.)]\s+/, ""))}</li>`; i++; } out += "</ol>"; continue; }
+      if (/^\s*>/.test(l)) { const q = []; while (i < lines.length && /^\s*>/.test(lines[i])) { q.push(lines[i].replace(/^\s*>\s?/, "")); i++; } out += `<blockquote>${inline(q.join(" "))}</blockquote>`; continue; }
+      const p = [];
+      while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|\s*[-*•]\s+|\s*\d+[.)]\s+|\s*>)/.test(lines[i]) && !isRow(lines[i])) { p.push(lines[i]); i++; }
+      if (!p.length) { p.push(lines[i]); i++; }
+      out += `<p>${p.map(inline).join("<br>")}</p>`;
+    }
+    return out;
+  }
+  const plain = (s) => String(s || "").replace(/[#*|`>_=-]+/g, " ").replace(/\s+/g, " ").trim();
+
+  /* ================= Status ================= */
+  function isStale(t) {
+    if (mode === "demo") return false;
+    const lim = t.source === "skill" && t.status === "trabajando" ? SKILL_STALE_MS : STALE_MS;
+    return (t.status === "trabajando" || t.status === "cambios") && !running.has(t.id) && Date.now() - (t.updatedAt || 0) > lim;
+  }
+  function agentStatus(id) {
+    const mine = taskList().filter((t) => t.agentId === id);
+    if (mine.some((t) => t.status === "trabajando" && !isStale(t))) return "working";
+    if (mine.some((t) => t.status === "cambios" && !isStale(t))) return "changes";
+    if (mine.some((t) => t.status === "revision")) return "review";
+    return "free";
+  }
+  const reviewQueue = () => taskList().filter((t) => t.status === "revision").sort((a, b) => (a.updatedAt || 0) - (b.updatedAt || 0));
+
+  /* =====================================================================
+     PIXEL ISOMETRIC NEWSROOM (drawn with code)
+     ===================================================================== */
+  const W = 344, H = 240, OX = 150, OY = 76, GX = 11, GY = 8, WALL = 58;
+  const cv = $("#scene"), g = cv.getContext("2d");
+  g.imageSmoothingEnabled = false;
+  const iso = (gx, gy) => ({ x: OX + (gx - gy) * 16, y: OY + (gx + gy) * 8 });
+  function poly(pts, fill) { g.fillStyle = fill; g.beginPath(); pts.forEach((p, i) => (i ? g.lineTo(Math.round(p.x), Math.round(p.y)) : g.moveTo(Math.round(p.x), Math.round(p.y)))); g.closePath(); g.fill(); }
+  const up = (p, h) => ({ x: p.x, y: p.y - h });
+  function box(gx, gy, w, d, h, c, z = 0) {
+    const a = up(iso(gx, gy), z), b = up(iso(gx + w, gy), z), cc = up(iso(gx + w, gy + d), z), e = up(iso(gx, gy + d), z);
+    poly([e, cc, up(cc, h), up(e, h)], c[1]);
+    poly([b, cc, up(cc, h), up(b, h)], c[2]);
+    poly([up(a, h), up(b, h), up(cc, h), up(e, h)], c[0]);
+  }
+  const R = (x, y, w, h, c) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
+  const wallStrip = (gx0, gx1, h0, h1, c) => { const a = iso(gx0, 0), b = iso(gx1, 0); poly([up(a, h0), up(b, h0), up(b, h1), up(a, h1)], c); };
+  const lwallStrip = (gy0, gy1, h0, h1, c) => { const a = iso(0, gy0), b = iso(0, gy1); poly([up(a, h0), up(b, h0), up(b, h1), up(a, h1)], c); };
+  const WOOD = ["#c58a4e", "#9a6434", "#7d4f28"], DWOOD = ["#8a5a32", "#6a4222", "#56351a"], GREY = ["#b9bcc6", "#8b8f9c", "#70737f"], DARK = ["#4a4e5c", "#33363f", "#272a31"];
+
+  const DESKS = [{ gx: 1.8, gy: 1.7 }, { gx: 4.3, gy: 1.7 }, { gx: 6.8, gy: 1.7 }, { gx: 1.8, gy: 4.0 }, { gx: 4.3, gy: 4.0 }];
+  const SEATS = DESKS.map((d) => ({ x: d.gx + 0.8, y: d.gy - 0.8 }));
+  const SIDE_X = [1.35, 3.85, 6.35, 1.35, 3.85];
+  const CORRIDOR = 5.65;
+  const BOSS_DESK = { gx: 8.6, gy: 3.6 }, BOSS_SEAT = { x: 9.55, y: 2.8 };
+  const QUEUE = [{ x: 9.55, y: 5.25 }, { x: 9.55, y: 6.05 }, { x: 9.55, y: 6.85 }, { x: 8.75, y: 7.45 }, { x: 7.95, y: 7.45 }];
+  const REST = [{ x: 0.95, y: 7.25, couch: true }, { x: 1.75, y: 7.25, couch: true }, { x: 1.0, y: 5.25, couch: false }, { x: 2.55, y: 7.25, couch: true }, { x: 4.7, y: 7.2, couch: false }];
+
+  function drawRoom(t) {
+    g.fillStyle = "#10131c"; g.fillRect(0, 0, W, H);
+    poly([iso(0, GY), iso(0, 0), up(iso(0, 0), WALL), up(iso(0, GY), WALL)], "#d9cfb2");
+    poly([iso(0, 0), iso(GX, 0), up(iso(GX, 0), WALL), up(iso(0, 0), WALL)], "#cdbf9d");
+    lwallStrip(0, GY, 0, 4, "#8f7f5c"); wallStrip(0, GX, 0, 4, "#7e6f50");
+    lwallStrip(0, GY, WALL, WALL + 3, "#efe6cc"); wallStrip(0, GX, WALL, WALL + 3, "#e4d9bb");
+    // windows (right wall)
+    [0.9, 8.4].forEach((gx0) => {
+      wallStrip(gx0, gx0 + 2.0, 16, 48, "#5b7fa6"); wallStrip(gx0, gx0 + 2.0, 30, 48, "#7ea6cc");
+      for (let h = 18; h < 48; h += 3) wallStrip(gx0, gx0 + 2.0, h, h + 1, "rgba(240,235,215,.55)");
+      wallStrip(gx0, gx0 + 2.0, 14, 16, "#efe6cc");
+    });
+    // wall of TVs (right wall): program monitor + two feeds
+    wallStrip(3.4, 7.8, 18, 50, "#1d1f25");
+    const f = Math.floor(t / 2200) % 4;
+    const bars = ["#e9e9e9", "#e8d84a", "#4ad8d8", "#4ad84a", "#d84ad8", "#d84a4a", "#4a4ad8"];
+    if (f === 0) bars.forEach((c, k) => wallStrip(3.6 + k * 0.37, 3.6 + (k + 1) * 0.37, 22, 46, c));
+    else {
+      wallStrip(3.6, 6.2, 22, 46, f === 1 ? "#2d6aa8" : f === 2 ? "#3f8f4a" : "#a85a2d");
+      wallStrip(3.6, 6.2, 22, 28, "#c23a2b"); wallStrip(3.8, 5.0, 24, 26, "#ffffff");
+      wallStrip(4.4, 5.4, 31, 41, "rgba(255,255,255,.35)");
+    }
+    wallStrip(6.4, 7.6, 34, 46, "#3b6fd1"); wallStrip(6.4, 7.6, 22, 32, "#3f8f4a");
+    const dot = iso(7.4, 0); if (Math.floor(t / 600) % 2) R(dot.x - 1, dot.y - 44, 2, 2, "#ff4a3a");
+    // left wall: big whiteboard "pauta del día" + map-ish shape + clock + ON AIR light
+    lwallStrip(1.2, 4.2, 20, 46, "#9b9fa8"); lwallStrip(1.3, 4.1, 22, 44, "#fbfbf7");
+    [[1.5, 39, 1.6, "#2f5aa8"], [1.5, 35, 2.2, "#2f5aa8"], [1.5, 31, 1.0, "#c23a2b"], [2.7, 31, 1.0, "#3f8f4a"], [1.5, 27, 1.8, "#33363f"]].forEach(([y0, h, len, c]) => lwallStrip(y0, y0 + len, h, h + 1, c));
+    { const c = up(iso(0, 5.2), 40); R(c.x - 4, c.y - 4, 8, 8, "#1b1f2c"); R(c.x - 3, c.y - 3, 6, 6, "#fbfbf7"); R(c.x, c.y - 2, 1, 2, "#1b1f2c");
+      const m = Math.floor(t / 1000) % 4; const hand = [[1, 0], [0, 1], [-1, 0], [0, -1]][m]; R(c.x + hand[0], c.y + hand[1], 1, 1, "#c23a2b"); }
+    { lwallStrip(6.2, 7.6, 40, 48, "#3a1a1a"); lwallStrip(6.3, 7.5, 41, 47, Math.floor(t / 1000) % 2 ? "#ff4a3a" : "#8a2a22"); }
+    for (let x = 0; x < GX; x++) for (let y = 0; y < GY; y++) poly([iso(x, y), iso(x + 1, y), iso(x + 1, y + 1), iso(x, y + 1)], (x + y) % 2 ? "#6f7d92" : "#76849a");
+    poly([iso(0.2, 6.1), iso(3.3, 6.1), iso(3.3, 8), iso(0.2, 8)], "#8a6a4a");
+    poly([iso(0.4, 6.3), iso(3.1, 6.3), iso(3.1, 7.85), iso(0.4, 7.85)], "#a07d57");
+    poly([iso(7.4, 4.8), iso(10.9, 4.8), iso(10.9, 8), iso(7.4, 8)], "#6a5f87");
+  }
+
+  function furniture(status) {
+    const items = [];
+    const add = (depth, fn) => items.push({ depth, fn });
+    DESKS.forEach((d, i) => {
+      const s = status[i];
+      const lk = status.looks[i];
+      add(d.gx + d.gy - 0.9, () => { box(d.gx + 0.58, d.gy - 0.98, 0.45, 0.14, 13, DARK); box(d.gx + 0.55, d.gy - 0.98, 0.5, 0.45, 2, DARK, 5); });
+      add(d.gx + d.gy + 1.2, (t) => {
+        box(d.gx, d.gy, 1.6, 0.8, 11, WOOD);
+        box(d.gx + 0.1, d.gy + 0.15, 0.5, 0.12, 9, GREY, 11);
+        box(d.gx + 0.28, d.gy + 0.25, 0.12, 0.1, 2, DARK, 11);
+        const scr = up(iso(d.gx + 0.1, d.gy + 0.15), 15);
+        if (s === "working" || s === "changes") { const f = Math.floor(t / 180) % 3; R(scr.x - 1, scr.y - 4, 3, 7, s === "changes" ? "#ffb08a" : "#9fe0ff"); R(scr.x, scr.y - 3 + f * 2, 1, 1, "#ffffff"); }
+        else R(scr.x - 1, scr.y - 4, 3, 7, "#2b3140");
+        const kb = up(iso(d.gx + 0.75, d.gy + 0.15), 11); R(kb.x - 3, kb.y - 1, 7, 2, "#3a3e4a");
+        const mug = up(iso(d.gx + 1.35, d.gy + 0.35), 11); R(mug.x - 1, mug.y - 3, 3, 3, lk ? lk.color : "#999"); R(mug.x + 2, mug.y - 2, 1, 1, lk ? lk.color : "#999");
+        const pp = up(iso(d.gx + 1.05, d.gy + 0.5), 11); R(pp.x - 3, pp.y - 1, 5, 2, "#ffffff"); R(pp.x - 2, pp.y - 2, 5, 1, "#e9e3cf");
+        const np = up(iso(d.gx + 0.8, d.gy + 0.8), 5); R(np.x - 5, np.y - 2, 10, 3, "#e8d9a8"); R(np.x - 3, np.y - 1, 6, 1, "#6b5a2e");
+      });
+    });
+    add(BOSS_DESK.gx + BOSS_DESK.gy - 0.9, () => box(BOSS_SEAT.x - 0.3, BOSS_SEAT.y - 0.3, 0.6, 0.22, 22, ["#5a2d2d", "#3f1f1f", "#331818"]));
+    add(BOSS_DESK.gx + BOSS_DESK.gy + 1.4, () => {
+      box(BOSS_DESK.gx, BOSS_DESK.gy, 1.9, 0.9, 12, DWOOD);
+      box(BOSS_DESK.gx + 1.3, BOSS_DESK.gy + 0.2, 0.5, 0.12, 9, GREY, 12);
+      const tray = up(iso(BOSS_DESK.gx + 0.35, BOSS_DESK.gy + 0.45), 12); R(tray.x - 4, tray.y - 2, 8, 3, "#3a3e4a"); R(tray.x - 3, tray.y - 4, 6, 2, "#ffffff");
+      const mic = up(iso(BOSS_DESK.gx + 0.95, BOSS_DESK.gy + 0.25), 12); R(mic.x, mic.y - 6, 1, 6, "#33363f"); R(mic.x - 1, mic.y - 8, 3, 3, "#1b1f2c");
+      const np = up(iso(BOSS_DESK.gx + 0.95, BOSS_DESK.gy + 0.9), 6); R(np.x - 7, np.y - 2, 14, 4, "#f0c048"); R(np.x - 5, np.y - 1, 10, 1, "#6b5a2e");
+    });
+    // TV camera on tripod facing Luisa
+    add(7.3 + 5.0, (t) => {
+      const p = iso(7.3, 5.0);
+      R(p.x - 4, p.y - 1, 1, 1, "#1b1f2c"); R(p.x + 3, p.y - 1, 1, 1, "#1b1f2c"); R(p.x, p.y, 1, 1, "#1b1f2c");
+      R(p.x - 3, p.y - 6, 1, 5, "#33363f"); R(p.x + 2, p.y - 6, 1, 5, "#33363f"); R(p.x, p.y - 9, 1, 9, "#33363f");
+      R(p.x - 4, p.y - 15, 9, 6, "#2b2e38"); R(p.x + 4, p.y - 14, 3, 4, "#1b1f2c"); R(p.x - 3, p.y - 17, 4, 2, "#2b2e38");
+      if (Math.floor(t / 700) % 2) R(p.x - 3, p.y - 14, 1, 1, "#ff4a3a");
+    });
+    add(6.5, () => box(0.3, 6.35, 2.75, 0.35, 16, ["#4a7a8c", "#335a68", "#2a4a56"]));
+    add(7.0, () => { box(0.3, 6.7, 2.75, 0.75, 7, ["#5a91a5", "#3e6e80", "#335d6c"]); box(0.15, 6.35, 0.15, 1.1, 11, ["#4a7a8c", "#335a68", "#2a4a56"]); box(3.05, 6.35, 0.15, 1.1, 11, ["#4a7a8c", "#335a68", "#2a4a56"]); });
+    add(5.3, (t) => { box(0.15, 4.7, 0.5, 0.5, 14, ["#3a3e4a", "#272a31", "#1d1f25"]); box(0.15, 4.7, 0.5, 0.5, 6, ["#8b8f9c", "#70737f", "#5a5d67"], 14); const led = up(iso(0.65, 5.0), 10); R(led.x - 1, led.y, 1, 1, Math.floor(t / 500) % 2 ? "#ff5a4a" : "#5a1d1d"); });
+    add(9.4, (t) => { box(9.1, 0.15, 0.4, 0.4, 16, ["#e9eef0", "#c3c9cc", "#a9b0b4"]); box(9.15, 0.2, 0.3, 0.3, 9, ["#9fd3f0", "#6fb3dc", "#5aa0c9"], 16); const b = up(iso(9.3, 0.35), 22 + (Math.floor(t / 400) % 6)); R(b.x, b.y, 1, 1, "#ffffff"); });
+    add(2.5, () => { box(0.1, 2.3, 0.6, 0.6, 7, GREY); box(0.15, 2.35, 0.5, 0.5, 3, ["#e9eef0", "#c3c9cc", "#a9b0b4"], 7); });
+    const plant = (gx, gy) => add(gx + gy + 0.3, (t) => {
+      box(gx, gy, 0.35, 0.35, 6, ["#b8693c", "#8d4c28", "#743d20"]);
+      const p = up(iso(gx + 0.17, gy + 0.17), 6); const sway = REDUCED ? 0 : Math.round(Math.sin(t / 900 + gx) * 1);
+      R(p.x - 4 + sway, p.y - 9, 8, 6, "#3f8a4a"); R(p.x - 2 + sway, p.y - 13, 5, 5, "#56a85f"); R(p.x - 5 + sway, p.y - 6, 3, 3, "#2f6b39"); R(p.x + 2 + sway, p.y - 7, 3, 3, "#2f6b39");
+    });
+    plant(10.45, 0.25); plant(0.25, 0.25); plant(3.45, 6.7); plant(5.3, 7.4);
+    add(1.7, () => { box(0.9, 0.12, 1.1, 0.35, 30, ["#7d4f28", "#9a6434", "#6a4222"]);
+      [[0.95, 22, "#c23a2b"], [1.2, 22, "#2f5aa8"], [1.45, 22, "#f0c048"], [1.05, 12, "#3f8f4a"], [1.4, 12, "#d64f7a"], [1.7, 12, "#efe6cc"]].forEach(([x, h, c]) => { const p = up(iso(x, 0.47), h); R(p.x, p.y - 6, 3, 7, c); }); });
+    return items;
+  }
+
+  function person(px, py, lk, pose, t, extra = {}) {
+    const x = Math.round(px), y = Math.round(py);
+    const P = (dx, dy, w, h, c) => R(x + dx, y + dy, w, h, c);
+    const seated = pose === "type" || pose === "rest" || pose === "read";
+    const bob = (pose === "queue" || pose === "stand") && !REDUCED ? (Math.floor(t / 650 + (extra.phase || 0)) % 2) : 0;
+    const by = (seated ? 4 : 0) + bob;
+    if (!seated) P(-4, -1, 9, 2, "rgba(0,0,0,.22)");
+    if (pose === "walk") { const f = REDUCED ? 0 : Math.floor(t / 140) % 2; P(-3, -5, 2, 5 - f, lk.pants); P(1, -5, 2, 4 + f, lk.pants); P(-3, -1 - f, 2, 1, "#1b1f2c"); P(1, -2 + f, 2, 1, "#1b1f2c"); }
+    else if (seated) { P(-3, -2, 6, 2, lk.pants); P(-3, 0, 2, 3, lk.pants); P(1, 0, 2, 3, lk.pants); P(-3, 3, 2, 1, "#1b1f2c"); P(1, 3, 2, 1, "#1b1f2c"); }
+    else { P(-3, -5, 2, 5, lk.pants); P(1, -5, 2, 5, lk.pants); P(-3, -1, 2, 1, "#1b1f2c"); P(1, -1, 2, 1, "#1b1f2c"); }
+    P(-3, -11 + by, 6, 6, lk.shirt); P(-1, -11 + by, 2, 1, "#ffffff");
+    if (lk.tie) P(0, -10 + by, 1, 4, lk.tie);
+    if (pose === "type") {
+      const f = REDUCED ? 0 : Math.floor(t / (extra.fast ? 70 : 120)) % 2;
+      P(-4, -10 + by, 1, 3, lk.shirt); P(3, -10 + by, 1, 3, lk.shirt); P(-3, -7 + by - f, 2, 1, lk.skin); P(1, -7 + by - (1 - f), 2, 1, lk.skin);
+    } else if (pose === "queue" || pose === "read") {
+      P(-4, -10 + by, 1, 3, lk.shirt); P(3, -10 + by, 1, 3, lk.shirt);
+      P(-3, -9 + by, 6, 5, "#ffffff"); P(-2, -8 + by, 4, 1, "#9aa3b5"); P(-2, -6 + by, 3, 1, "#9aa3b5");
+      P(-4, -7 + by, 1, 1, lk.skin); P(3, -7 + by, 1, 1, lk.skin);
+    } else if (pose === "rest") {
+      P(-4, -10 + by, 1, 4, lk.shirt); P(3, -10 + by, 1, 3, lk.shirt);
+      P(2, -8 + by, 3, 3, "#efe6cc"); P(5, -7 + by, 1, 1, "#efe6cc"); P(3, -9 + by, 1, 1, "#6b4a2a");
+      if (!REDUCED) { const s = Math.floor(t / 300) % 4; P(3, -11 + by - s, 1, 1, "rgba(255,255,255,.7)"); }
+    } else if (pose === "stand") {
+      P(-4, -10 + by, 1, 5, lk.shirt); P(3, -10 + by, 1, 3, lk.shirt); P(3, -8 + by, 3, 3, "#efe6cc"); P(-4, -5 + by, 1, 1, lk.skin);
+    } else {
+      const sw = !REDUCED ? Math.floor(t / 140) % 2 : 0;
+      P(-4, -10 + by + sw, 1, 5, lk.shirt); P(3, -10 + by + (1 - sw), 1, 5, lk.shirt); P(-4, -5 + by + sw, 1, 1, lk.skin); P(3, -5 + by + (1 - sw), 1, 1, lk.skin);
+    }
+    P(-3, -17 + by, 6, 6, lk.skin); P(-1, -12 + by, 2, 1, lk.skin);
+    const hy = -18 + by;
+    if (lk.style === "long") { P(-3, hy, 6, 2, lk.hair); P(-4, hy + 1, 1, 7, lk.hair); P(3, hy + 1, 1, 7, lk.hair); }
+    else if (lk.style === "bun") { P(-3, hy, 6, 2, lk.hair); P(-1, hy - 2, 3, 2, lk.hair); P(-3, hy + 2, 1, 2, lk.hair); P(2, hy + 2, 1, 2, lk.hair); }
+    else if (lk.style === "curly") { P(-4, hy - 1, 8, 3, lk.hair); P(-5, hy + 1, 2, 5, lk.hair); P(3, hy + 1, 2, 5, lk.hair); P(-3, hy - 2, 2, 1, lk.hair); P(1, hy - 2, 2, 1, lk.hair); }
+    else if (lk.style === "spiky") { P(-3, hy, 6, 2, lk.hair); P(-3, hy - 1, 1, 1, lk.hair); P(-1, hy - 1, 1, 1, lk.hair); P(1, hy - 1, 1, 1, lk.hair); P(2, hy - 2, 1, 1, lk.hair); P(-3, hy + 2, 1, 1, lk.hair); }
+    else { P(-3, hy, 6, 2, lk.hair); P(-3, hy + 2, 1, 2, lk.hair); }
+    const sleepy = pose === "rest" && extra.sleepy;
+    if (sleepy) { P(-2, -14 + by, 2, 1, "#1b1f2c"); P(1, -14 + by, 2, 1, "#1b1f2c"); }
+    else if (pose === "type" || pose === "read") { P(-2, -15 + by, 1, 1, "#1b1f2c"); P(1, -15 + by, 1, 1, "#1b1f2c"); }
+    else { P(-2, -14 + by, 1, 1, "#1b1f2c"); P(1, -14 + by, 1, 1, "#1b1f2c"); }
+    if (lk.glasses) { P(-3, -15 + by, 3, 1, "#1b1f2c"); P(1, -15 + by, 3, 1, "#1b1f2c"); }
+    if (extra.glow) P(-3, -17 + by, 2, 6, "rgba(160,225,255,.25)");
+    if (pose === "type" && extra.fast) { P(-1, -24 + by, 2, 4, "#d4552b"); P(-1, -19 + by, 2, 1, "#d4552b"); }
+    if (sleepy && !REDUCED) { const k = Math.floor(t / 400) % 3; P(5, -20 + by - k * 2, 3, 1, "#f2ebd7"); P(6, -19 + by - k * 2, 1, 1, "#f2ebd7"); P(5, -18 + by - k * 2, 3, 1, "#f2ebd7"); }
+  }
+
+  const actors = new Map();
+  function targetFor(idx, st, qpos) {
+    if (st === "working" || st === "changes") return { key: "seat", pt: SEATS[idx], pose: "type" };
+    if (st === "review") { const q = Math.min(qpos, QUEUE.length - 1); return { key: "q" + q, pt: QUEUE[q], pose: "queue" }; }
+    const r = REST[idx % REST.length]; return { key: "rest", pt: r, pose: r.couch ? "rest" : "stand" };
+  }
+  function planPath(ac, idx, to) {
+    const fk = ac.walking ? "mid" : ac.key || "seat";
+    if (fk[0] === "q" && to.key[0] === "q") return [to.pt];
+    const pts = [];
+    if (fk === "seat") pts.push({ x: SIDE_X[idx], y: ac.y });
+    pts.push({ x: fk === "seat" ? SIDE_X[idx] : ac.x, y: CORRIDOR });
+    const entryX = to.key === "seat" ? SIDE_X[idx] : to.pt.x;
+    pts.push({ x: entryX, y: CORRIDOR });
+    if (to.key === "seat") pts.push({ x: SIDE_X[idx], y: to.pt.y });
+    pts.push({ x: to.pt.x, y: to.pt.y });
+    return pts;
+  }
+  function updateActors(dt) {
+    const list = sortedAgents().slice(0, 5);
+    const order = []; reviewQueue().forEach((t) => { if (!order.includes(t.agentId)) order.push(t.agentId); });
+    const ids = new Set();
+    list.forEach((a, idx) => {
+      ids.add(a.id);
+      const st = agentStatus(a.id);
+      const tgt = targetFor(idx, st, Math.max(0, order.indexOf(a.id)));
+      let ac = actors.get(a.id);
+      if (!ac) { ac = { x: tgt.pt.x, y: tgt.pt.y, key: tgt.key, goal: tgt.key, path: [], walking: false, phase: idx * 0.7 }; actors.set(a.id, ac); }
+      if (ac.goal !== tgt.key) {
+        ac.goal = tgt.key;
+        if (REDUCED) { ac.x = tgt.pt.x; ac.y = tgt.pt.y; ac.key = tgt.key; ac.path = []; ac.walking = false; }
+        else { ac.path = planPath(ac, idx, tgt); ac.walking = true; }
+      }
+      ac.status = st; ac.finalPose = tgt.pose; ac.idx = idx;
+      if (ac.walking && ac.path.length) {
+        let step = 2.4 * dt;
+        while (step > 0 && ac.path.length) {
+          const p = ac.path[0], dx = p.x - ac.x, dy = p.y - ac.y, dist = Math.hypot(dx, dy);
+          if (dist <= step) { ac.x = p.x; ac.y = p.y; ac.path.shift(); step -= dist; } else { ac.x += (dx / dist) * step; ac.y += (dy / dist) * step; step = 0; }
+        }
+        if (!ac.path.length) { ac.walking = false; ac.key = ac.goal; }
+      }
+    });
+    for (const id of [...actors.keys()]) if (!ids.has(id)) actors.delete(id);
+  }
+
+  const tagsBox = $("#tags");
+  function syncTags() {
+    const list = sortedAgents().slice(0, 5);
+    const want = list.map((a) => a.id).join("|") + "|" + mode;
+    if (tagsBox.dataset.k !== want) {
+      tagsBox.dataset.k = want;
+      tagsBox.innerHTML = list.map((a) => `<button class="tag" data-agent-open="${esc(a.id)}" data-tag="${esc(a.id)}" style="--c:${lookOf(a.id).color}" aria-label="${esc(a.name)}"><i></i><span>${esc(a.name)}</span></button>`).join("")
+        + `<button class="tag boss" data-boss data-tag="boss" aria-label="Escritorio de Luisa: abrir la primera entrega de la fila">LUISA <span class="n" data-boss-n>0</span></button>`;
+    }
+  }
+  function placeTag(el, gx, gy, lift) { const p = iso(gx, gy); el.style.left = (p.x / W) * 100 + "%"; el.style.top = ((p.y - lift) / H) * 100 + "%"; }
+
+  let lastT = performance.now();
+  function frame(t) {
+    const dt = Math.min(0.1, (t - lastT) / 1000); lastT = t;
+    updateActors(dt);
+    const list = sortedAgents().slice(0, 5);
+    const status = [0, 1, 2, 3, 4].map((i) => (list[i] ? agentStatus(list[i].id) : "free"));
+    status.looks = [0, 1, 2, 3, 4].map((i) => (list[i] ? lookOf(list[i].id) : null));
+    drawRoom(t);
+    const items = furniture(status);
+    list.forEach((a) => {
+      const ac = actors.get(a.id); if (!ac) return;
+      const lk = lookOf(a.id), pose = ac.walking ? "walk" : ac.finalPose;
+      const onCouch = !ac.walking && ac.key === "rest" && REST[ac.idx % REST.length].couch;
+      items.push({ depth: onCouch ? 9 : ac.x + ac.y, fn: (tt) => { const p = iso(ac.x, ac.y); person(p.x, p.y - (onCouch ? 6 : 0), lk, pose, tt, { fast: ac.status === "changes", glow: pose === "type", sleepy: pose === "rest", phase: ac.phase }); } });
+    });
+    const nQ = reviewQueue().length;
+    items.push({ depth: BOSS_SEAT.x + BOSS_SEAT.y, fn: (tt) => { const p = iso(BOSS_SEAT.x, BOSS_SEAT.y); person(p.x, p.y, LUISA, nQ ? "read" : "type", tt, {}); } });
+    items.sort((a, b) => a.depth - b.depth).forEach((it) => it.fn(t));
+    syncTags();
+    list.forEach((a) => {
+      const el = tagsBox.querySelector(`[data-tag="${CSS.escape(a.id)}"]`), ac = actors.get(a.id);
+      if (!el || !ac) return;
+      const onCouch = !ac.walking && ac.key === "rest" && REST[ac.idx % REST.length].couch;
+      placeTag(el, ac.x, ac.y, (ac.finalPose === "type" && !ac.walking ? 22 : 25) + (onCouch ? 10 : 0));
+      el.style.setProperty("--s", STATUS[ac.status]?.color || "var(--free)");
+      el.title = `${a.name}: ${STATUS[ac.status]?.label || ""}`;
+    });
+    const be = tagsBox.querySelector('[data-tag="boss"]');
+    if (be) { placeTag(be, BOSS_SEAT.x, BOSS_SEAT.y, 30); const n = be.querySelector("[data-boss-n]"); if (n.textContent !== String(nQ)) n.textContent = nQ; }
+    requestAnimationFrame(frame);
+  }
+
+  function avatarURL(id) {
+    const c = document.createElement("canvas"); c.width = 18; c.height = 18;
+    const ctx = c.getContext("2d");
+    const lk = id === "luisa" ? LUISA : lookOf(id);
+    const P = (x, y, w, h, col) => { ctx.fillStyle = col; ctx.fillRect(x, y, w, h); };
+    P(0, 0, 18, 18, "#e6dcc1");
+    P(5, 12, 8, 6, lk.shirt); if (lk.tie) P(9, 13, 1, 5, lk.tie);
+    if (lk.style === "curly") { P(4, 2, 11, 5, lk.hair); P(3, 5, 2, 7, lk.hair); P(14, 5, 2, 7, lk.hair); }
+    P(6, 4, 7, 8, lk.skin);
+    if (lk.style === "long") { P(6, 3, 7, 2, lk.hair); P(5, 4, 1, 9, lk.hair); P(13, 4, 1, 9, lk.hair); }
+    else if (lk.style === "bun") { P(6, 3, 7, 2, lk.hair); P(8, 1, 3, 2, lk.hair); }
+    else if (lk.style === "spiky") { P(6, 3, 7, 2, lk.hair); P(6, 2, 1, 1, lk.hair); P(8, 2, 1, 1, lk.hair); P(10, 2, 1, 1, lk.hair); P(12, 1, 1, 1, lk.hair); }
+    else if (lk.style === "curly") { P(6, 3, 7, 1, lk.hair); }
+    else { P(6, 3, 7, 2, lk.hair); P(6, 5, 1, 2, lk.hair); }
+    P(7, 7, 1, 1, "#1b1f2c"); P(11, 7, 1, 1, "#1b1f2c"); P(8, 10, 3, 1, "#a0522d");
+    if (lk.glasses) { P(6, 7, 3, 1, "#1b1f2c"); P(10, 7, 3, 1, "#1b1f2c"); }
+    return c.toDataURL();
+  }
+  const avatarCache = {};
+  const avatar = (id) => (avatarCache[id] ||= avatarURL(id));
+
+  /* ================= File reading (PDF, Word, Excel, text, images) ================= */
+  const libPromises = {};
+  function loadLib(name) {
+    const L = LIBS[name];
+    if (L.ok()) return Promise.resolve();
+    return (libPromises[name] ||= new Promise((res, rej) => {
+      const s = document.createElement("script"); s.src = L.src; s.async = true;
+      s.onload = () => (L.ok() ? res() : rej(new Error("lib")));
+      s.onerror = () => { delete libPromises[name]; rej(new Error("No se pudo cargar el lector de " + name)); };
+      document.head.appendChild(s);
+    }));
+  }
+  const extOf = (n) => (String(n).match(/\.([a-z0-9]+)$/i) || [, ""])[1].toLowerCase();
+  async function extractText(file) {
+    const ext = extOf(file.name), type = file.type || "";
+    if (/^text\//.test(type) || TEXT_EXT.test(file.name)) return { text: await file.text() };
+    if (ext === "pdf" || type === "application/pdf") {
+      await loadLib("pdf");
+      try { pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; } catch {}
+      const doc = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+      let out = "";
+      for (let p = 1; p <= Math.min(doc.numPages, 60); p++) {
+        const tc = await (await doc.getPage(p)).getTextContent();
+        let line = "", lastY = null;
+        for (const it of tc.items) { const y = it.transform ? Math.round(it.transform[5]) : null; if (lastY !== null && y !== lastY) { out += line.trim() + "\n"; line = ""; } line += it.str + " "; lastY = y; }
+        out += line.trim() + "\n\n";
+      }
+      return { text: out.trim() || "(PDF sin texto: puede ser escaneado)" };
+    }
+    if (ext === "docx") { await loadLib("docx"); const r = await mammoth.extractRawText({ arrayBuffer: await file.arrayBuffer() }); return { text: r.value }; }
+    if (["xlsx", "xls", "ods", "csv"].includes(ext)) {
+      await loadLib("xlsx");
+      const wb = XLSX.read(new Uint8Array(await file.arrayBuffer()), { type: "array", cellDates: true });
+      const isBudget = wb.SheetNames.some((n) => /^DET-/i.test(n));
+      const text = wb.SheetNames.slice(0, 12).map((n) => `### Hoja: ${n}\n` + XLSX.utils.sheet_to_csv(wb.Sheets[n], { blankrows: false })).join("\n\n");
+      return { text, workbook: isBudget ? wb : null };
+    }
+    if (ext === "doc") return { text: "", note: "Los .doc antiguos no se pueden leer: guárdalo como .docx o PDF, o pega el texto." };
+    if (/^image\//.test(type)) return { image: true };
+    return { text: "", note: "Tipo de archivo no legible aquí." };
+  }
+
+  /* ================= Budget workbook → compact text ================= */
+  const norm = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().trim();
+  const fmtDate = (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : String(v ?? ""));
+  const money = (v) => (typeof v === "number" ? "$" + v.toFixed(2) : String(v ?? "").trim() || "—");
+  function rowsOf(wb, name) { const ws = wb.Sheets[name]; return ws ? XLSX.utils.sheet_to_json(ws, { header: 1, raw: true, defval: "" }) : null; }
+  function monthDetail(wb, code) {
+    const rows = rowsOf(wb, code); if (!rows) return null;
+    const hi = rows.findIndex((r) => r.some((c) => norm(c) === "CORRESPONSAL") && r.some((c) => norm(c).startsWith("DESCRIP")));
+    if (hi < 0) return null;
+    const H1 = rows[hi].map(norm), H2 = (rows[hi + 1] || []).map(norm);
+    const col = (pred) => H1.findIndex(pred);
+    const cF = col((h) => h === "FECHA"), cA = col((h) => h.startsWith("APROBADO")), cC = col((h) => h === "CORRESPONSAL"), cD = col((h) => h.startsWith("DESCRIP")), cI = col((h) => h.startsWith("INICIATIVA")), cV = col((h) => h === "VALOR");
+    const tipos = H2.map((h, i) => [h, i]).filter(([h]) => h && !["FECHA", "VALOR"].includes(h));
+    let fecha = "", out = [];
+    for (let i = hi + 2; i < rows.length; i++) {
+      const r = rows[i];
+      if (cF >= 0 && r[cF] !== "" && r[cF] != null) fecha = fmtDate(r[cF]);
+      const c = String(r[cC] ?? "").trim(); if (!c) continue;
+      const tipo = tipos.filter(([, k]) => r[k] === true || norm(r[k]) === "TRUE").map(([h]) => h).join("+") || "—";
+      const ini = r[cI] === true || norm(r[cI]) === "TRUE" ? "sí" : "no";
+      out.push([fecha, c, String(r[cD] ?? "").trim(), tipo, ini, money(r[cV]), cA >= 0 ? String(r[cA] ?? "").trim() : ""].join(" | "));
+    }
+    return `### Detalle de notas ${code} (fecha | corresponsal | descripción | tipo | iniciativa | valor | aprobado por)\n` + out.join("\n");
+  }
+  function monthSummary(wb, code) {
+    const rows = rowsOf(wb, "DET-" + code); if (!rows) return null;
+    const hi = rows.findIndex((r) => r.some((c) => norm(c).startsWith("CANT")));
+    if (hi < 0) return null;
+    const out = rows.slice(hi + 1).filter((r) => String(r[1] ?? "").trim()).map((r) => [r[1], r[0], money(r[2]), money(r[3]), money(r[4]), String(r[5] ?? "").trim()].join(" | "));
+    return `### Resumen DET-${code} (corresponsal | notas | pago base | IVA | total | observaciones)\n` + out.join("\n");
+  }
+  function ecuaterraFor(wb, codes) {
+    const rows = rowsOf(wb, "ECUATERRA"); if (!rows) return null;
+    const idx = codes.map((c) => MESES.findIndex(([k]) => k === c)).filter((i) => i >= 0 && i < 12);
+    const out = rows.filter((r) => r[0] instanceof Date && idx.includes(r[0].getMonth())).map((r) => [fmtDate(r[0]), r[1], r[2], money(r[3])].join(" | "));
+    return `### Ecuaterra en el periodo (fecha | corresponsal | descripción | valor)\n` + (out.join("\n") || "(ninguno)");
+  }
+  function avanceText(wb) {
+    const rows = rowsOf(wb, "AVANCE"); if (!rows) return null;
+    return "### AVANCE (presupuesto)\n" + rows.slice(0, 40).filter((r) => r.some((c) => c !== "" && c != null)).map((r) => r.map((c) => (typeof c === "number" ? c.toFixed(2) : String(c ?? "").trim())).filter(Boolean).join(" | ")).join("\n");
+  }
+  function budgetContext(wb, opts) {
+    const parts = [];
+    if (opts.modo === "trimestral") {
+      const codes = TRIMESTRES[opts.trimestre] || [];
+      codes.forEach((c) => { const s = monthSummary(wb, c); if (s) parts.push(s); else parts.push(`### DET-${c}: (no existe todavía en la hoja)`); });
+      parts.push(ecuaterraFor(wb, codes), avanceText(wb));
+    } else {
+      const c = opts.mes;
+      parts.push(monthDetail(wb, c) || `### ${c}: (no encontré la pestaña del mes)`, monthSummary(wb, c) || `### DET-${c}: (no encontré el resumen)`, ecuaterraFor(wb, [c]));
+    }
+    return parts.filter(Boolean).join("\n\n").slice(0, 60000);
+  }
+  function findBase64(res) {
+    const isB64 = (s) => typeof s === "string" && s.length > 500 && /^[A-Za-z0-9+/=\s]+$/.test(s.slice(0, 2000));
+    for (const b of res?.content || []) {
+      if (b?.resource?.blob && isB64(b.resource.blob)) return b.resource.blob;
+      if (isB64(b?.blob)) return b.blob;
+      if (isB64(b?.data)) return b.data;
+    }
+    const seen = new Set();
+    const walk = (o, d) => {
+      if (!o || d > 5 || seen.has(o)) return null;
+      if (isB64(o)) return o;
+      if (typeof o !== "object") return null;
+      seen.add(o);
+      for (const k of Object.keys(o)) { const r = walk(o[k], d + 1); if (r) return r; }
+      return null;
+    };
+    return walk(res?.payload, 0) || walk(res?.structuredContent, 0);
+  }
+  async function fetchBudgetWorkbook() {
+    if (!mcp) throw { code: "no_mcp" };
+    const res = await mcp.callTool("Google Drive", "download_file_content", { fileId: SHEET_ID, exportMimeType: XLSX_MIME }, { cache: false });
+    const b64 = findBase64(res);
+    if (!b64) throw { code: "no_file", message: "El conector de Google Drive no devolvió el archivo." };
+    await loadLib("xlsx");
+    return XLSX.read(b64.replace(/\s/g, ""), { type: "base64", cellDates: true });
+  }
+
+  /* ================= Render ================= */
+  function renderSummary() {
+    const all = taskList();
+    const working = all.filter((t) => (t.status === "trabajando" || t.status === "cambios") && !isStale(t)).length;
+    const review = all.filter((t) => t.status === "revision").length;
+    const approved = all.filter((t) => t.status === "aprobado" && (t.approvedAt || 0) > Date.now() - 7 * 864e5).length;
+    $("#summary").innerHTML = `<span><b>${working}</b> tecleando</span><span><b>${review}</b> en fila</span><span><b>${approved}</b> aprobadas 7 días</span>`;
+  }
+  function renderDesks() {
+    const box = $("#desks"), list = sortedAgents();
+    if (mode === "live" && !agentsLoaded) { box.innerHTML = `<div class="notice px">Cargando el equipo…</div>`; return; }
+    if (!list.length) { box.innerHTML = `<div class="notice px">No hay agentes en la base de datos. Prueba el modo demo.</div>`; return; }
+    box.innerHTML = list.map((a) => {
+      const st = agentStatus(a.id), mine = taskList().filter((t) => t.agentId === a.id);
+      const cur = mine.filter((t) => t.status === "trabajando" || t.status === "cambios").length, rev = mine.filter((t) => t.status === "revision").length;
+      return `<button class="desk px" data-agent-open="${esc(a.id)}" style="--s:${STATUS[st].color}">
+        <header><img class="avatar" src="${avatar(a.id)}" alt=""><div><h3>${esc(a.name)}</h3><span class="st"><i></i>${STATUS[st].label}</span></div></header>
+        <p>${esc(a.role)}</p><p>${cur} en curso · ${rev} en fila${a.schedule ? " · " + esc(a.schedule) : ""}</p>
+        <span class="cta">Encargar trabajo →</span></button>`;
+    }).join("");
+  }
+  function renderStrip() {
+    const box = $("#strip");
+    if (mode === "live" && !tasksLoaded) { box.innerHTML = `<div class="notice px">Cargando entregas…</div>`; return; }
+    const list = reviewQueue();
+    if (!list.length) { box.innerHTML = `<div class="empty-q px">Nadie en la fila. Cuando un agente termine, vendrá al escritorio de Luisa.</div>`; return; }
+    box.innerHTML = list.map((t, i) => {
+      const a = S().agents.get(t.agentId), hold = t.enEspera;
+      return `<article class="rcard px"><span class="num${hold ? " hold" : ""}">#${i + 1}${hold ? " · esperando datos" : " en la fila"}</span>
+        <div class="rhead"><img class="avatar" style="width:26px;height:26px" src="${avatar(t.agentId)}" alt=""><span>${esc(a?.name || "Agente")}</span><span class="ver">V${esc(t.version || 1)}</span></div>
+        <h4>${esc(t.title)}</h4><p class="excerpt">${esc(plain(t.deliverable).slice(0, 260))}</p>
+        <div class="ractions"><button class="btn small open" data-open="${esc(t.id)}">Ver entrega</button>
+          <button class="btn approve small" data-approve="${esc(t.id)}">Aprobar</button>
+          <button class="btn changes small" data-changes="${esc(t.id)}">Pedir cambios</button></div></article>`;
+    }).join("");
+  }
+  function renderBoard() {
+    const box = $("#board");
+    if (mode === "live" && !tasksLoaded) { box.innerHTML = ""; return; }
+    const all = taskList(), byUpd = (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0);
+    const cols = [
+      { title: "Tecleando", pin: "var(--working)", items: all.filter((t) => t.status === "trabajando" || t.status === "error").sort(byUpd) },
+      { title: "Rehaciendo", pin: "var(--changes)", items: all.filter((t) => t.status === "cambios").sort(byUpd) },
+      { title: "En fila", pin: "var(--review)", items: reviewQueue() },
+      { title: "Aprobadas", pin: "var(--ok)", items: all.filter((t) => t.status === "aprobado").sort((a, b) => (b.approvedAt || 0) - (a.approvedAt || 0)).slice(0, 8) },
+    ];
+    box.innerHTML = cols.map((c) => `<div class="col" aria-label="${esc(c.title)}"><header><span>${esc(c.title)}</span><span>${c.items.length}</span></header>${c.items.length ? c.items.map((t) => note(t, c.pin)).join("") : `<div class="empty">Vacío</div>`}</div>`).join("");
+  }
+  function note(t, pin) {
+    const a = S().agents.get(t.agentId), stale = isStale(t), lt = liveText.get(t.id);
+    let extra = "";
+    if (lt) extra = `<div class="live">${esc(lt.slice(-200))}</div>`;
+    else if (running.has(t.id)) extra = `<div class="live">${esc(t.progress || "Pensando…")}</div>`;
+    else if (t.source === "skill" && t.status === "trabajando" && !stale) extra = `<div class="live">Trabajando desde Claude…</div>`;
+    if (t.status === "error") extra += `<div class="err">Se detuvo: ${esc(t.error || "error desconocido")}</div>`;
+    if (stale) extra += `<div class="err">${t.source === "skill" ? "Sin noticias del agente desde hace más de 90 min." : "Se interrumpió (se cerró la página mientras trabajaba)."}</div>`;
+    const retry = t.status === "error" || stale ? `<span class="btn small" role="button" tabindex="0" data-retry="${esc(t.id)}">Reintentar</span>` : "";
+    return `<div class="note" role="button" tabindex="0" style="--pin:${pin}" data-open="${esc(t.id)}">
+      <div class="t-top"><span>${esc(a?.name || "Agente")}</span><time>${esc(ago(t.status === "aprobado" ? t.approvedAt : t.updatedAt))}</time></div>
+      <strong>${esc(t.title)}</strong>${t.enEspera && t.status === "revision" ? `<span style="font-size:12px;color:var(--hold)">Esperando datos del corresponsal</span>` : ""}${extra}${retry}</div>`;
+  }
+
+  /* --- Style library --- */
+  let libDraft = { tipo: "Ecuaterra", titulo: "", texto: "" };
+  function renderLib() {
+    const box = $("#lib");
+    const items = [...S().estilos.values()].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    const counts = TIPOS.map((t) => [t, items.filter((e) => e.tipo === t).length]);
+    box.innerHTML = `
+      <div class="lib-grid">${counts.map(([t, n]) => `<div class="lib-chip"><b>${esc(t)}</b><span>${n ? `${n} ejemplo${n > 1 ? "s" : ""}` : "sin ejemplos"}</span></div>`).join("")}</div>
+      <form class="field" id="lib-form">
+        <span class="lbl">Agregar un texto de ejemplo</span>
+        <div class="opts">
+          <div class="field"><label for="lib-tipo">Tipo</label><select id="lib-tipo">${TIPOS.map((t) => `<option ${t === libDraft.tipo ? "selected" : ""}>${esc(t)}</option>`).join("")}</select></div>
+          <div class="field"><label for="lib-titulo">Título o tema</label><input type="text" id="lib-titulo" value="${esc(libDraft.titulo)}" placeholder="Ej.: Reserva Río Bigal"></div>
+        </div>
+        <label for="lib-texto">Texto (pégalo, o súbelo en Word, PDF o .txt)</label>
+        <textarea id="lib-texto" placeholder="Pega aquí un texto que ya salió al aire y está bien escrito…">${esc(libDraft.texto)}</textarea>
+        <div class="row"><label class="btn ghost small" for="lib-file">Subir archivo</label><input class="sr" type="file" id="lib-file" accept=".txt,.md,.docx,.pdf"><button class="btn primary" type="submit">Guardar en la biblioteca</button></div>
+      </form>
+      ${items.length ? `<div class="lib-list">${items.map((e) => `<div class="lib-item"><span>${esc(e.titulo || plain(e.texto).slice(0, 60))}</span><small>${esc(e.tipo)}</small><button class="btn small danger" data-lib-del="${esc(e.id)}" aria-label="Borrar ejemplo">Borrar</button></div>`).join("")}</div>` : `<p class="hint">Aún no hay ejemplos. Mientras más textos buenos de cada tipo, mejor imita Niño Moi el estilo.</p>`}`;
+  }
+
+  /* --- Sheets (task / agent) --- */
+  function openSheet(kind, id, m = "view") {
+    sheet = { kind, id, mode: m }; renderSheet();
+    const d = $("#sheet"); if (!d.open) { try { d.showModal(); } catch { d.setAttribute("open", ""); } }
+    if (m === "changes") setTimeout(() => $("#fb")?.focus(), 50);
+  }
+  function closeSheet() { sheet = { kind: null, id: null, mode: "view" }; const d = $("#sheet"); if (d.open) d.close(); }
+  function renderSheet() {
+    const box = $("#sheet-inner");
+    if (sheet.kind === "agent") return renderAgentSheet(box);
+    const t = S().tasks.get(sheet.id); if (!t) { box.innerHTML = ""; return; }
+    const a = S().agents.get(t.agentId), [label, col] = TASK_LABEL[t.status] || ["", ""], lt = liveText.get(t.id);
+    const atts = (t.attachments || []).map((f) => (f.url ? `<a class="chip" href="${esc(f.url)}" target="_blank" rel="noopener"><span>${esc(f.name)}</span></a>` : `<span class="chip"><span>${esc(f.name)}</span></span>`)).join("");
+    let body = `<details class="brief"><summary>Encargo original</summary><p>${esc(t.brief)}</p>${atts ? `<div class="files" style="margin-top:8px">${atts}</div>` : ""}</details>`;
+    if (t.enEspera && t.status === "revision") body += `<div class="holdbox"><b>Niño Moi no procesó el texto:</b> faltan datos importantes. Reenvía la solicitud al corresponsal, o pulsa <b>Procesar igual</b> si autorizas trabajar sin esos datos.</div>`;
+    if (t.feedback && (t.status === "cambios" || t.status === "revision")) body += `<div class="lastfb"><b>Cambios que pediste${t.status === "revision" ? " (ya aplicados)" : ""}</b>${esc(t.feedback)}</div>`;
+    if (sheet.mode === "changes") body += `<div class="field"><label for="fb">¿Qué debe cambiar ${esc(a?.name || "el agente")}?</label><textarea id="fb" placeholder="Ej.: ya llegaron los datos: la vía es la E25, hay 3 heridos según el ECU 911…"></textarea></div>`;
+    if (lt != null || running.has(t.id)) body += `<div class="md">${lt ? md(lt) : `<p>${esc(t.progress || "Pensando…")}</p>`}</div>`;
+    else if (t.deliverable) body += `<div class="md">${md(t.deliverable)}</div>`;
+    else if (t.status === "error") body += `<p class="err">Se detuvo: ${esc(t.error || "")}</p>`;
+    else body += `<p>El agente está trabajando en esto.</p>`;
+    let foot = "";
+    if (sheet.mode === "changes") foot = `<button class="btn ghost" data-cancel-changes>Cancelar</button><button class="btn primary" data-send-changes="${esc(t.id)}">Enviar y rehacer</button>`;
+    else if (t.status === "revision") foot = `<button class="btn ghost" data-copy="${esc(t.id)}">Copiar</button>${t.enEspera ? `<button class="btn hold" data-force="${esc(t.id)}">Procesar igual</button>` : ""}<button class="btn changes" data-changes="${esc(t.id)}">Pedir cambios</button><button class="btn approve" data-approve="${esc(t.id)}">Aprobar</button>`;
+    else if (t.status === "error" || isStale(t)) foot = `<button class="btn primary" data-retry="${esc(t.id)}">Reintentar</button>`;
+    else if (t.deliverable) foot = `<button class="btn ghost" data-copy="${esc(t.id)}">Copiar</button>`;
+    box.innerHTML = `<div class="sheet-head"><img class="avatar" src="${avatar(t.agentId)}" alt="">
+      <div><h2 id="sheet-title">${esc(t.title)}</h2><p><span>${esc(a?.name || "Agente")}</span>${t.version ? `<span>· v${esc(t.version)}</span>` : ""}<span class="pill" style="--s:${col}"><i></i>${esc(label)}</span></p></div>
+      <button class="close" data-close aria-label="Cerrar">X</button></div>
+      <div class="sheet-body">${body}</div>${foot ? `<div class="sheet-foot">${foot}</div>` : ""}`;
+  }
+  function optsFor(id) {
+    return (composerOpts[id] ||= { tipo: "auto", autorizado: false, modo: "liquidacion", mes: MESES[Math.max(0, new Date().getMonth() - 1)][0], trimestre: "T" + (Math.floor(((new Date().getMonth() + 9) % 12) / 3) + 1) });
+  }
+  function renderAgentSheet(box) {
+    const a = S().agents.get(sheet.id); if (!a) { box.innerHTML = ""; return; }
+    const st = agentStatus(a.id), k = kindOf(a.id), o = optsFor(a.id);
+    const mine = taskList().filter((t) => t.agentId === a.id).sort((x, y) => (y.updatedAt || 0) - (x.updatedAt || 0)).slice(0, 8);
+    let extra = "", hint = a.hint ? `<p class="hint">${esc(a.hint)}</p>` : "", label = "Encárgale trabajo", required = true;
+    if (k === "ninomoi") {
+      label = "Texto del corresponsal (pégalo o adjúntalo)";
+      extra = `<div class="opts"><div class="field"><label for="opt-tipo">Tipo de texto</label><select id="opt-tipo" data-opt="tipo"><option value="auto" ${o.tipo === "auto" ? "selected" : ""}>Que lo detecte Niño Moi</option>${TIPOS.map((t) => `<option ${o.tipo === t ? "selected" : ""}>${esc(t)}</option>`).join("")}</select></div></div>
+        <label class="check" for="opt-aut"><input type="checkbox" id="opt-aut" data-opt="autorizado" ${o.autorizado ? "checked" : ""}><span><b>Procesar aunque falten datos.</b> Sin esta marca, si faltan datos importantes Niño Moi no corrige el texto: devuelve las notas y la solicitud para el corresponsal.</span></label>`;
+    }
+    if (k === "mamau") {
+      required = false; label = "Indicaciones extra (opcional)";
+      extra = `<div class="opts">
+        <div class="field"><label for="opt-modo">¿Qué necesitas?</label><select id="opt-modo" data-opt="modo">
+          <option value="liquidacion" ${o.modo === "liquidacion" ? "selected" : ""}>Comparar reportes de corresponsales con el presupuesto</option>
+          <option value="trimestral" ${o.modo === "trimestral" ? "selected" : ""}>Informe trimestral para dirección</option>
+          <option value="otro" ${o.modo === "otro" ? "selected" : ""}>Otra consulta sobre el presupuesto</option></select></div>
+        ${o.modo === "trimestral" ? `<div class="field"><label for="opt-tri">Trimestre</label><select id="opt-tri" data-opt="trimestre">${Object.keys(TRIMESTRES).map((q) => `<option value="${q}" ${o.trimestre === q ? "selected" : ""}>${q}: ${TRIMESTRES[q].join(", ")}</option>`).join("")}</select></div>`
+          : `<div class="field"><label for="opt-mes">Mes</label><select id="opt-mes" data-opt="mes">${MESES.map(([c, n]) => `<option value="${c}" ${o.mes === c ? "selected" : ""}>${n}</option>`).join("")}</select></div>`}
+      </div>
+      <p class="hint">${o.modo === "liquidacion" ? "Adjunta los reportes de los corresponsales (PDF, Word, Excel o foto). Mamau lee la hoja de presupuesto con el conector de Google Drive; si no puede, adjunta también la hoja descargada en Excel." : o.modo === "trimestral" ? "Mamau lee los DET de los tres meses, Ecuaterra y AVANCE de la hoja de presupuesto." : "Mamau tendrá a mano la hoja de presupuesto del mes elegido."}</p>`;
+    }
+    const files = (pendingFiles[a.id] || []).map((f, i) => `<span class="chip"><span title="${esc(f.name)}">${esc(f.name)}</span><button type="button" aria-label="Quitar ${esc(f.name)}" data-unfile="${esc(a.id)}" data-idx="${i}">×</button></span>`).join("");
+    box.innerHTML = `<div class="sheet-head"><img class="avatar" src="${avatar(a.id)}" alt="">
+      <div><h2 id="sheet-title">${esc(a.name)}</h2><p><span>${esc(a.role)}</span><span class="pill" style="--s:${STATUS[st].color}"><i></i>${STATUS[st].label}</span></p></div>
+      <button class="close" data-close aria-label="Cerrar">X</button></div>
+      <div class="sheet-body">
+        <dl class="facts"><dt>Horario</dt><dd>${esc(a.schedule || "A pedido")}</dd><dt>Entrega</dt><dd>${esc(a.delivers || "")}</dd></dl>
+        ${hint}
+        <form class="field" id="composer" data-agent="${esc(a.id)}" data-required="${required ? 1 : 0}">
+          ${extra}
+          <label for="brief">${esc(label)}</label>
+          <textarea id="brief" data-brief="${esc(a.id)}" placeholder="${esc(a.placeholder || "Escribe el encargo…")}">${esc(drafts[a.id] || "")}</textarea>
+          <div class="files" id="files">${files}</div>
+          <div class="row"><label class="btn ghost small" for="file-in">Adjuntar archivos</label>
+            <input class="sr" type="file" multiple id="file-in" data-file="${esc(a.id)}">
+            <button class="btn primary" type="submit" id="submit-brief">Encargar</button></div>
+        </form>
+        ${mine.length ? `<div class="tlist"><h3>Sus encargos</h3>${mine.map((t) => `<button data-open="${esc(t.id)}"><span>${esc(t.title)}</span><span class="pill" style="--s:${(TASK_LABEL[t.status] || [])[1]}"><i></i>${esc((TASK_LABEL[t.status] || [""])[0])}</span></button>`).join("")}</div>` : ""}
+      </div>`;
+  }
+  function renderFilesOnly(agentId) {
+    const el = $("#files"); if (!el) return;
+    el.innerHTML = (pendingFiles[agentId] || []).map((f, i) => `<span class="chip"><span title="${esc(f.name)}">${esc(f.name)}</span><button type="button" aria-label="Quitar ${esc(f.name)}" data-unfile="${esc(agentId)}" data-idx="${i}">×</button></span>`).join("");
+  }
+
+  let raf = 0;
+  function renderAll() {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      renderSummary(); renderDesks(); renderStrip(); renderBoard();
+      if (sheet.kind === "task" && sheet.mode === "view") renderSheet();
+    });
+  }
+
+  /* ================= Prompts ================= */
+  function estilosFor(tipo) {
+    const all = [...S().estilos.values()];
+    if (!all.length) return "\n# Biblioteca de estilos\n(Aún no hay ejemplos cargados. Usa las convenciones habituales de un noticiero de TV ecuatoriano y dilo en tus notas.)\n";
+    const pick = [];
+    if (tipo && tipo !== "auto") {
+      all.filter((e) => e.tipo === tipo).slice(0, 3).forEach((e) => pick.push([e, 3500]));
+      TIPOS.filter((t) => t !== tipo).forEach((t) => { const e = all.find((x) => x.tipo === t); if (e) pick.push([e, 700]); });
+    } else TIPOS.forEach((t) => all.filter((e) => e.tipo === t).slice(0, 2).forEach((e) => pick.push([e, 1600])));
+    return "\n# Biblioteca de estilos (textos que ya salieron al aire, bien escritos)\n" + pick.map(([e, n]) => `\n## Ejemplo — ${e.tipo}${e.titulo ? ": " + e.titulo : ""}\n${String(e.texto).slice(0, n)}`).join("\n") + "\n";
+  }
+  function buildPrompt(a, t, extraCtx) {
+    let p = `${RULES}\n\n# Tu rol: ${a?.name || "Agente"}\n${a?.prompt || a?.role || ""}\n`;
+    const k = kindOf(t.agentId), o = t.opts || {};
+    if (k === "ninomoi") {
+      p += estilosFor(o.tipo);
+      p += `\n# Tipo de texto indicado por Luisa: ${o.tipo && o.tipo !== "auto" ? o.tipo : "no indicado: detéctalo tú y explica por qué"}\n`;
+      p += o.autorizado || t.forzado ? `\n# AUTORIZACIÓN: Luisa autorizó procesar el texto aunque falten datos. Corrígelo igual, marca cada hueco como ==⚠️ falta: ...== dentro del texto y mantén la lista de datos que faltan.\n` : `\n# SIN AUTORIZACIÓN para procesar con datos faltantes: si falta un dato IMPORTANTE (qué, quién, dónde, cuándo, cifras clave, fuente oficial), NO entregues texto corregido. Escribe exactamente la línea "ESTADO: EN ESPERA DE DATOS" al inicio de "## Para Luisa" y entrega solo el diagnóstico, las notas al corresponsal y la solicitud de datos.\n`;
+    }
+    if (extraCtx) p += `\n# Datos de la hoja de presupuesto "2026 CORRESPONSALES"\n${extraCtx}\n`;
+    if (k === "mamau") p += o.modo === "trimestral" ? `\n# Encargo: informe trimestral ${o.trimestre} para dirección.\n` : o.modo === "liquidacion" ? `\n# Encargo: comparar los reportes de corresponsales del mes ${o.mes} con la hoja de presupuesto.\n` : "";
+    p += `\n# Encargo de Luisa\n${t.brief}\n`;
+    const atts = t.attachments || [];
+    if (atts.length) {
+      p += `\n# Archivos adjuntos\n`;
+      for (const f of atts) {
+        p += `\n## ${f.name}\n`;
+        if (f.text) p += "```\n" + f.text + "\n```\n";
+        else if (f.image) p += sampleImages ? "(imagen incluida en el mensaje)\n" : "(imagen adjunta: no puedes verla aquí; pide que la transcriban)\n";
+        else p += `(${f.note || "no se pudo leer el contenido"})\n`;
+      }
+    }
+    if (t.status === "cambios" && t.previous) p += `\n# Tu entrega anterior (versión ${t.version || 1})\n${t.previous}\n\n# Cambios o datos nuevos que da Luisa\n${t.feedback || "(sin detalle: mejora la entrega)"}\n\nRehaz la entrega completa aplicando TODO. Al inicio de "## Para Luisa", resume en una línea qué cambiaste.\n`;
+    return p + `\n${FORMAT}`;
+  }
+  async function imagesFor(t) {
+    if (!sampleImages) return [];
+    const out = [];
+    for (const f of (t.attachments || []).filter((f) => f.image)) {
+      const key = t.id + ":" + f.name;
+      if (imageCache.has(key)) { out.push(imageCache.get(key)); continue; }
+      if (!f.url) continue;
+      try { const r = await fetch(f.url); if (r.ok) { const b = await r.blob(); imageCache.set(key, b); out.push(b); } } catch {}
+    }
+    return out.slice(0, 6);
+  }
+
+  /* ================= Live actions ================= */
+  async function patchTask(id, data) {
+    const cur = S().tasks.get(id) || {};
+    S().tasks.set(id, { ...cur, ...data, id }); renderAll();
+    if (mode === "demo") return;
+    try { await db.doc("tasks/" + id).update(data); } catch (e) { handleWriteError(e); throw e; }
+  }
+  function handleWriteError(e) {
+    if (e?.code === "invalid_argument") { writeBlocked = true; toast("No tienes permiso para cambiar esta oficina."); }
+    else if (e?.code === "quota_exceeded") toast("La base de datos está llena. Borra entregas antiguas.");
+    else toast("No se pudo guardar. Revisa tu conexión.");
+  }
+  const budgetWbCache = new Map();
+  async function runTask(id) {
+    const t0 = LIVE.tasks.get(id); if (!t0) return;
+    if (!sample) { toast("Los agentes no pueden trabajar en esta vista: falta el permiso para usar a Claude."); return; }
+    const a = LIVE.agents.get(t0.agentId);
+    running.add(id); liveText.delete(id); renderAll();
+    try {
+      let ctx = "";
+      if (kindOf(t0.agentId) === "mamau") {
+        LIVE.tasks.set(id, { ...LIVE.tasks.get(id), progress: "Leyendo la hoja de presupuesto…" }); renderAll();
+        let wb = budgetWbCache.get(id) || budgetWbCache.get(id + ":upload");
+        if (!wb) {
+          try { wb = await fetchBudgetWorkbook(); }
+          catch (e) {
+            if (!budgetWbCache.has(id + ":upload")) {
+              const why = e?.code === "no_mcp" ? "no hay conector de Google Drive en esta vista" : e?.code === "needs_reauth" ? "hay que reconectar Google Drive en claude.ai → Configuración → Conectores" : e?.code === "server_not_connected" ? "Google Drive no está conectado en claude.ai → Configuración → Conectores" : e?.code === "not_in_manifest" || e?.code === "approval_required" ? "no se dio permiso para usar Google Drive en esta página" : e?.message || "no respondió";
+              throw { message: `No pude leer la hoja de presupuesto (${why}). Adjunta la hoja descargada en Excel (Archivo → Descargar → Excel) y reintenta.` };
+            }
+            wb = budgetWbCache.get(id + ":upload");
+          }
+          budgetWbCache.set(id, wb);
+        }
+        ctx = budgetContext(wb, t0.opts || {});
+      }
+      const t = LIVE.tasks.get(id);
+      LIVE.tasks.set(id, { ...t, progress: "Escribiendo…" }); renderAll();
+      const imgs = await imagesFor(t);
+      const opts = { cache: false, modelTier: kindOf(t.agentId) === "mamau" || kindOf(t.agentId) === "ninomoi" ? "complex" : "default", onText: ({ text }) => { liveText.set(id, text); renderAll(); } };
+      if (imgs.length) opts.images = imgs;
+      const res = await sample(buildPrompt(a, t, ctx), opts);
+      const text = String(res?.text || "").trim();
+      if (!text) throw { message: "El agente devolvió una respuesta vacía." };
+      const v = t.status === "cambios" ? (t.version || 1) + 1 : (t.version || 0) + 1;
+      const enEspera = kindOf(t.agentId) === "ninomoi" && /ESTADO:\s*EN ESPERA DE DATOS/i.test(text);
+      const log = [...(t.log || []), { at: Date.now(), what: `Entregó la versión ${v}` }].slice(-20);
+      running.delete(id); liveText.delete(id);
+      await patchLive(id, { status: "revision", deliverable: text + (res?.truncated ? "\n\n⚠️ La respuesta se cortó por largo." : ""), version: v, previous: null, updatedAt: Date.now(), error: null, enEspera, log });
+    } catch (e) {
+      running.delete(id); liveText.delete(id);
+      const msg = e?.code === "not_granted" ? "no se dio permiso para usar a Claude" : e?.code === "rate_limited" ? "límite de uso alcanzado; intenta en unos minutos" : e?.message || "error desconocido";
+      try { await patchLive(id, { status: "error", error: msg, updatedAt: Date.now() }); } catch {}
+      toast(`El agente se detuvo: ${msg.slice(0, 120)}`);
+    } finally { running.delete(id); liveText.delete(id); const t = LIVE.tasks.get(id); if (t) LIVE.tasks.set(id, { ...t, progress: null }); renderAll(); }
+  }
+  async function patchLive(id, data) {
+    const cur = LIVE.tasks.get(id) || {};
+    LIVE.tasks.set(id, { ...cur, ...data, id }); renderAll();
+    try { await db.doc("tasks/" + id).update(data); } catch (e) { handleWriteError(e); throw e; }
+  }
+
+  async function submitBrief(agentId) {
+    const k = kindOf(agentId), o = { ...optsFor(agentId) };
+    const files = pendingFiles[agentId] || [];
+    let brief = (drafts[agentId] || "").trim();
+    const required = $("#composer")?.dataset.required === "1";
+    if (k === "ninomoi" && !brief && !files.length) { toast("Pega el texto del corresponsal o adjúntalo."); return; }
+    if (required && k !== "ninomoi" && !brief) { toast("Escribe primero qué necesitas."); $("#brief")?.focus(); return; }
+    if (k === "mamau") {
+      const mesN = (MESES.find(([c]) => c === o.mes) || [, o.mes])[1];
+      const base = o.modo === "trimestral" ? `Informe trimestral ${o.trimestre} para dirección` : o.modo === "liquidacion" ? `Comparar reportes de corresponsales: ${mesN}` : `Consulta de presupuesto: ${mesN}`;
+      brief = brief ? `${base}\n${brief}` : base;
+    }
+    if (k === "ninomoi" && !brief) brief = `Revisar texto adjunto (${files.map((f) => f.name).join(", ")})`;
+    if (mode === "demo") { demoCreate(agentId, brief, files.map((f) => ({ name: f.name })), o); drafts[agentId] = ""; pendingFiles[agentId] = []; closeSheet(); return; }
+    if (!db) return toast("La base de datos no está disponible aquí. Prueba el modo demo.");
+    if (writeBlocked) return toast("No tienes permiso para cambiar esta oficina.");
+    const btn = $("#submit-brief"); if (btn) { btn.disabled = true; btn.textContent = files.length ? "Leyendo archivos…" : "Encargando…"; }
+    try {
+      const attachments = [], imgs = []; let uploadWb = null;
+      for (const f of files) {
+        const att = { name: f.name, type: f.type || "", size: f.size };
+        try {
+          const r = await extractText(f);
+          if (r.text) att.text = r.text.slice(0, 40000);
+          if (r.note) att.note = r.note;
+          if (r.image) att.image = true;
+          if (r.workbook) { uploadWb = r.workbook; att.text = "(hoja de presupuesto descargada: Mamau la usa como fuente)"; }
+        } catch (err) { att.note = `No se pudo leer (${err?.message || "error"}). Pega el texto si es posible.`; }
+        if (assets) { try { const r = await assets.upload(f); att.id = r.id; att.url = r.url || "/_blob/" + r.id; } catch { att.uploadError = true; } }
+        if (att.image) imgs.push([f.name, f]);
+        attachments.push(att);
+      }
+      const ref = db.collection("tasks").doc(), now = Date.now(), first = brief.split("\n")[0];
+      const data = { agentId, brief, attachments, opts: o, title: first.length > 80 ? first.slice(0, 77) + "…" : first, status: "trabajando", version: 0, deliverable: "", feedback: "", previous: null, createdAt: now, updatedAt: now, approvedAt: null, error: null, enEspera: false, source: "tablero", log: [{ at: now, what: "Encargo recibido" }] };
+      await ref.set(data);
+      LIVE.tasks.set(ref.id, { ...data, id: ref.id });
+      imgs.forEach(([n, b]) => imageCache.set(ref.id + ":" + n, b));
+      if (uploadWb) budgetWbCache.set(ref.id + ":upload", uploadWb);
+      drafts[agentId] = ""; pendingFiles[agentId] = [];
+      const unread = attachments.filter((x) => x.note && !x.text);
+      toast(unread.length ? `Ojo: no pude leer ${unread.map((x) => x.name).join(", ")}.` : `${LIVE.agents.get(agentId)?.name || "El agente"} vuelve a su escritorio a teclear.`);
+      closeSheet(); renderAll(); runTask(ref.id);
+    } catch (e) { e?.code ? handleWriteError(e) : toast("No se pudo crear el encargo."); }
+    finally { if (btn) { btn.disabled = false; btn.textContent = "Encargar"; } }
+  }
+  async function approve(id) {
+    const t = S().tasks.get(id); if (!t) return;
+    try { await patchTask(id, { status: "aprobado", approvedAt: Date.now(), updatedAt: Date.now(), log: [...(t.log || []), { at: Date.now(), what: `Aprobada la versión ${t.version || 1}` }].slice(-20) }); toast("Aprobada. A descansar."); if (sheet.id === id) closeSheet(); } catch {}
+  }
+  async function sendChanges(id, forced) {
+    const t = S().tasks.get(id); if (!t) return;
+    const fb = forced ? "Luisa autoriza procesar el texto aunque falten datos. Corrígelo igual y marca los huecos." : ($("#fb")?.value || "").trim();
+    if (!fb) { toast("Cuéntale al agente qué debe cambiar."); $("#fb")?.focus(); return; }
+    try {
+      await patchTask(id, { status: "cambios", feedback: fb, previous: t.deliverable || "", forzado: !!(forced || t.forzado), enEspera: false, updatedAt: Date.now(), log: [...(t.log || []), { at: Date.now(), what: forced ? "Luisa autorizó procesar sin datos" : `Pidió cambios a la versión ${t.version || 1}` }].slice(-20) });
+      sheet.mode = "view"; renderSheet(); toast("De vuelta a su escritorio a rehacerlo.");
+      if (mode === "demo") demoFinish(id, 5000 + Math.random() * 3000); else runTask(id);
+    } catch {}
+  }
+  async function retry(id) {
+    const t = S().tasks.get(id); if (!t) return;
+    try { await patchTask(id, { status: t.previous ? "cambios" : "trabajando", error: null, updatedAt: Date.now() }); mode === "demo" ? demoFinish(id, 4000) : runTask(id); } catch {}
+  }
+  async function copyTask(id) { const t = S().tasks.get(id); if (!t) return; try { await navigator.clipboard.writeText(String(t.deliverable || "").replace(/==([^=\n]+)==/g, "$1")); toast("Copiado."); } catch { toast("No se pudo copiar desde esta vista."); } }
+
+  async function saveEstilo() {
+    const tipo = $("#lib-tipo").value, titulo = $("#lib-titulo").value.trim(), texto = $("#lib-texto").value.trim();
+    if (texto.length < 80) { toast("Pega un texto completo (al menos un párrafo)."); return; }
+    const data = { tipo, titulo, texto: texto.slice(0, 20000), createdAt: Date.now() };
+    if (mode === "demo") { const id = "e" + ++DEMO.seq; DEMO.estilos.set(id, { ...data, id }); }
+    else {
+      if (!db) return toast("La base de datos no está disponible aquí.");
+      try { const ref = await db.collection("estilos").add(data); LIVE.estilos.set(ref.id, { ...data, id: ref.id }); } catch (e) { return handleWriteError(e); }
+    }
+    libDraft = { tipo, titulo: "", texto: "" }; renderLib(); toast(`Guardado como ejemplo de ${tipo}.`);
+  }
+  async function delEstilo(id) {
+    if (mode === "demo") { DEMO.estilos.delete(id); return renderLib(); }
+    try { await db.doc("estilos/" + id).delete(); LIVE.estilos.delete(id); renderLib(); } catch (e) { handleWriteError(e); }
+  }
+
+  /* ================= Demo ================= */
+  const DEMO_AGENTS = [
+    { id: "aldowise", order: 1, name: "Aldowise", role: "Noticias de provincias", schedule: "Todos los días 5:45", delivers: "Resumen verificado de noticias por provincia" },
+    { id: "macarena", order: 2, name: "Macarena", role: "Temas de color", schedule: "A pedido", delivers: "Fiestas, tradiciones, lugares y curiosidades" },
+    { id: "zendaya", order: 3, name: "Zendaya", role: "Ecuaterra", schedule: "A pedido", delivers: "Temas visuales de naturaleza para Ecuaterra" },
+    { id: "ninomoi", order: 4, name: "Niño Moi", role: "Revisor de textos", schedule: "A pedido", delivers: "Texto corregido, notas al corresponsal y datos que faltan" },
+    { id: "mamau", order: 5, name: "Mamau", role: "Presupuesto y liquidaciones", schedule: "A pedido · informe trimestral", delivers: "Observaciones de liquidación e informes" },
+  ];
+  const DEMO_BRIEFS = {
+    aldowise: ["Resumen de noticias de provincias de hoy"], macarena: ["Ideas de temas de color para la semana", "Fiestas tradicionales de diciembre en la Sierra"],
+    zendaya: ["Propuestas para Ecuaterra de este mes", "Ecuaterra: cascadas poco conocidas"], ninomoi: ["Revisar texto del corresponsal de Los Ríos"], mamau: ["Comparar reportes de corresponsales: Octubre"],
+  };
+  const DEMO_BODY = {
+    aldowise: "## Provincias — resumen de la mañana\n| Provincia | Hecho | Fuente | Verificación |\n|---|---|---|---|\n| Manabí | Cierre parcial de vía por deslizamiento | Diario local + cuenta oficial | ✅ 2 fuentes |\n| El Oro | Paro bananero anunciado | Gremio en X | 🔎 verificar |\n\n## Para cobertura hoy\n1. Manabí: pedir imágenes al corresponsal.",
+    macarena: "## Temas de color\n| Tema | Provincia | Por qué es bueno para TV |\n|---|---|---|\n| La Mama Negra | Cotopaxi | Color, música, personajes |\n| Pan de finados artesanal | Imbabura | Proceso visual y familiar |\n\n🔎 verificar fechas con el GAD local.",
+    zendaya: "## Ecuaterra\n| Lugar | Provincia | Qué se ve | Mejor época |\n|---|---|---|---|\n| Cascada de San Rafael (mirador) | Napo/Sucumbíos | Caída de agua, selva | 🔎 verificar acceso |\n| Lagunas del Ozogoche | Chimborazo | Lagunas de altura, aves | Seca |",
+    ninomoi: "ESTADO: EN ESPERA DE DATOS\n\n## Para Luisa\n1. Tipo detectado: **Leída**.\n2. Falta el lugar exacto y la fuente oficial: ==no se procesa hasta tenerlos==.\n\n## Notas para el corresponsal\n- El primer párrafo debe responder qué, dónde y cuándo.\n- Evita adjetivos (\"terrible\", \"lamentable\").\n\n## Solicitud de datos\n1. ¿En qué vía y kilómetro exacto?\n2. ¿Quién confirma la cifra de heridos (ECU 911, Policía)?",
+    mamau: "## Para Luisa\n1. 2 corresponsales con diferencias: ==Los Ríos== y ==El Oro==.\n\n## Observaciones — Octubre\n| Corresponsal | Resultado | Detalle |\n|---|---|---|\n| Manabí | ✅ Coincidencia perfecta | 12 notas, $1.315,00 |\n| Los Ríos | ⚠️ Una nota de más en su reporte | ==Revisar: \"Inundaciones en Babahoyo\"== |\n| El Oro | ⚠️ Le falta una nota | ==Revisar el presupuesto: \"Paro bananero\"== |",
+  };
+  function demoDeliverable(agentId, v, fb) {
+    const head = `*Ejemplo del modo demo: contenido ficticio.*\n\n`;
+    let body = DEMO_BODY[agentId] || "## Entrega\nContenido de ejemplo.";
+    if (fb && agentId === "ninomoi") body = "## Para Luisa\n1. Apliqué los datos nuevos. Tipo: **Leída**.\n\n## Texto revisado\nUn deslizamiento cerró esta mañana la vía E25, a la altura del kilómetro 12, en Los Ríos. Según el ECU 911, hay 3 heridos…\n\n## Notas para el corresponsal\n- Bien: ya incluiste fuente y lugar.";
+    if (!body.startsWith("ESTADO") && !body.startsWith("## Para Luisa")) body = `## Para Luisa\n1. Revisar y aprobar.${fb ? `\n2. Cambié: "${fb}".` : ""}\n\n` + body;
+    return head + body + (v > 1 ? `\n\n_Versión ${v}._` : "");
+  }
+  function demoTimer(fn, ms) { const h = setTimeout(() => { DEMO.timers.delete(h); if (mode === "demo") fn(); }, ms); DEMO.timers.add(h); }
+  function demoCreate(agentId, brief, attachments = [], opts = {}) {
+    const id = "demo-" + ++DEMO.seq, now = Date.now();
+    DEMO.tasks.set(id, { id, agentId, brief, opts, title: brief.split("\n")[0].slice(0, 80), attachments, status: "trabajando", version: 0, deliverable: "", createdAt: now, updatedAt: now, log: [] });
+    renderAll(); demoFinish(id, 5500 + Math.random() * 5000); return id;
+  }
+  function demoFinish(id, ms) {
+    demoTimer(() => {
+      const t = DEMO.tasks.get(id); if (!t || (t.status !== "trabajando" && t.status !== "cambios")) return;
+      const v = t.status === "cambios" ? (t.version || 1) + 1 : 1;
+      const d = demoDeliverable(t.agentId, v, t.status === "cambios" ? t.feedback : "");
+      DEMO.tasks.set(id, { ...t, status: "revision", version: v, deliverable: d, enEspera: /ESTADO:\s*EN ESPERA/.test(d), previous: null, updatedAt: Date.now() }); renderAll();
+    }, ms);
+  }
+  function demoAutoplay() {
+    demoTimer(() => {
+      const free = DEMO_AGENTS.filter((a) => agentStatus(a.id) === "free");
+      if (free.length && Math.random() < 0.7) { const a = free[Math.floor(Math.random() * free.length)], o = DEMO_BRIEFS[a.id]; demoCreate(a.id, o[Math.floor(Math.random() * o.length)]); }
+      demoAutoplay();
+    }, 6000 + Math.random() * 4000);
+  }
+  function startDemo() {
+    mode = "demo";
+    DEMO.agents.clear(); DEMO.tasks.clear(); DEMO.estilos.clear(); DEMO.timers.forEach(clearTimeout); DEMO.timers.clear(); DEMO.seq = 0;
+    DEMO_AGENTS.forEach((a) => DEMO.agents.set(a.id, a));
+    DEMO.estilos.set("e1", { id: "e1", tipo: "Ecuaterra", titulo: "Reserva Río Bigal (ejemplo)", texto: "Texto de ejemplo del modo demo.", createdAt: Date.now() });
+    actors.clear();
+    const now = Date.now();
+    const seed = (agentId, title, status, v, agoMs) => { const id = "demo-" + ++DEMO.seq; const d = status === "revision" || status === "aprobado" ? demoDeliverable(agentId, v) : ""; DEMO.tasks.set(id, { id, agentId, title, brief: title, status, version: v, deliverable: d, enEspera: /ESTADO:\s*EN ESPERA/.test(d), createdAt: now - agoMs, updatedAt: now - agoMs, approvedAt: status === "aprobado" ? now - agoMs : null, log: [] }); return id; };
+    seed("aldowise", "Resumen de noticias de provincias de hoy", "revision", 1, 180000);
+    seed("ninomoi", "Revisar texto del corresponsal de Los Ríos", "revision", 1, 60000);
+    seed("macarena", "Ideas de temas de color para la semana", "aprobado", 1, 3600000);
+    demoFinish(seed("mamau", "Comparar reportes de corresponsales: Octubre", "trabajando", 0, 2000), 9000);
+    demoAutoplay();
+    $("#demo-btn").textContent = "Salir del demo"; $("#demo-btn").classList.add("demo-on"); $("#demo-btn").setAttribute("aria-pressed", "true");
+    $("#scene-badge").hidden = false;
+    if (location.hash !== "#demo") history.replaceState(null, "", "#demo");
+    renderBanner(); closeSheet(); renderLib(); renderAll();
+  }
+  function stopDemo() {
+    mode = "live"; DEMO.timers.forEach(clearTimeout); DEMO.timers.clear(); actors.clear();
+    $("#demo-btn").textContent = "Modo demo"; $("#demo-btn").classList.remove("demo-on"); $("#demo-btn").setAttribute("aria-pressed", "false");
+    $("#scene-badge").hidden = true;
+    if (location.hash === "#demo") history.replaceState(null, "", location.pathname + location.search);
+    renderBanner(); closeSheet(); renderLib(); renderAll();
+  }
+
+  let liveNotes = [];
+  function renderBanner() {
+    $("#banner").innerHTML = (mode === "demo"
+      ? [`<div class="notice px demo">Modo demo: datos de ejemplo que se mueven solos. Encarga, aprueba o pide cambios para ver al equipo. Nada se guarda ni usa a Claude.</div>`]
+      : liveNotes.map((n) => `<div class="notice px">${esc(n)}</div>`)).join("");
+  }
+
+  /* ================= Events ================= */
+  document.addEventListener("input", (e) => {
+    const id = e.target?.dataset?.brief; if (id != null) drafts[id] = e.target.value;
+    if (e.target.id === "lib-titulo") libDraft.titulo = e.target.value;
+    if (e.target.id === "lib-texto") libDraft.texto = e.target.value;
+  });
+  document.addEventListener("change", async (e) => {
+    const t = e.target;
+    if (t?.dataset?.opt && sheet.kind === "agent") {
+      const o = optsFor(sheet.id); o[t.dataset.opt] = t.type === "checkbox" ? t.checked : t.value;
+      if (t.dataset.opt === "modo") renderSheet();
+      return;
+    }
+    if (t.id === "lib-tipo") { libDraft.tipo = t.value; return; }
+    if (t.id === "lib-file" && t.files?.[0]) {
+      try { const r = await extractText(t.files[0]); if (r.text) { libDraft.texto = r.text.slice(0, 20000); libDraft.titulo ||= t.files[0].name.replace(/\.[^.]+$/, ""); renderLib(); } else toast(r.note || "No pude leer ese archivo."); }
+      catch { toast("No pude leer ese archivo. Pega el texto."); }
+      t.value = ""; return;
+    }
+    const id = t?.dataset?.file; if (id == null) return;
+    const cur = pendingFiles[id] || [], add = [...(t.files || [])], ok = add.filter((f) => f.size <= 20 * 1024 * 1024);
+    if (ok.length < add.length) toast("Los archivos de más de 20 MB no se pueden adjuntar.");
+    pendingFiles[id] = [...cur, ...ok].slice(0, MAX_FILES);
+    if (cur.length + ok.length > MAX_FILES) toast(`Máximo ${MAX_FILES} archivos por encargo.`);
+    t.value = ""; renderFilesOnly(id);
+  });
+  document.addEventListener("submit", (e) => {
+    if (e.target.id === "lib-form") { e.preventDefault(); return saveEstilo(); }
+    const f = e.target.closest("#composer"); if (!f) return; e.preventDefault(); submitBrief(f.dataset.agent);
+  });
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "Enter" && e.target?.dataset?.brief) { e.preventDefault(); submitBrief(e.target.dataset.brief); }
+    if ((e.key === "Enter" || e.key === " ") && e.target?.matches?.('[role="button"]')) { e.preventDefault(); e.target.click(); }
+  });
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-unfile],[data-open],[data-approve],[data-changes],[data-send-changes],[data-cancel-changes],[data-retry],[data-copy],[data-close],[data-agent-open],[data-boss],[data-force],[data-lib-del]");
+    if (!el) return;
+    const d = el.dataset;
+    if (d.unfile != null) { (pendingFiles[d.unfile] || []).splice(Number(d.idx), 1); return renderFilesOnly(d.unfile); }
+    if (d.retry) { e.stopPropagation(); return retry(d.retry); }
+    if (d.libDel) return delEstilo(d.libDel);
+    if (d.approve) return approve(d.approve);
+    if (d.force) return sendChanges(d.force, true);
+    if (d.changes) return openSheet("task", d.changes, "changes");
+    if (d.sendChanges) return sendChanges(d.sendChanges, false);
+    if (d.cancelChanges != null) { sheet.mode = "view"; return renderSheet(); }
+    if (d.copy) return copyTask(d.copy);
+    if (d.close != null) return closeSheet();
+    if (d.open) return openSheet("task", d.open, "view");
+    if (d.agentOpen) return openSheet("agent", d.agentOpen);
+    if (d.boss != null) { const q = reviewQueue(); if (q.length) openSheet("task", q[0].id); else toast("Nadie en la fila por ahora."); }
+  });
+  $("#sheet").addEventListener("close", () => { sheet = { kind: null, id: null, mode: "view" }; });
+  $("#sheet").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeSheet(); });
+  $("#demo-btn").addEventListener("click", () => (mode === "demo" ? stopDemo() : startDemo()));
+  window.addEventListener("hashchange", () => { if (location.hash === "#demo" && mode !== "demo") startDemo(); else if (location.hash !== "#demo" && mode === "demo") stopDemo(); });
+  setInterval(renderAll, 60000);
+
+  /* ================= Boot ================= */
+  renderAll(); renderLib(); requestAnimationFrame(frame);
+  if (location.hash === "#demo") startDemo();
+  (async () => {
+    const use = (n) => (window.claude?.use ? window.claude.use(n).catch(() => null) : Promise.resolve(null));
+    [db, assets, sample, mcp] = await Promise.all([use("db"), use("assets"), use("sample"), use("mcp")]);
+    if (sample?.limits) { try { sampleImages = !!(await sample.limits())?.images; } catch {} }
+    if (!db) { liveNotes.push("La base de datos no está disponible en esta vista. Abre la oficina desde claude.ai con la sesión iniciada, o prueba el modo demo."); agentsLoaded = tasksLoaded = true; }
+    if (!sample) liveNotes.push("Los agentes no pueden trabajar en esta vista (falta el permiso para usar a Claude). Se puede revisar y aprobar.");
+    renderBanner(); renderAll();
+    if (!db) return;
+    const timer = setTimeout(() => { if (!agentsLoaded || !tasksLoaded) { liveNotes.push("No se puede llegar a la base de datos todavía. Lo que ves puede estar desactualizado."); renderBanner(); } }, 10000);
+    db.collection("agents").onSnapshot((snap) => {
+      LIVE.agents.clear(); snap.docs.forEach((d) => LIVE.agents.set(d.id, { ...d.data(), id: d.id }));
+      if (!snap.metadata.fromCache || snap.size) agentsLoaded = true;
+      if (agentsLoaded && tasksLoaded) clearTimeout(timer);
+      renderAll();
+    }, () => { agentsLoaded = true; renderAll(); });
+    db.collection("tasks").orderBy("updatedAt", "desc").limit(300).onSnapshot((snap) => {
+      const seen = new Set();
+      snap.docs.forEach((d) => { seen.add(d.id); const prev = LIVE.tasks.get(d.id); LIVE.tasks.set(d.id, { ...d.data(), id: d.id, progress: prev?.progress || null }); });
+      for (const id of [...LIVE.tasks.keys()]) if (!seen.has(id) && !running.has(id)) LIVE.tasks.delete(id);
+      if (!snap.metadata.fromCache || snap.size) tasksLoaded = true;
+      if (agentsLoaded && tasksLoaded) clearTimeout(timer);
+      renderAll();
+    }, () => { tasksLoaded = true; renderAll(); });
+    db.collection("estilos").onSnapshot((snap) => {
+      LIVE.estilos.clear(); snap.docs.forEach((d) => LIVE.estilos.set(d.id, { ...d.data(), id: d.id }));
+      if (mode === "live") renderLib();
+    }, () => {});
+  })();
+})();
+</script>
+</body>
+</html>
