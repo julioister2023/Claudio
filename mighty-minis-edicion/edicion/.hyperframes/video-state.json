@@ -193,7 +193,6 @@
         {
           "id": "c05351fd-9cb4-4b73-949a-d5fe6c25c40b",
           "scope": "project",
-          "report": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/checks/c05351fd-9cb4-4b73-949a-d5fe6c25c40b.json",
           "metadata": {
             "ok": true,
             "browserSkipped": false,
@@ -223,14 +222,15 @@
           "revision": "f10d4b82-c74e-4883-a5dd-cfebb7ae339b",
           "inputFingerprint": "64d4f2bfe47a18a2218c0a23ef30e173a6d5d963dc7f6b8dfcd5fcbc97714ba9",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         }
       ],
       "3a000ebd-a29c-4356-a2d9-cb8a4843c138": [
         {
           "id": "c2423051-8f17-4bc1-8dbc-36040fb01010",
           "scope": "project",
-          "report": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/checks/c2423051-8f17-4bc1-8dbc-36040fb01010.json",
           "metadata": {
             "ok": true,
             "browserSkipped": false,
@@ -260,7 +260,9 @@
           "revision": "3a000ebd-a29c-4356-a2d9-cb8a4843c138",
           "inputFingerprint": "ba7cf0df5d03c98ca7b2d9f20c103791748242fdce0bb9c7bb6bd2a4aef0600c",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         }
       ],
       "fcd3006b-f651-4512-9644-d99caccc3c98": [
@@ -340,16 +342,12 @@
     ]
   },
   "snapshots": {
-    "latest": {
-      "revision": "f10d4b82-c74e-4883-a5dd-cfebb7ae339b",
-      "id": "ae4734be-79dd-4e9a-b25b-5c9019cf6cf8-3"
-    },
+    "latest": null,
     "revisions": {
       "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52": [
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-0",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-00-at-1.25s.png",
           "time": 1.25,
           "metadata": {
             "width": 1080,
@@ -364,12 +362,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-1",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-01-at-5.25s.png",
           "time": 5.25,
           "metadata": {
             "width": 1080,
@@ -384,12 +383,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-2",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-02-at-9s.png",
           "time": 9,
           "metadata": {
             "width": 1080,
@@ -404,12 +404,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-3",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-03-at-13s.png",
           "time": 13,
           "metadata": {
             "width": 1080,
@@ -424,12 +425,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-4",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-04-at-15s.png",
           "time": 15,
           "metadata": {
             "width": 1080,
@@ -444,12 +446,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-5",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-05-at-21.5s.png",
           "time": 21.5,
           "metadata": {
             "width": 1080,
@@ -464,12 +467,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-6",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-06-at-30.25s.png",
           "time": 30.25,
           "metadata": {
             "width": 1080,
@@ -484,12 +488,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-7",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-07-at-31.5s.png",
           "time": 31.5,
           "metadata": {
             "width": 1080,
@@ -504,12 +509,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-8",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-08-at-32.6s.png",
           "time": 32.6,
           "metadata": {
             "width": 1080,
@@ -524,12 +530,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-9",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-09-at-33s.png",
           "time": 33,
           "metadata": {
             "width": 1080,
@@ -544,12 +551,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-10",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-10-at-34s.png",
           "time": 34,
           "metadata": {
             "width": 1080,
@@ -564,12 +572,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-11",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-11-at-36s.png",
           "time": 36,
           "metadata": {
             "width": 1080,
@@ -584,12 +593,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-12",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-12-at-38.5s.png",
           "time": 38.5,
           "metadata": {
             "width": 1080,
@@ -604,12 +614,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-13",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-13-at-39s.png",
           "time": 39,
           "metadata": {
             "width": 1080,
@@ -624,12 +635,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-14",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-14-at-40.5s.png",
           "time": 40.5,
           "metadata": {
             "width": 1080,
@@ -644,12 +656,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-15",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-15-at-43s.png",
           "time": 43,
           "metadata": {
             "width": 1080,
@@ -664,12 +677,13 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "11859c38-cdef-44d2-b967-30d014c2b98f-16",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a34a5be1-27c0-4f8f-b6e4-3500e4206d84/frame-16-at-43.75s.png",
           "time": 43.75,
           "metadata": {
             "width": 1080,
@@ -684,14 +698,15 @@
           "revision": "cfaa9a91-fbe9-4d03-9517-8b84d2c14a52",
           "inputFingerprint": "c64f364a817748904abe292c51685e70decc93f5884b8d68a5bf27bc2da1f357",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         }
       ],
       "f10d4b82-c74e-4883-a5dd-cfebb7ae339b": [
         {
           "scope": "full",
           "id": "ae4734be-79dd-4e9a-b25b-5c9019cf6cf8-0",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a39546b9-8d66-4f28-9f63-29614d95bd4a/frame-00-at-32.45s.png",
           "time": 32.45,
           "metadata": {
             "width": 1080,
@@ -706,12 +721,13 @@
           "revision": "f10d4b82-c74e-4883-a5dd-cfebb7ae339b",
           "inputFingerprint": "64d4f2bfe47a18a2218c0a23ef30e173a6d5d963dc7f6b8dfcd5fcbc97714ba9",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "ae4734be-79dd-4e9a-b25b-5c9019cf6cf8-1",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a39546b9-8d66-4f28-9f63-29614d95bd4a/frame-01-at-32.8s.png",
           "time": 32.8,
           "metadata": {
             "width": 1080,
@@ -726,12 +742,13 @@
           "revision": "f10d4b82-c74e-4883-a5dd-cfebb7ae339b",
           "inputFingerprint": "64d4f2bfe47a18a2218c0a23ef30e173a6d5d963dc7f6b8dfcd5fcbc97714ba9",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "ae4734be-79dd-4e9a-b25b-5c9019cf6cf8-2",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a39546b9-8d66-4f28-9f63-29614d95bd4a/frame-02-at-33.25s.png",
           "time": 33.25,
           "metadata": {
             "width": 1080,
@@ -746,12 +763,13 @@
           "revision": "f10d4b82-c74e-4883-a5dd-cfebb7ae339b",
           "inputFingerprint": "64d4f2bfe47a18a2218c0a23ef30e173a6d5d963dc7f6b8dfcd5fcbc97714ba9",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         },
         {
           "scope": "full",
           "id": "ae4734be-79dd-4e9a-b25b-5c9019cf6cf8-3",
-          "image": "/home/user/Claudio/mighty-minis-edicion/edicion/.hyperframes/artifacts/snapshots/a39546b9-8d66-4f28-9f63-29614d95bd4a/frame-03-at-43.75s.png",
           "time": 43.75,
           "metadata": {
             "width": 1080,
@@ -766,7 +784,9 @@
           "revision": "f10d4b82-c74e-4883-a5dd-cfebb7ae339b",
           "inputFingerprint": "64d4f2bfe47a18a2218c0a23ef30e173a6d5d963dc7f6b8dfcd5fcbc97714ba9",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3"
         }
       ]
     },
@@ -774,13 +794,15 @@
   },
   "renders": {
     "latest": {
-      "id": "ebb3eb16-6a20-45d6-af50-60542e40d9fa",
-      "completedAt": 1795014203132,
-      "output": "/home/user/Claudio/mighty-minis-edicion/entregables/mighty_minis_subtitulado.mp4",
+      "id": "4f4caf7c-eccd-4b95-b8d9-c35c4cd106e3",
+      "completedAt": 1795014353348,
+      "output": "/home/user/Claudio/mighty-minis-edicion/entregables/mighty_minis_master.mp4",
       "status": "completed",
-      "revision": null
+      "revision": "fcd3006b-f651-4512-9644-d99caccc3c98"
     },
-    "retainedRevisions": []
+    "retainedRevisions": [
+      "fcd3006b-f651-4512-9644-d99caccc3c98"
+    ]
   },
   "pendingArtifactCleanup": []
 }
