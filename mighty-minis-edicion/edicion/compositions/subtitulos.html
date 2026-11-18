@@ -1,0 +1,63 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    /* Franja superior: centrados en y≈265 (entre 200 y 330), sin caja */
+    .sub { position: absolute; left: 90px; top: 200px; width: 900px; height: 130px;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      font-family: "Poppins CAG", sans-serif; font-weight: 500; font-size: 42px; line-height: 1.25; color: #1d1d1f; }
+    .sub.blanco { color: #ffffff; }
+    /* ¡Wiii! baja a y≈458: arriba está la estrella grande de la toma 7 */
+    #s08c { top: 393px; }
+  </style>
+  <div id="root" data-composition-id="subtitulos" data-width="1080" data-height="1920">
+    <div id="s01" class="clip sub" data-start="0.20" data-duration="3.55" data-track-index="0"><span id="s01-t" data-layout-allow-safe-zone>Les presentamos al estudiante<br>más nuevo del CAG.</span></div>
+    <div id="s02" class="clip sub" data-start="4.20" data-duration="3.20" data-track-index="0"><span id="s02-t" data-layout-allow-safe-zone>Y su mochila nueva.<br>Bien cargadita.</span></div>
+    <div id="s04" class="clip sub" data-start="9.80" data-duration="2.00" data-track-index="0"><span id="s04-t" data-layout-allow-safe-zone>¿Dos idiomas? Obvio.</span></div>
+    <div id="s05a" class="clip sub" data-start="12.20" data-duration="1.30" data-track-index="0"><span id="s05a-t" data-layout-allow-safe-zone>Un poquito de deporte…</span></div>
+    <div id="s05b" class="clip sub" data-start="13.65" data-duration="2.95" data-track-index="0"><span id="s05b-t" data-layout-allow-safe-zone>…y se pone fuerte.<br>Pero fuerte, fuerte.</span></div>
+    <div id="s06a" class="clip sub" data-start="17.30" data-duration="1.25" data-track-index="0"><span id="s06a-t" data-layout-allow-safe-zone>Un poquito de robótica…</span></div>
+    <div id="s06b" class="clip sub" data-start="18.70" data-duration="2.40" data-track-index="0"><span id="s06b-t" data-layout-allow-safe-zone>…y se arma un carro<br>que se maneja solo.</span></div>
+    <div id="s06c" class="clip sub" data-start="21.50" data-duration="1.35" data-track-index="0"><span id="s06c-t" data-layout-allow-safe-zone>Y se parquea solo.</span></div>
+    <div id="s07a" class="clip sub" data-start="23.30" data-duration="2.55" data-track-index="0"><span id="s07a-t" data-layout-allow-safe-zone>IB, Cambridge,<br>Programa Dual…</span></div>
+    <div id="s07b" class="clip sub" data-start="25.90" data-duration="1.90" data-track-index="0"><span id="s07b-t" data-layout-allow-safe-zone>…va a necesitar<br>unas manitos extra.</span></div>
+    <div id="s08a" class="clip sub" data-start="28.30" data-duration="0.95" data-track-index="0"><span id="s08a-t" data-layout-allow-safe-zone>Y cuando menos piensas…</span></div>
+    <div id="s08b" class="clip sub" data-start="29.28" data-duration="1.70" data-track-index="0"><span id="s08b-t" data-layout-allow-safe-zone>…ya está alcanzando<br>las estrellas.</span></div>
+    <div id="s08c" class="clip sub blanco" data-start="32.40" data-duration="0.90" data-track-index="0"><span id="s08c-t" data-layout-allow-safe-zone>¡Wiii!</span></div>
+    <div id="s09a" class="clip sub" data-start="34.40" data-duration="1.40" data-track-index="0"><span id="s09a-t" data-layout-allow-safe-zone>Eso sí…</span></div>
+    <div id="s09b" class="clip sub" data-start="37.30" data-duration="2.30" data-track-index="0"><span id="s09b-t" data-layout-allow-safe-zone>shhh…<br>sigue siendo chiquito.</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s01-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 0.20);
+    tl.to("#s01-t", { opacity: 0, duration: 0.1, ease: "none" }, 3.65);
+    tl.fromTo("#s02-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 4.20);
+    tl.to("#s02-t", { opacity: 0, duration: 0.1, ease: "none" }, 7.30);
+    tl.fromTo("#s04-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 9.80);
+    tl.to("#s04-t", { opacity: 0, duration: 0.1, ease: "none" }, 11.70);
+    tl.fromTo("#s05a-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 12.20);
+    tl.to("#s05a-t", { opacity: 0, duration: 0.1, ease: "none" }, 13.40);
+    tl.fromTo("#s05b-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 13.65);
+    tl.to("#s05b-t", { opacity: 0, duration: 0.1, ease: "none" }, 16.50);
+    tl.fromTo("#s06a-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 17.30);
+    tl.to("#s06a-t", { opacity: 0, duration: 0.1, ease: "none" }, 18.45);
+    tl.fromTo("#s06b-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 18.70);
+    tl.to("#s06b-t", { opacity: 0, duration: 0.1, ease: "none" }, 21.00);
+    tl.fromTo("#s06c-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 21.50);
+    tl.to("#s06c-t", { opacity: 0, duration: 0.1, ease: "none" }, 22.75);
+    tl.fromTo("#s07a-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 23.30);
+    tl.to("#s07a-t", { opacity: 0, duration: 0.1, ease: "none" }, 25.75);
+    tl.fromTo("#s07b-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 25.90);
+    tl.to("#s07b-t", { opacity: 0, duration: 0.1, ease: "none" }, 27.70);
+    tl.fromTo("#s08a-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 28.30);
+    tl.to("#s08a-t", { opacity: 0, duration: 0.1, ease: "none" }, 29.15);
+    tl.fromTo("#s08b-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 29.28);
+    tl.to("#s08b-t", { opacity: 0, duration: 0.1, ease: "none" }, 30.88);
+    tl.fromTo("#s08c-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 32.40);
+    tl.to("#s08c-t", { opacity: 0, duration: 0.1, ease: "none" }, 33.20);
+    tl.fromTo("#s09a-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 34.40);
+    tl.to("#s09a-t", { opacity: 0, duration: 0.1, ease: "none" }, 35.70);
+    tl.fromTo("#s09b-t", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 37.30);
+    tl.to("#s09b-t", { opacity: 0, duration: 0.1, ease: "none" }, 39.50);
+    window.__timelines["subtitulos"] = tl;
+  </script>
+</template>
