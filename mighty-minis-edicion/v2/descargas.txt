@@ -12,3 +12,4 @@ toma_v2_09 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/45b8917b
 toma_v2_10 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/383e6a61d785b7c9fad5bd8bbab28620_c2pa_ee867c0341a27831b5a55f7e.mp4?x-kcdn-pid=112372
 toma_v2_11 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/75e25a3a9c3e71d7fe9fb0fce6f91cf8_c2pa_1431ec8214ca34ae13c1fce5.mp4?x-kcdn-pid=112372
 toma_v2_14 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/64e3df44f50922e142951db995aadd1f_c2pa_00d855a8d1832ba0493115b7.mp4?x-kcdn-pid=112372
+toma_v2_12 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/32393d85da81d0eae0e6d4907fce79eb_c2pa_70ec78ed8917118778e9171e.mp4?x-kcdn-pid=112372
