@@ -1,0 +1,1170 @@
+[
+ {
+  "archivo": "l01__af_heart__1.00.wav",
+  "id": "l01",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 2.95,
+  "transcripcion": "Say hello to the newest student at CAG.",
+  "palabras": [
+   {
+    "w": "Say",
+    "ini": 0.0,
+    "fin": 0.46
+   },
+   {
+    "w": "hello",
+    "ini": 0.46,
+    "fin": 0.74
+   },
+   {
+    "w": "to",
+    "ini": 0.74,
+    "fin": 1.0
+   },
+   {
+    "w": "the",
+    "ini": 1.0,
+    "fin": 1.12
+   },
+   {
+    "w": "newest",
+    "ini": 1.12,
+    "fin": 1.32
+   },
+   {
+    "w": "student",
+    "ini": 1.32,
+    "fin": 1.68
+   },
+   {
+    "w": "at",
+    "ini": 1.68,
+    "fin": 1.86
+   },
+   {
+    "w": "CAG.",
+    "ini": 1.86,
+    "fin": 2.34
+   }
+  ]
+ },
+ {
+  "archivo": "l01__af_heart__0.90.wav",
+  "id": "l01",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 3.25,
+  "transcripcion": "Say hello to the newest student at CAG.",
+  "palabras": [
+   {
+    "w": "Say",
+    "ini": 0.0,
+    "fin": 0.5
+   },
+   {
+    "w": "hello",
+    "ini": 0.5,
+    "fin": 0.78
+   },
+   {
+    "w": "to",
+    "ini": 0.78,
+    "fin": 1.1
+   },
+   {
+    "w": "the",
+    "ini": 1.1,
+    "fin": 1.22
+   },
+   {
+    "w": "newest",
+    "ini": 1.22,
+    "fin": 1.46
+   },
+   {
+    "w": "student",
+    "ini": 1.46,
+    "fin": 1.86
+   },
+   {
+    "w": "at",
+    "ini": 1.86,
+    "fin": 2.08
+   },
+   {
+    "w": "CAG.",
+    "ini": 2.08,
+    "fin": 2.58
+   }
+  ]
+ },
+ {
+  "archivo": "l02__af_heart__1.00.wav",
+  "id": "l02",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 2.075,
+  "transcripcion": "and their brand new backpack.",
+  "palabras": [
+   {
+    "w": "and",
+    "ini": 0.0,
+    "fin": 0.4
+   },
+   {
+    "w": "their",
+    "ini": 0.4,
+    "fin": 0.52
+   },
+   {
+    "w": "brand",
+    "ini": 0.52,
+    "fin": 0.78
+   },
+   {
+    "w": "new",
+    "ini": 0.78,
+    "fin": 0.98
+   },
+   {
+    "w": "backpack.",
+    "ini": 0.98,
+    "fin": 1.32
+   }
+  ]
+ },
+ {
+  "archivo": "l02__af_heart__0.90.wav",
+  "id": "l02",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 2.25,
+  "transcripcion": "and their brand new backpack.",
+  "palabras": [
+   {
+    "w": "and",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": "their",
+    "ini": 0.44,
+    "fin": 0.58
+   },
+   {
+    "w": "brand",
+    "ini": 0.58,
+    "fin": 0.86
+   },
+   {
+    "w": "new",
+    "ini": 0.86,
+    "fin": 1.1
+   },
+   {
+    "w": "backpack.",
+    "ini": 1.1,
+    "fin": 1.46
+   }
+  ]
+ },
+ {
+  "archivo": "l03__af_heart__1.00.wav",
+  "id": "l03",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.6,
+  "transcripcion": "Fully loaded.",
+  "palabras": [
+   {
+    "w": "Fully",
+    "ini": 0.0,
+    "fin": 0.62
+   },
+   {
+    "w": "loaded.",
+    "ini": 0.62,
+    "fin": 0.94
+   }
+  ]
+ },
+ {
+  "archivo": "l03__af_heart__0.90.wav",
+  "id": "l03",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.75,
+  "transcripcion": "Fully loaded.",
+  "palabras": [
+   {
+    "w": "Fully",
+    "ini": 0.0,
+    "fin": 0.66
+   },
+   {
+    "w": "loaded.",
+    "ini": 0.66,
+    "fin": 1.0
+   }
+  ]
+ },
+ {
+  "archivo": "l04__af_heart__1.00.wav",
+  "id": "l04",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 2.5,
+  "transcripcion": "Two languages, obviously.",
+  "palabras": [
+   {
+    "w": "Two",
+    "ini": 0.0,
+    "fin": 0.42
+   },
+   {
+    "w": "languages,",
+    "ini": 0.42,
+    "fin": 0.86
+   },
+   {
+    "w": "obviously.",
+    "ini": 1.28,
+    "fin": 1.7
+   }
+  ]
+ },
+ {
+  "archivo": "l04__af_heart__0.90.wav",
+  "id": "l04",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 2.675,
+  "transcripcion": "Two languages, obviously.",
+  "palabras": [
+   {
+    "w": "Two",
+    "ini": 0.0,
+    "fin": 0.46
+   },
+   {
+    "w": "languages,",
+    "ini": 0.46,
+    "fin": 0.92
+   },
+   {
+    "w": "obviously.",
+    "ini": 1.32,
+    "fin": 1.78
+   }
+  ]
+ },
+ {
+  "archivo": "l05__af_heart__1.00.wav",
+  "id": "l05",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.725,
+  "transcripcion": "Add a little sport.",
+  "palabras": [
+   {
+    "w": "Add",
+    "ini": 0.0,
+    "fin": 0.5
+   },
+   {
+    "w": "a",
+    "ini": 0.5,
+    "fin": 0.6
+   },
+   {
+    "w": "little",
+    "ini": 0.6,
+    "fin": 0.7
+   },
+   {
+    "w": "sport.",
+    "ini": 0.7,
+    "fin": 1.04
+   }
+  ]
+ },
+ {
+  "archivo": "l05__af_heart__0.90.wav",
+  "id": "l05",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.85,
+  "transcripcion": "Add a little sport.",
+  "palabras": [
+   {
+    "w": "Add",
+    "ini": 0.0,
+    "fin": 0.52
+   },
+   {
+    "w": "a",
+    "ini": 0.52,
+    "fin": 0.66
+   },
+   {
+    "w": "little",
+    "ini": 0.66,
+    "fin": 0.78
+   },
+   {
+    "w": "sport.",
+    "ini": 0.78,
+    "fin": 1.12
+   }
+  ]
+ },
+ {
+  "archivo": "l06__af_heart__1.00.wav",
+  "id": "l06",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.775,
+  "transcripcion": "And they get strong.",
+  "palabras": [
+   {
+    "w": "And",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": "they",
+    "ini": 0.44,
+    "fin": 0.58
+   },
+   {
+    "w": "get",
+    "ini": 0.58,
+    "fin": 0.76
+   },
+   {
+    "w": "strong.",
+    "ini": 0.76,
+    "fin": 1.08
+   }
+  ]
+ },
+ {
+  "archivo": "l06__af_heart__0.90.wav",
+  "id": "l06",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.9,
+  "transcripcion": "And they get strong.",
+  "palabras": [
+   {
+    "w": "And",
+    "ini": 0.0,
+    "fin": 0.5
+   },
+   {
+    "w": "they",
+    "ini": 0.5,
+    "fin": 0.62
+   },
+   {
+    "w": "get",
+    "ini": 0.62,
+    "fin": 0.8
+   },
+   {
+    "w": "strong.",
+    "ini": 0.8,
+    "fin": 1.12
+   }
+  ]
+ },
+ {
+  "archivo": "l07__af_heart__1.00.wav",
+  "id": "l07",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.725,
+  "transcripcion": "Like really strong",
+  "palabras": [
+   {
+    "w": "Like",
+    "ini": 0.0,
+    "fin": 0.48
+   },
+   {
+    "w": "really",
+    "ini": 0.48,
+    "fin": 0.72
+   },
+   {
+    "w": "strong",
+    "ini": 0.72,
+    "fin": 1.02
+   }
+  ]
+ },
+ {
+  "archivo": "l07__af_heart__0.90.wav",
+  "id": "l07",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.9,
+  "transcripcion": "Like really strong",
+  "palabras": [
+   {
+    "w": "Like",
+    "ini": 0.0,
+    "fin": 0.54
+   },
+   {
+    "w": "really",
+    "ini": 0.54,
+    "fin": 0.78
+   },
+   {
+    "w": "strong",
+    "ini": 0.78,
+    "fin": 1.12
+   }
+  ]
+ },
+ {
+  "archivo": "l08__af_heart__1.00.wav",
+  "id": "l08",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.775,
+  "transcripcion": "Add Robotics.",
+  "palabras": [
+   {
+    "w": "Add",
+    "ini": 0.0,
+    "fin": 0.58
+   },
+   {
+    "w": "Robotics.",
+    "ini": 0.58,
+    "fin": 1.16
+   }
+  ]
+ },
+ {
+  "archivo": "l08__af_heart__0.90.wav",
+  "id": "l08",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.925,
+  "transcripcion": "Add Robotics.",
+  "palabras": [
+   {
+    "w": "Add",
+    "ini": 0.0,
+    "fin": 0.62
+   },
+   {
+    "w": "Robotics.",
+    "ini": 0.62,
+    "fin": 1.3
+   }
+  ]
+ },
+ {
+  "archivo": "l09__af_heart__1.00.wav",
+  "id": "l09",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 2.725,
+  "transcripcion": "and they'll build a car that drives itself.",
+  "palabras": [
+   {
+    "w": "and",
+    "ini": 0.0,
+    "fin": 0.4
+   },
+   {
+    "w": "they'll",
+    "ini": 0.4,
+    "fin": 0.54
+   },
+   {
+    "w": "build",
+    "ini": 0.54,
+    "fin": 0.74
+   },
+   {
+    "w": "a",
+    "ini": 0.74,
+    "fin": 0.86
+   },
+   {
+    "w": "car",
+    "ini": 0.86,
+    "fin": 1.16
+   },
+   {
+    "w": "that",
+    "ini": 1.16,
+    "fin": 1.36
+   },
+   {
+    "w": "drives",
+    "ini": 1.36,
+    "fin": 1.7
+   },
+   {
+    "w": "itself.",
+    "ini": 1.7,
+    "fin": 2.06
+   }
+  ]
+ },
+ {
+  "archivo": "l09__af_heart__0.90.wav",
+  "id": "l09",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 2.875,
+  "transcripcion": "and they'll build a car that drives itself.",
+  "palabras": [
+   {
+    "w": "and",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": "they'll",
+    "ini": 0.44,
+    "fin": 0.6
+   },
+   {
+    "w": "build",
+    "ini": 0.6,
+    "fin": 0.82
+   },
+   {
+    "w": "a",
+    "ini": 0.82,
+    "fin": 0.94
+   },
+   {
+    "w": "car",
+    "ini": 0.94,
+    "fin": 1.26
+   },
+   {
+    "w": "that",
+    "ini": 1.26,
+    "fin": 1.46
+   },
+   {
+    "w": "drives",
+    "ini": 1.46,
+    "fin": 1.8
+   },
+   {
+    "w": "itself.",
+    "ini": 1.8,
+    "fin": 2.18
+   }
+  ]
+ },
+ {
+  "archivo": "l10__af_heart__1.00.wav",
+  "id": "l10",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.725,
+  "transcripcion": "and parks itself.",
+  "palabras": [
+   {
+    "w": "and",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": "parks",
+    "ini": 0.44,
+    "fin": 0.68
+   },
+   {
+    "w": "itself.",
+    "ini": 0.68,
+    "fin": 1.0
+   }
+  ]
+ },
+ {
+  "archivo": "l10__af_heart__0.90.wav",
+  "id": "l10",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.875,
+  "transcripcion": "and parks itself.",
+  "palabras": [
+   {
+    "w": "and",
+    "ini": 0.0,
+    "fin": 0.48
+   },
+   {
+    "w": "parks",
+    "ini": 0.48,
+    "fin": 0.76
+   },
+   {
+    "w": "itself.",
+    "ini": 0.76,
+    "fin": 1.1
+   }
+  ]
+ },
+ {
+  "archivo": "l11__af_heart__1.00.wav",
+  "id": "l11",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 2.65,
+  "transcripcion": "I.B. Cambridge Dual Program.",
+  "palabras": [
+   {
+    "w": "I",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": ".B.",
+    "ini": 0.44,
+    "fin": 0.6
+   },
+   {
+    "w": "Cambridge",
+    "ini": 1.2,
+    "fin": 1.2
+   },
+   {
+    "w": "Dual",
+    "ini": 1.2,
+    "fin": 1.56
+   },
+   {
+    "w": "Program.",
+    "ini": 1.56,
+    "fin": 1.98
+   }
+  ]
+ },
+ {
+  "archivo": "l11__af_heart__0.90.wav",
+  "id": "l11",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 2.9,
+  "transcripcion": "I.B. Cambridge Dual Program.",
+  "palabras": [
+   {
+    "w": "I",
+    "ini": 0.0,
+    "fin": 0.5
+   },
+   {
+    "w": ".B.",
+    "ini": 0.5,
+    "fin": 0.68
+   },
+   {
+    "w": "Cambridge",
+    "ini": 0.94,
+    "fin": 1.32
+   },
+   {
+    "w": "Dual",
+    "ini": 1.32,
+    "fin": 1.7
+   },
+   {
+    "w": "Program.",
+    "ini": 1.7,
+    "fin": 2.16
+   }
+  ]
+ },
+ {
+  "archivo": "l12__af_heart__1.00.wav",
+  "id": "l12",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 2.25,
+  "transcripcion": "They'll need a few extra hands.",
+  "palabras": [
+   {
+    "w": "They'll",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": "need",
+    "ini": 0.44,
+    "fin": 0.56
+   },
+   {
+    "w": "a",
+    "ini": 0.56,
+    "fin": 0.7
+   },
+   {
+    "w": "few",
+    "ini": 0.7,
+    "fin": 0.88
+   },
+   {
+    "w": "extra",
+    "ini": 0.88,
+    "fin": 1.22
+   },
+   {
+    "w": "hands.",
+    "ini": 1.22,
+    "fin": 1.58
+   }
+  ]
+ },
+ {
+  "archivo": "l12__af_heart__0.90.wav",
+  "id": "l12",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 2.4,
+  "transcripcion": "They'll need a few extra hands.",
+  "palabras": [
+   {
+    "w": "They'll",
+    "ini": 0.0,
+    "fin": 0.48
+   },
+   {
+    "w": "need",
+    "ini": 0.48,
+    "fin": 0.62
+   },
+   {
+    "w": "a",
+    "ini": 0.62,
+    "fin": 0.76
+   },
+   {
+    "w": "few",
+    "ini": 0.76,
+    "fin": 0.94
+   },
+   {
+    "w": "extra",
+    "ini": 0.94,
+    "fin": 1.3
+   },
+   {
+    "w": "hands.",
+    "ini": 1.3,
+    "fin": 1.7
+   }
+  ]
+ },
+ {
+  "archivo": "l13__af_heart__1.00.wav",
+  "id": "l13",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.75,
+  "transcripcion": "before you know it.",
+  "palabras": [
+   {
+    "w": "before",
+    "ini": 0.0,
+    "fin": 0.54
+   },
+   {
+    "w": "you",
+    "ini": 0.54,
+    "fin": 0.82
+   },
+   {
+    "w": "know",
+    "ini": 0.82,
+    "fin": 1.0
+   },
+   {
+    "w": "it.",
+    "ini": 1.0,
+    "fin": 1.22
+   }
+  ]
+ },
+ {
+  "archivo": "l13__af_heart__0.90.wav",
+  "id": "l13",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.9,
+  "transcripcion": "before you know it.",
+  "palabras": [
+   {
+    "w": "before",
+    "ini": 0.0,
+    "fin": 0.62
+   },
+   {
+    "w": "you",
+    "ini": 0.62,
+    "fin": 0.88
+   },
+   {
+    "w": "know",
+    "ini": 0.88,
+    "fin": 1.1
+   },
+   {
+    "w": "it.",
+    "ini": 1.1,
+    "fin": 1.32
+   }
+  ]
+ },
+ {
+  "archivo": "l14__af_heart__1.00.wav",
+  "id": "l14",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 2.075,
+  "transcripcion": "They're reaching for the stars.",
+  "palabras": [
+   {
+    "w": "They're",
+    "ini": 0.0,
+    "fin": 0.46
+   },
+   {
+    "w": "reaching",
+    "ini": 0.46,
+    "fin": 0.72
+   },
+   {
+    "w": "for",
+    "ini": 0.72,
+    "fin": 0.94
+   },
+   {
+    "w": "the",
+    "ini": 0.94,
+    "fin": 1.06
+   },
+   {
+    "w": "stars.",
+    "ini": 1.06,
+    "fin": 1.32
+   }
+  ]
+ },
+ {
+  "archivo": "l14__af_heart__0.90.wav",
+  "id": "l14",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 2.175,
+  "transcripcion": "They're reaching for the stars.",
+  "palabras": [
+   {
+    "w": "They're",
+    "ini": 0.0,
+    "fin": 0.5
+   },
+   {
+    "w": "reaching",
+    "ini": 0.5,
+    "fin": 0.78
+   },
+   {
+    "w": "for",
+    "ini": 0.78,
+    "fin": 1.02
+   },
+   {
+    "w": "the",
+    "ini": 1.02,
+    "fin": 1.14
+   },
+   {
+    "w": "stars.",
+    "ini": 1.14,
+    "fin": 1.38
+   }
+  ]
+ },
+ {
+  "archivo": "l15__af_heart__1.00.wav",
+  "id": "l15",
+  "voz": "af_heart",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.725,
+  "transcripcion": "But still, you know.",
+  "palabras": [
+   {
+    "w": "But",
+    "ini": 0.0,
+    "fin": 0.4
+   },
+   {
+    "w": "still,",
+    "ini": 0.4,
+    "fin": 0.68
+   },
+   {
+    "w": "you",
+    "ini": 0.82,
+    "fin": 0.9
+   },
+   {
+    "w": "know.",
+    "ini": 0.9,
+    "fin": 1.08
+   }
+  ]
+ },
+ {
+  "archivo": "l15__af_heart__0.90.wav",
+  "id": "l15",
+  "voz": "af_heart",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.85,
+  "transcripcion": "But still, you know.",
+  "palabras": [
+   {
+    "w": "But",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": "still,",
+    "ini": 0.44,
+    "fin": 0.76
+   },
+   {
+    "w": "you",
+    "ini": 0.92,
+    "fin": 0.98
+   },
+   {
+    "w": "know.",
+    "ini": 0.98,
+    "fin": 1.18
+   }
+  ]
+ },
+ {
+  "archivo": "w01__af_nicole__1.00.wav",
+  "id": "w01",
+  "voz": "af_nicole",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 2.6,
+  "transcripcion": "SHH they're little",
+  "palabras": [
+   {
+    "w": "SHH",
+    "ini": 0.0,
+    "fin": 1.0
+   },
+   {
+    "w": "they're",
+    "ini": 1.0,
+    "fin": 1.5
+   },
+   {
+    "w": "little",
+    "ini": 1.5,
+    "fin": 1.76
+   }
+  ]
+ },
+ {
+  "archivo": "w01__af_nicole__0.90.wav",
+  "id": "w01",
+  "voz": "af_nicole",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 2.825,
+  "transcripcion": "SHH, they're little.",
+  "palabras": [
+   {
+    "w": "SHH,",
+    "ini": 0.0,
+    "fin": 1.14
+   },
+   {
+    "w": "they're",
+    "ini": 1.36,
+    "fin": 1.62
+   },
+   {
+    "w": "little.",
+    "ini": 1.62,
+    "fin": 1.92
+   }
+  ]
+ },
+ {
+  "archivo": "k01__af_sky__1.00.wav",
+  "id": "k01",
+  "voz": "af_sky",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.275,
+  "transcripcion": "Hello.",
+  "palabras": [
+   {
+    "w": "Hello.",
+    "ini": 0.0,
+    "fin": 0.62
+   }
+  ]
+ },
+ {
+  "archivo": "k01__af_sky__0.90.wav",
+  "id": "k01",
+  "voz": "af_sky",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.425,
+  "transcripcion": "It had low.",
+  "palabras": [
+   {
+    "w": "It",
+    "ini": 0.0,
+    "fin": 0.48
+   },
+   {
+    "w": "had",
+    "ini": 0.48,
+    "fin": 0.62
+   },
+   {
+    "w": "low.",
+    "ini": 0.62,
+    "fin": 0.86
+   }
+  ]
+ },
+ {
+  "archivo": "k02__ef_dora__1.00.wav",
+  "id": "k02",
+  "voz": "ef_dora",
+  "velocidad": 1.0,
+  "lang": "e",
+  "duracion_s": 0.675,
+  "transcripcion": "¡Golet!",
+  "palabras": [
+   {
+    "w": "¡Golet!",
+    "ini": 0.0,
+    "fin": 0.54
+   }
+  ]
+ },
+ {
+  "archivo": "k02__ef_dora__0.90.wav",
+  "id": "k02",
+  "voz": "ef_dora",
+  "velocidad": 0.9,
+  "lang": "e",
+  "duracion_s": 0.8,
+  "transcripcion": "¡Gorla!",
+  "palabras": [
+   {
+    "w": "¡Gorla!",
+    "ini": 0.0,
+    "fin": 0.54
+   }
+  ]
+ },
+ {
+  "archivo": "k03__af_sky__1.00.wav",
+  "id": "k03",
+  "voz": "af_sky",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.325,
+  "transcripcion": "We'll hear.",
+  "palabras": [
+   {
+    "w": "We'll",
+    "ini": 0.0,
+    "fin": 0.66
+   },
+   {
+    "w": "hear.",
+    "ini": 0.66,
+    "fin": 0.8
+   }
+  ]
+ },
+ {
+  "archivo": "k03__af_sky__0.90.wav",
+  "id": "k03",
+  "voz": "af_sky",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.5,
+  "transcripcion": "It will heal her.",
+  "palabras": [
+   {
+    "w": "It",
+    "ini": 0.0,
+    "fin": 0.48
+   },
+   {
+    "w": "will",
+    "ini": 0.48,
+    "fin": 0.68
+   },
+   {
+    "w": "heal",
+    "ini": 0.68,
+    "fin": 0.92
+   },
+   {
+    "w": "her.",
+    "ini": 0.92,
+    "fin": 1.1
+   }
+  ]
+ }
+]
