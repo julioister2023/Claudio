@@ -63,7 +63,7 @@ VO = [
     ("l12__af_heart__1.00.wav", 25.60, 0.0),
     ("l13__af_heart__1.00.wav", 28.20, 0.0),
     ("l14__af_heart__1.00.wav", 30.55, 0.0),
-    ("KID_WOOHOO", 32.90, -1.0),   # "Yay!" al agarrar la estrella
+    ("KID_WOOHOO", 32.90, 1.0),    # "Yay!" al agarrar la estrella
     ("l15__af_heart__1.00.wav", 34.35, 0.0),
     ("w01__af_nicole__1.00.wav", 37.90, -2.0),
 ]
@@ -135,19 +135,19 @@ def build_audio():
         vo[a:b] += x[a - start: b - start]
         placed.append((name, t, round((s1 - s0) / SR, 2)))
 
-    # ducking: la música baja ~9 dB mientras hay voz (5 dB en la nana)
+    # ducking: la música baja ~9 dB mientras hay voz (11 dB en el clímax, 5 dB en la nana)
     win = int(0.02 * SR)
     n = len(vo) // win
     env = np.sqrt((vo[: n * win].reshape(n, win) ** 2).mean(1))
     active = (20 * np.log10(env + 1e-9) > -45).astype(np.float32)
-    look = int(0.06 / 0.02)
+    look = int(0.10 / 0.02)
     active = np.maximum(active, np.concatenate([active[look:], np.zeros(look)]))
     g = np.ones(n, dtype=np.float32)
     att, rel = np.exp(-1 / (0.05 / 0.02)), np.exp(-1 / (0.35 / 0.02))
     cur = 1.0
     for i in range(n):
         tt = i * 0.02
-        depth = 10 ** (-(5.0 if tt >= 34.0 else 9.0) / 20)
+        depth = 10 ** (-(5.0 if tt >= 34.0 else (11.0 if tt >= 29.9 else 9.0)) / 20)  # clímax más fuerte: más ducking
         target = depth if active[i] else 1.0
         coef = att if target < cur else rel
         cur = target + (cur - target) * coef
