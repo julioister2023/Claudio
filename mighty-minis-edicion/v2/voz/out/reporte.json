@@ -253,11 +253,11 @@
    {
     "w": "Two",
     "ini": 0.0,
-    "fin": 0.46
+    "fin": 0.48
    },
    {
     "w": "languages,",
-    "ini": 0.46,
+    "ini": 0.48,
     "fin": 0.92
    },
    {
@@ -434,12 +434,12 @@
    {
     "w": "really",
     "ini": 0.54,
-    "fin": 0.78
+    "fin": 0.8
    },
    {
     "w": "strong",
-    "ini": 0.78,
-    "fin": 1.12
+    "ini": 0.8,
+    "fin": 1.1
    }
   ]
  },
@@ -543,10 +543,10 @@
   "velocidad": 0.9,
   "lang": "a",
   "duracion_s": 2.875,
-  "transcripcion": "and they'll build a car that drives itself.",
+  "transcripcion": "And they'll build a car that drives itself.",
   "palabras": [
    {
-    "w": "and",
+    "w": "And",
     "ini": 0.0,
     "fin": 0.44
    },
@@ -609,7 +609,7 @@
    {
     "w": "itself.",
     "ini": 0.68,
-    "fin": 1.0
+    "fin": 1.02
    }
   ]
  },
@@ -660,12 +660,12 @@
    },
    {
     "w": "Cambridge",
-    "ini": 1.2,
-    "fin": 1.2
+    "ini": 1.22,
+    "fin": 1.22
    },
    {
     "w": "Dual",
-    "ini": 1.2,
+    "ini": 1.22,
     "fin": 1.56
    },
    {
@@ -692,7 +692,7 @@
    {
     "w": ".B.",
     "ini": 0.5,
-    "fin": 0.68
+    "fin": 0.7
    },
    {
     "w": "Cambridge",
@@ -733,11 +733,11 @@
    {
     "w": "a",
     "ini": 0.56,
-    "fin": 0.7
+    "fin": 0.68
    },
    {
     "w": "few",
-    "ini": 0.7,
+    "ini": 0.68,
     "fin": 0.88
    },
    {
@@ -748,7 +748,7 @@
    {
     "w": "hands.",
     "ini": 1.22,
-    "fin": 1.58
+    "fin": 1.6
    }
   ]
  },
@@ -948,7 +948,7 @@
    },
    {
     "w": "you",
-    "ini": 0.82,
+    "ini": 0.84,
     "fin": 0.9
    },
    {
@@ -1001,17 +1001,17 @@
    {
     "w": "SHH",
     "ini": 0.0,
-    "fin": 1.0
+    "fin": 1.02
    },
    {
     "w": "they're",
-    "ini": 1.0,
-    "fin": 1.5
+    "ini": 1.02,
+    "fin": 1.48
    },
    {
     "w": "little",
-    "ini": 1.5,
-    "fin": 1.76
+    "ini": 1.48,
+    "fin": 1.78
    }
   ]
  },
@@ -1084,6 +1084,38 @@
   ]
  },
  {
+  "archivo": "k01b__af_nova__1.00.wav",
+  "id": "k01b",
+  "voz": "af_nova",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.225,
+  "transcripcion": "Hello",
+  "palabras": [
+   {
+    "w": "Hello",
+    "ini": 0.0,
+    "fin": 0.54
+   }
+  ]
+ },
+ {
+  "archivo": "k01b__af_nova__0.90.wav",
+  "id": "k01b",
+  "voz": "af_nova",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.4,
+  "transcripcion": "Hello.",
+  "palabras": [
+   {
+    "w": "Hello.",
+    "ini": 0.0,
+    "fin": 0.62
+   }
+  ]
+ },
+ {
   "archivo": "k02__ef_dora__1.00.wav",
   "id": "k02",
   "voz": "ef_dora",
@@ -1106,12 +1138,91 @@
   "velocidad": 0.9,
   "lang": "e",
   "duracion_s": 0.8,
-  "transcripcion": "¡Gorla!",
+  "transcripcion": "¡Gol, le!",
   "palabras": [
    {
-    "w": "¡Gorla!",
+    "w": "¡Gol,",
+    "ini": 0.0,
+    "fin": 0.42
+   },
+   {
+    "w": "le!",
+    "ini": 0.5,
+    "fin": 0.56
+   }
+  ]
+ },
+ {
+  "archivo": "k02b__ef_dora__1.00.wav",
+  "id": "k02b",
+  "voz": "ef_dora",
+  "velocidad": 1.0,
+  "lang": "e",
+  "duracion_s": 1.1,
+  "transcripcion": "¡Cula,ula!",
+  "palabras": [
+   {
+    "w": "¡Cula",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": ",ula!",
+    "ini": 0.44,
+    "fin": 0.74
+   }
+  ]
+ },
+ {
+  "archivo": "k02b__ef_dora__0.90.wav",
+  "id": "k02b",
+  "voz": "ef_dora",
+  "velocidad": 0.9,
+  "lang": "e",
+  "duracion_s": 1.175,
+  "transcripcion": "¡Cula oler!",
+  "palabras": [
+   {
+    "w": "¡Cula",
+    "ini": 0.0,
+    "fin": 0.46
+   },
+   {
+    "w": "oler!",
+    "ini": 0.46,
+    "fin": 0.94
+   }
+  ]
+ },
+ {
+  "archivo": "k02c__ef_dora__1.00.wav",
+  "id": "k02c",
+  "voz": "ef_dora",
+  "velocidad": 1.0,
+  "lang": "e",
+  "duracion_s": 0.675,
+  "transcripcion": "¡Golet!",
+  "palabras": [
+   {
+    "w": "¡Golet!",
     "ini": 0.0,
     "fin": 0.54
+   }
+  ]
+ },
+ {
+  "archivo": "k02c__ef_dora__0.90.wav",
+  "id": "k02c",
+  "voz": "ef_dora",
+  "velocidad": 0.9,
+  "lang": "e",
+  "duracion_s": 0.75,
+  "transcripcion": "¡Gola!",
+  "palabras": [
+   {
+    "w": "¡Gola!",
+    "ini": 0.0,
+    "fin": 0.42
    }
   ]
  },
@@ -1121,7 +1232,54 @@
   "voz": "af_sky",
   "velocidad": 1.0,
   "lang": "a",
-  "duracion_s": 1.325,
+  "duracion_s": 1.425,
+  "transcripcion": "Well, who?",
+  "palabras": [
+   {
+    "w": "Well,",
+    "ini": 0.0,
+    "fin": 0.58
+   },
+   {
+    "w": "who?",
+    "ini": 0.72,
+    "fin": 0.84
+   }
+  ]
+ },
+ {
+  "archivo": "k03__af_sky__0.90.wav",
+  "id": "k03",
+  "voz": "af_sky",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.55,
+  "transcripcion": "It will who?",
+  "palabras": [
+   {
+    "w": "It",
+    "ini": 0.0,
+    "fin": 0.48
+   },
+   {
+    "w": "will",
+    "ini": 0.48,
+    "fin": 0.64
+   },
+   {
+    "w": "who?",
+    "ini": 0.64,
+    "fin": 0.92
+   }
+  ]
+ },
+ {
+  "archivo": "k03b__af_sky__1.00.wav",
+  "id": "k03b",
+  "voz": "af_sky",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.5,
   "transcripcion": "We'll hear.",
   "palabras": [
    {
@@ -1132,38 +1290,462 @@
    {
     "w": "hear.",
     "ini": 0.66,
+    "fin": 0.88
+   }
+  ]
+ },
+ {
+  "archivo": "k03b__af_sky__0.90.wav",
+  "id": "k03b",
+  "voz": "af_sky",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.625,
+  "transcripcion": "We will heal her.",
+  "palabras": [
+   {
+    "w": "We",
+    "ini": 0.0,
+    "fin": 0.62
+   },
+   {
+    "w": "will",
+    "ini": 0.62,
+    "fin": 0.74
+   },
+   {
+    "w": "heal",
+    "ini": 0.74,
+    "fin": 0.96
+   },
+   {
+    "w": "her.",
+    "ini": 0.96,
+    "fin": 1.18
+   }
+  ]
+ },
+ {
+  "archivo": "k03c__af_sky__1.00.wav",
+  "id": "k03c",
+  "voz": "af_sky",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.675,
+  "transcripcion": "Yay, boo-hoo!",
+  "palabras": [
+   {
+    "w": "Yay,",
+    "ini": 0.0,
+    "fin": 0.64
+   },
+   {
+    "w": "boo",
+    "ini": 0.74,
+    "fin": 0.9
+   },
+   {
+    "w": "-hoo!",
+    "ini": 0.9,
+    "fin": 1.1
+   }
+  ]
+ },
+ {
+  "archivo": "k03c__af_sky__0.90.wav",
+  "id": "k03c",
+  "voz": "af_sky",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.925,
+  "transcripcion": "Yay, boo-hoo!",
+  "palabras": [
+   {
+    "w": "Yay,",
+    "ini": 0.0,
+    "fin": 0.7
+   },
+   {
+    "w": "boo",
+    "ini": 0.88,
+    "fin": 1.04
+   },
+   {
+    "w": "-hoo!",
+    "ini": 1.04,
+    "fin": 1.26
+   }
+  ]
+ },
+ {
+  "archivo": "k01__af_sky__1.00__nino.wav",
+  "id": "k01",
+  "voz": "af_sky",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.275,
+  "nino": true,
+  "transcripcion": "Hello.",
+  "palabras": [
+   {
+    "w": "Hello.",
+    "ini": 0.0,
+    "fin": 0.62
+   }
+  ]
+ },
+ {
+  "archivo": "k01__af_sky__0.90__nino.wav",
+  "id": "k01",
+  "voz": "af_sky",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.425,
+  "nino": true,
+  "transcripcion": "It's a low.",
+  "palabras": [
+   {
+    "w": "It's",
+    "ini": 0.0,
+    "fin": 0.58
+   },
+   {
+    "w": "a",
+    "ini": 0.58,
+    "fin": 0.62
+   },
+   {
+    "w": "low.",
+    "ini": 0.62,
+    "fin": 0.88
+   }
+  ]
+ },
+ {
+  "archivo": "k01b__af_nova__1.00__nino.wav",
+  "id": "k01b",
+  "voz": "af_nova",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.225,
+  "nino": true,
+  "transcripcion": "Hello",
+  "palabras": [
+   {
+    "w": "Hello",
+    "ini": 0.0,
+    "fin": 0.58
+   }
+  ]
+ },
+ {
+  "archivo": "k01b__af_nova__0.90__nino.wav",
+  "id": "k01b",
+  "voz": "af_nova",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.4,
+  "nino": true,
+  "transcripcion": "Hello.",
+  "palabras": [
+   {
+    "w": "Hello.",
+    "ini": 0.0,
+    "fin": 0.62
+   }
+  ]
+ },
+ {
+  "archivo": "k02__ef_dora__1.00__nino.wav",
+  "id": "k02",
+  "voz": "ef_dora",
+  "velocidad": 1.0,
+  "lang": "e",
+  "duracion_s": 0.675,
+  "nino": true,
+  "transcripcion": "¡Vuole!",
+  "palabras": [
+   {
+    "w": "¡Vuole!",
+    "ini": 0.0,
+    "fin": 0.46
+   }
+  ]
+ },
+ {
+  "archivo": "k02__ef_dora__0.90__nino.wav",
+  "id": "k02",
+  "voz": "ef_dora",
+  "velocidad": 0.9,
+  "lang": "e",
+  "duracion_s": 0.8,
+  "nino": true,
+  "transcripcion": "¡Vole!",
+  "palabras": [
+   {
+    "w": "¡Vole!",
+    "ini": 0.0,
+    "fin": 0.44
+   }
+  ]
+ },
+ {
+  "archivo": "k02b__ef_dora__1.00__nino.wav",
+  "id": "k02b",
+  "voz": "ef_dora",
+  "velocidad": 1.0,
+  "lang": "e",
+  "duracion_s": 1.1,
+  "nino": true,
+  "transcripcion": "¡Pule! ¡Pule!",
+  "palabras": [
+   {
+    "w": "¡Pule!",
+    "ini": 0.0,
+    "fin": 0.38
+   },
+   {
+    "w": "¡Pule!",
+    "ini": 0.52,
     "fin": 0.8
    }
   ]
  },
  {
-  "archivo": "k03__af_sky__0.90.wav",
+  "archivo": "k02b__ef_dora__0.90__nino.wav",
+  "id": "k02b",
+  "voz": "ef_dora",
+  "velocidad": 0.9,
+  "lang": "e",
+  "duracion_s": 1.175,
+  "nino": true,
+  "transcripcion": "¡Hola, hola!",
+  "palabras": [
+   {
+    "w": "¡Hola,",
+    "ini": 0.0,
+    "fin": 0.44
+   },
+   {
+    "w": "hola!",
+    "ini": 0.58,
+    "fin": 0.96
+   }
+  ]
+ },
+ {
+  "archivo": "k02c__ef_dora__1.00__nino.wav",
+  "id": "k02c",
+  "voz": "ef_dora",
+  "velocidad": 1.0,
+  "lang": "e",
+  "duracion_s": 0.675,
+  "nino": true,
+  "transcripcion": "¡Voy a ver!",
+  "palabras": [
+   {
+    "w": "¡Voy",
+    "ini": 0.0,
+    "fin": 0.32
+   },
+   {
+    "w": "a",
+    "ini": 0.32,
+    "fin": 0.46
+   },
+   {
+    "w": "ver!",
+    "ini": 0.46,
+    "fin": 0.46
+   }
+  ]
+ },
+ {
+  "archivo": "k02c__ef_dora__0.90__nino.wav",
+  "id": "k02c",
+  "voz": "ef_dora",
+  "velocidad": 0.9,
+  "lang": "e",
+  "duracion_s": 0.75,
+  "nino": true,
+  "transcripcion": "Goulash",
+  "palabras": [
+   {
+    "w": "Goulash",
+    "ini": 0.0,
+    "fin": 0.58
+   }
+  ]
+ },
+ {
+  "archivo": "k03__af_sky__1.00__nino.wav",
+  "id": "k03",
+  "voz": "af_sky",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.425,
+  "nino": true,
+  "transcripcion": "We'll hear it.",
+  "palabras": [
+   {
+    "w": "We'll",
+    "ini": 0.0,
+    "fin": 0.64
+   },
+   {
+    "w": "hear",
+    "ini": 0.64,
+    "fin": 0.86
+   },
+   {
+    "w": "it.",
+    "ini": 0.86,
+    "fin": 1.02
+   }
+  ]
+ },
+ {
+  "archivo": "k03__af_sky__0.90__nino.wav",
   "id": "k03",
   "voz": "af_sky",
   "velocidad": 0.9,
   "lang": "a",
-  "duracion_s": 1.5,
-  "transcripcion": "It will heal her.",
+  "duracion_s": 1.55,
+  "nino": true,
+  "transcripcion": "I'm a heroine.",
   "palabras": [
    {
-    "w": "It",
+    "w": "I'm",
+    "ini": 0.0,
+    "fin": 0.54
+   },
+   {
+    "w": "a",
+    "ini": 0.54,
+    "fin": 0.64
+   },
+   {
+    "w": "heroine.",
+    "ini": 0.64,
+    "fin": 1.22
+   }
+  ]
+ },
+ {
+  "archivo": "k03b__af_sky__1.00__nino.wav",
+  "id": "k03b",
+  "voz": "af_sky",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.5,
+  "nino": true,
+  "transcripcion": "We'll hear that.",
+  "palabras": [
+   {
+    "w": "We'll",
+    "ini": 0.0,
+    "fin": 0.66
+   },
+   {
+    "w": "hear",
+    "ini": 0.66,
+    "fin": 0.86
+   },
+   {
+    "w": "that.",
+    "ini": 0.86,
+    "fin": 1.1
+   }
+  ]
+ },
+ {
+  "archivo": "k03b__af_sky__0.90__nino.wav",
+  "id": "k03b",
+  "voz": "af_sky",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.625,
+  "nino": true,
+  "transcripcion": "You will feel it.",
+  "palabras": [
+   {
+    "w": "You",
     "ini": 0.0,
     "fin": 0.48
    },
    {
     "w": "will",
     "ini": 0.48,
-    "fin": 0.68
+    "fin": 0.66
    },
    {
-    "w": "heal",
-    "ini": 0.68,
+    "w": "feel",
+    "ini": 0.66,
+    "fin": 0.94
+   },
+   {
+    "w": "it.",
+    "ini": 0.94,
+    "fin": 1.14
+   }
+  ]
+ },
+ {
+  "archivo": "k03c__af_sky__1.00__nino.wav",
+  "id": "k03c",
+  "voz": "af_sky",
+  "velocidad": 1.0,
+  "lang": "a",
+  "duracion_s": 1.675,
+  "nino": true,
+  "transcripcion": "Yay boo-hoo!",
+  "palabras": [
+   {
+    "w": "Yay",
+    "ini": 0.0,
+    "fin": 0.64
+   },
+   {
+    "w": "boo",
+    "ini": 0.64,
     "fin": 0.92
    },
    {
-    "w": "her.",
+    "w": "-hoo!",
     "ini": 0.92,
-    "fin": 1.1
+    "fin": 1.14
+   }
+  ]
+ },
+ {
+  "archivo": "k03c__af_sky__0.90__nino.wav",
+  "id": "k03c",
+  "voz": "af_sky",
+  "velocidad": 0.9,
+  "lang": "a",
+  "duracion_s": 1.925,
+  "nino": true,
+  "transcripcion": "The day will come.",
+  "palabras": [
+   {
+    "w": "The",
+    "ini": 0.0,
+    "fin": 0.56
+   },
+   {
+    "w": "day",
+    "ini": 0.56,
+    "fin": 0.72
+   },
+   {
+    "w": "will",
+    "ini": 0.72,
+    "fin": 1.02
+   },
+   {
+    "w": "come.",
+    "ini": 1.02,
+    "fin": 1.3
    }
   ]
  }
