@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es" data-composition-variables='[{"id":"hola","type":"string","label":"Diálogo del Mini (toma 3)","default":"Hello! ¡Hola!"}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Poppins CAG"; src: url("assets/fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+      @font-face { font-family: "Poppins CAG"; src: url("assets/fonts/Poppins-Medium.ttf") format("truetype"); font-weight: 500; }
+      @font-face { font-family: "Poppins CAG"; src: url("assets/fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+      :root { --tinta: #1d1d1f; --fondo-cierre: #eceef1; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; font-family: "Poppins CAG", sans-serif; }
+      .toma { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      /* Diálogo del Mini como texto (no hay voz de niño): pequeño, centrado, sin caja */
+      #hola { position: absolute; left: 90px; top: 200px; width: 900px; height: 130px; z-index: 20;
+        display: flex; align-items: center; justify-content: center; text-align: center;
+        font-weight: 500; font-size: 42px; line-height: 1.25; color: var(--tinta); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="44" data-fps="24" data-width="1080" data-height="1920">
+      <video id="toma01" class="clip toma" src="assets/toma_01.mp4" data-start="0" data-duration="4" data-track-index="0" muted playsinline style="z-index:1"></video>
+      <video id="toma02" class="clip toma" src="assets/toma_02.mp4" data-start="4" data-duration="4" data-track-index="0" muted playsinline style="z-index:2"></video>
+      <video id="toma03" class="clip toma" src="assets/toma_03.mp4" data-start="8" data-duration="4" data-track-index="0" muted playsinline style="z-index:3"></video>
+      <video id="toma04" class="clip toma" src="assets/toma_04.mp4" data-start="12" data-duration="5" data-track-index="0" muted playsinline style="z-index:4"></video>
+      <video id="toma05" class="clip toma" src="assets/toma_05.mp4" data-start="17" data-duration="6" data-track-index="0" muted playsinline style="z-index:5"></video>
+      <video id="toma06" class="clip toma" src="assets/toma_06.mp4" data-start="23" data-duration="5" data-track-index="0" muted playsinline style="z-index:6"></video>
+      <video id="toma07" class="clip toma" src="assets/toma_07.mp4" data-start="28" data-duration="6" data-track-index="0" muted playsinline style="z-index:7"></video>
+      <video id="toma08" class="clip toma" src="assets/toma_08.mp4" data-start="34" data-duration="6" data-track-index="0" muted playsinline style="z-index:8"></video>
+      <div id="hola" class="clip" data-start="8.3" data-duration="1.2" data-track-index="1"><span id="hola-txt" data-var-text="hola">Hello! ¡Hola!</span></div>
+      <div id="cierre" data-composition-id="cierre" data-composition-src="compositions/cierre.html" data-start="40" data-duration="4" data-track-index="0" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:30"></div>
+      <!-- Subtítulos en español: versión para redes. Quita data-hidden para verlos; ponlo para el master. -->
+      <div id="subtitulos" data-composition-id="subtitulos" data-composition-src="compositions/subtitulos.html" data-start="0" data-duration="40" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:40" data-hidden></div>
+      <audio id="mezcla" class="clip" src="assets/audio/mezcla.wav" data-start="0" data-duration="44" data-track-index="3" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#hola-txt", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, 8.3);
+      tl.to("#hola-txt", { opacity: 0, duration: 0.1, ease: "none" }, 9.4);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

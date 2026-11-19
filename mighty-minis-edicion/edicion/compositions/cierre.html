@@ -1,0 +1,28 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #cierre-fondo { position: absolute; inset: 0; background: #eceef1; }
+    #cierre-titulo { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; display: flex; align-items: center; justify-content: center; }
+    #cierre-titulo h1 { font-family: "Poppins CAG", sans-serif; font-weight: 700; font-size: 92px; letter-spacing: -0.01em; color: #1d1d1f; line-height: 1; }
+    #cierre-marca { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    #cierre-logo { position: absolute; left: 260px; top: 758px; width: 560px; height: auto; }
+    #cierre-admisiones { position: absolute; left: 0; width: 1080px; top: 1012px; text-align: center; font-family: "Poppins CAG", sans-serif; font-weight: 500; font-size: 38px; line-height: 1.3; color: #1d1d1f; }
+    #cierre-web { position: absolute; left: 0; width: 1080px; top: 1074px; text-align: center; font-family: "Poppins CAG", sans-serif; font-weight: 400; font-size: 32px; line-height: 1.3; color: #3a4060; }
+  </style>
+  <div id="root" data-composition-id="cierre" data-composition-variables='[{"id":"titulo","type":"string","label":"Título del cierre","default":"The Mighty Minis."},{"id":"admisiones","type":"string","label":"Línea de admisiones","default":"Admisiones 2027 · Preescolar"},{"id":"web","type":"string","label":"Sitio web","default":"colegioamericano.edu.ec"}]' data-width="1080" data-height="1920">
+    <div id="cierre-fondo" class="clip" data-start="0" data-duration="4" data-track-index="0"></div>
+    <div id="cierre-titulo" class="clip" data-start="0" data-duration="2" data-track-index="1"><h1 id="cierre-titulo-txt" data-var-text="titulo" data-layout-allow-safe-zone>The Mighty Minis.</h1></div>
+    <div id="cierre-marca" class="clip" data-start="2" data-duration="2" data-track-index="1">
+      <img id="cierre-logo" src="assets/logo_cag_azul.png" alt="Colegio Americano de Guayaquil" />
+      <p id="cierre-admisiones" data-var-text="admisiones">Admisiones 2027 · Preescolar</p>
+      <p id="cierre-web" data-var-text="web">colegioamericano.edu.ec</p>
+    </div>
+  </div>
+  <script>
+    // Placas con corte seco, como en Apple: sin animación de entrada.
+    const tl = gsap.timeline({ paused: true });
+    tl.set("#cierre-titulo-txt", { opacity: 1 }, 0);
+    tl.set("#cierre-logo", { opacity: 1 }, 2);
+    window.__timelines["cierre"] = tl;
+  </script>
+</template>
