@@ -1,0 +1,51 @@
+# Genera la locución de The Mighty Minis v2 con Kokoro (TTS local, Apache 2.0)
+# cuando cambia el guion o el script, y guarda los WAV en el repo.
+name: Generar locución
+
+on:
+  push:
+    paths:
+      - "mighty-minis-edicion/v2/voz/guion.json"
+      - "mighty-minis-edicion/v2/voz/generar_voz.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generar-voz
+  cancel-in-progress: false
+
+jobs:
+  voz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq espeak-ng
+          pip install --quiet --extra-index-url https://download.pytorch.org/whl/cpu "torch>=2.2" 
+          pip install --quiet "kokoro>=0.9.4" "misaki[en]>=0.9.4" soundfile faster-whisper
+
+      - name: Generar y verificar
+        run: python mighty-minis-edicion/v2/voz/generar_voz.py
+
+      - name: Guardar en el repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add mighty-minis-edicion/v2/voz/out
+          if git diff --cached --quiet; then echo "Nada nuevo"; exit 0; fi
+          git commit -m "Genera la locución v2"
+          for intento in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1
