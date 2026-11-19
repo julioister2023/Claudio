@@ -1,0 +1,55 @@
+# Descarga a este repo los archivos de Kling listados en
+# mighty-minis-edicion/v2/descargas.txt (una línea por archivo: "nombre url").
+# Se ejecuta cada vez que cambia esa lista, o a mano desde la pestaña Actions.
+name: Descargar archivos de Kling
+
+on:
+  push:
+    paths:
+      - "mighty-minis-edicion/v2/descargas.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: descargar-kling
+  cancel-in-progress: false
+
+jobs:
+  descargar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Descargar los archivos de la lista
+        run: |
+          LISTA=mighty-minis-edicion/v2/descargas.txt
+          DESTINO=mighty-minis-edicion/v2/descargas
+          mkdir -p "$DESTINO"
+          while read -r nombre url; do
+            case "$nombre" in ""|\#*) continue ;; esac
+            ext="${url%%\?*}"; ext="${ext##*.}"
+            archivo="$DESTINO/$nombre.$ext"
+            if [ -s "$archivo" ]; then echo "Ya estaba: $archivo"; continue; fi
+            if curl -fsSL --retry 3 --max-time 300 -o "$archivo" "$url"; then
+              echo "Descargado: $archivo ($(stat -c%s "$archivo") bytes)"
+            else
+              echo "::warning::No se pudo descargar $nombre"
+              rm -f "$archivo"
+            fi
+          done < "$LISTA"
+
+      - name: Guardar en el repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add mighty-minis-edicion/v2/descargas
+          if git diff --cached --quiet; then echo "Nada nuevo"; exit 0; fi
+          git commit -m "Descarga archivos de Kling"
+          for intento in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1
