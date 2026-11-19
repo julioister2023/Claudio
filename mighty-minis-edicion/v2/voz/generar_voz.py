@@ -33,12 +33,12 @@ for linea in guion["lineas"]:
         print("ok", nombre, archivos[-1]["duracion_s"], "s", flush=True)
 
 # Voz del Mini: subir tono y formantes para que suene a niño de 4 años.
-import subprocess
+import librosa
 for a in list(archivos):
     if a["id"].startswith("k"):
         nino = a["archivo"].replace(".wav", "__nino.wav")
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(SALIDA / a["archivo"]),
-                        "-af", "rubberband=pitch=1.32:formant=shifted", "-ar", "24000", str(SALIDA / nino)], check=True)
+        y, sr = sf.read(SALIDA / a["archivo"], dtype="float32")
+        sf.write(SALIDA / nino, librosa.effects.pitch_shift(y, sr=sr, n_steps=4.8), sr)
         archivos.append({**a, "archivo": nino, "nino": True})
 
 # Verificación: transcribir cada archivo para confirmar que se entiende.

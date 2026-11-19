@@ -29,10 +29,12 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq espeak-ng ffmpeg
+          for intento in 1 2 3; do
+            sudo apt-get update -qq && sudo apt-get install -y -qq espeak-ng && break
+            sleep 20
+          done
           pip install --quiet --extra-index-url https://download.pytorch.org/whl/cpu "torch>=2.2" 
-          pip install --quiet "kokoro>=0.9.4" "misaki[en]>=0.9.4" soundfile faster-whisper
+          pip install --quiet "kokoro>=0.9.4" "misaki[en]>=0.9.4" soundfile faster-whisper librosa
 
       - name: Generar y verificar
         run: python mighty-minis-edicion/v2/voz/generar_voz.py
