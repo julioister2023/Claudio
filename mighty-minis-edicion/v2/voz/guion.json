@@ -1,25 +1,153 @@
 {
   "nota": "Locución v2 de The Mighty Minis. Cada línea se genera por separado para ubicarla en su toma. Pronunciación forzada entre corchetes: [palabra](/fonemas/).",
   "lineas": [
-    {"id": "l01", "texto": "Say hello to the newest student at [CAG](/sˌiˌAʤˈi/).", "voz": "af_heart", "lang": "a"},
-    {"id": "l02", "texto": "And their brand-new backpack.", "voz": "af_heart", "lang": "a"},
-    {"id": "l03", "texto": "Fully loaded.", "voz": "af_heart", "lang": "a"},
-    {"id": "l04", "texto": "Two languages? Obviously.", "voz": "af_heart", "lang": "a"},
-    {"id": "l05", "texto": "Add a little sport...", "voz": "af_heart", "lang": "a"},
-    {"id": "l06", "texto": "and they get strong.", "voz": "af_heart", "lang": "a"},
-    {"id": "l07", "texto": "Like, really strong.", "voz": "af_heart", "lang": "a"},
-    {"id": "l08", "texto": "Add robotics...", "voz": "af_heart", "lang": "a"},
-    {"id": "l09", "texto": "and they'll build a car that drives itself.", "voz": "af_heart", "lang": "a"},
-    {"id": "l10", "texto": "And parks itself.", "voz": "af_heart", "lang": "a"},
-    {"id": "l11", "texto": "[IB](/ˌIbˈi/), Cambridge, Dual Program...", "voz": "af_heart", "lang": "a"},
-    {"id": "l12", "texto": "they'll need a few extra hands.", "voz": "af_heart", "lang": "a"},
-    {"id": "l13", "texto": "Before you know it...", "voz": "af_heart", "lang": "a"},
-    {"id": "l14", "texto": "they're reaching for the stars.", "voz": "af_heart", "lang": "a"},
-    {"id": "l15", "texto": "But still, you know...", "voz": "af_heart", "lang": "a"},
-    {"id": "w01", "texto": "Shh... they're little.", "voz": "af_nicole", "lang": "a"},
-    {"id": "k01", "texto": "Hello!", "voz": "af_sky", "lang": "a"},
-    {"id": "k02", "texto": "¡Hola!", "voz": "ef_dora", "lang": "e"},
-    {"id": "k03", "texto": "Woohoo!", "voz": "af_sky", "lang": "a"}
+    {
+      "id": "l01",
+      "texto": "Say hello to the newest student at [CAG](/sˌiˌAʤˈi/).",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l02",
+      "texto": "And their brand-new backpack.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l03",
+      "texto": "Fully loaded.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l04",
+      "texto": "Two languages? Obviously.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l05",
+      "texto": "Add a little sport...",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l06",
+      "texto": "and they get strong.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l07",
+      "texto": "Like, really strong.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l08",
+      "texto": "Add robotics...",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l09",
+      "texto": "and they'll build a car that drives itself.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l10",
+      "texto": "And parks itself.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l11",
+      "texto": "[IB](/ˌIbˈi/), Cambridge, Dual Program...",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l12",
+      "texto": "they'll need a few extra hands.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l13",
+      "texto": "Before you know it...",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l14",
+      "texto": "they're reaching for the stars.",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "l15",
+      "texto": "But still, you know...",
+      "voz": "af_heart",
+      "lang": "a"
+    },
+    {
+      "id": "w01",
+      "texto": "Shh... they're little.",
+      "voz": "af_nicole",
+      "lang": "a"
+    },
+    {
+      "id": "k01",
+      "texto": "Hello!",
+      "voz": "af_sky",
+      "lang": "a"
+    },
+    {
+      "id": "k01b",
+      "texto": "Hello!",
+      "voz": "af_nova",
+      "lang": "a"
+    },
+    {
+      "id": "k02",
+      "texto": "¡Hola!",
+      "voz": "ef_dora",
+      "lang": "e"
+    },
+    {
+      "id": "k02b",
+      "texto": "¡Hola, hola!",
+      "voz": "ef_dora",
+      "lang": "e"
+    },
+    {
+      "id": "k02c",
+      "texto": "Hola.",
+      "voz": "ef_dora",
+      "lang": "e"
+    },
+    {
+      "id": "k03",
+      "texto": "Woo-hoo!",
+      "voz": "af_sky",
+      "lang": "a"
+    },
+    {
+      "id": "k03b",
+      "texto": "Wooo-hooo!",
+      "voz": "af_sky",
+      "lang": "a"
+    },
+    {
+      "id": "k03c",
+      "texto": "Yay! Woo-hoo!",
+      "voz": "af_sky",
+      "lang": "a"
+    }
   ],
-  "velocidades": [1.0, 0.9]
+  "velocidades": [
+    1.0,
+    0.9
+  ]
 }
