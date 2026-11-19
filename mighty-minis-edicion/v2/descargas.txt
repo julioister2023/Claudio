@@ -14,3 +14,28 @@ toma_v2_11 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/75e25a3a
 toma_v2_14 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/64e3df44f50922e142951db995aadd1f_c2pa_00d855a8d1832ba0493115b7.mp4?x-kcdn-pid=112372
 toma_v2_12 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/32393d85da81d0eae0e6d4907fce79eb_c2pa_70ec78ed8917118778e9171e.mp4?x-kcdn-pid=112372
 toma_v2_13 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/5e4a7c89ee2aa0d885a7f6a852f82d47_c2pa_b01a91f31dcf6256b378ca31.mp4?x-kcdn-pid=112372
+
+# Fotogramas clave v2 (se vencen en Kling a las 24 h)
+kf_S1a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/ae2ca6d0c74814106c6385ef1623e2a3_c2pa_368d61fb70445a5b9ac12cbb.png?x-kcdn-pid=112372
+kf_S1b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/a8c79e71544cef4c8b28ad109a0cf119_c2pa_0d8f3c9357f04e197f99b9cd.png?x-kcdn-pid=112372
+kf_S2a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/3f4165300e261b13c90e4fe13a126b69_c2pa_61ae86ca8e4ac78949d5802f.png?x-kcdn-pid=112372
+kf_S2b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/c10d6c7c0850a44d5b49829856205322_c2pa_275912bf11c41f0247cc365d.png?x-kcdn-pid=112372
+kf_S3a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/0f6926dda0b248b0834d9adc9861d6c6_c2pa_d9bbeb6332bc1be840d417f4.png?x-kcdn-pid=112372
+kf_S4a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/7ae8d8296e346f35f0b84ce84d0a0cd1_c2pa_50eba3e355c0f5141a35306b.png?x-kcdn-pid=112372
+kf_S5a https://s16-kling.klingai.com/klingai-stream-sgp/kling/agent/c84d8c1dd48d7fb50c818fddc9e31100_c2pa_779f49d46316db7b956048f7.png?x-kcdn-pid=112372
+kf_S5b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/068b2941cf1a6f1f9e92e27db950a471_c2pa_e98964684938558106f801a8.png?x-kcdn-pid=112372
+kf_S6a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/0692fba3f1c1327130d279dde5e6eab8_c2pa_fc6a2945d33678017cc93e7d.png?x-kcdn-pid=112372
+kf_S7a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/d6fac3429c0e70f33e711f447810203e_c2pa_3e95ee76ac3ff4903682f73f.png?x-kcdn-pid=112372
+kf_S7b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/283656510f3d51825b427811c66528ff_c2pa_f77770d89d37a62aed0252bc.png?x-kcdn-pid=112372
+kf_S8a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/41a840a7dc471cc6b913ccbde5852696_c2pa_fb8e8eb44ad5cc2b1fd3843f.png?x-kcdn-pid=112372
+kf_S9a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/4041e92b5180b5577e43ac87e2bba640_c2pa_88eae62ba21cb3b9e714a07d.png?x-kcdn-pid=112372
+kf_S10a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/3eea57b9fb05b5e0424644668c8e03fe_c2pa_e11cc5be37a89547d9ca444b.png?x-kcdn-pid=112372
+kf_S11a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/b38125d917a077696ce41e2f50fd4a94_c2pa_0ea9af2b9ef60b2871e2d46c.png?x-kcdn-pid=112372
+kf_S12a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/6dac7cb286ec6c838cf277db38d74a03_c2pa_e1f8aaaa6714b4d5232f3127.png?x-kcdn-pid=112372
+kf_S9b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/f78fbcd796aabf41e3f9138e1a0f9c43_c2pa_3037071868b8a9179c09d9dd.png?x-kcdn-pid=112372
+kf_S10b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/30dde0faf9c24bb22a9ca96ae15a690b_c2pa_0a32396df74b73291d2cc203.png?x-kcdn-pid=112372
+kf_S12b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/bf2f342b721cb30b2ed94a39446b284e_c2pa_22d5612efb1cb0f32b580348.png?x-kcdn-pid=112372
+kf_S13a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/69d3d5110ee54002183d5d017a1dd993_c2pa_6c1aa1b2eb59539b1a08c400.png?x-kcdn-pid=112372
+kf_S13b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/ac1bad0fe05fd3c947288c073bb11b4f_c2pa_113d91a3b47904f7bfe91126.png?x-kcdn-pid=112372
+kf_S14a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/5f8d72ff789e2a3a9e7686ae153924f7_c2pa_1ea052e018ca63088f0c7262.png?x-kcdn-pid=112372
+kf_S14b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/e8200d407495228ba625ed3c5b4ba868_c2pa_01e54b00205a19689ac1c372.png?x-kcdn-pid=112372
