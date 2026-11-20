@@ -1,1 +1,10 @@
 # nombre url (una línea por archivo)
+pj_06 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/5b2c3509294e00393c0c692622eb3f0c_c2pa_532d7287d6c9f3c95879dd55.png?x-kcdn-pid=112372
+pj_10 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/acacf23b0082506361e7baadefa6584f_c2pa_e1ee33e9ed1f52cc957e81c8.png?x-kcdn-pid=112372
+pj_14 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/2fbe98b809e3cd91457b3fe752bf04b0_c2pa_6199793fa33105c9c8b69860.png?x-kcdn-pid=112372
+pj_17 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/5385fe7f710e025830e200d87c377563_c2pa_a37c258196884746fd4a5738.png?x-kcdn-pid=112372
+pj_compa https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/22e668f724c4c09a02c1972bc0d7cf74_c2pa_ee9d7996fddb40703ff0fc92.png?x-kcdn-pid=112372
+pj_nina https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/2d57c4e44ea2e58a0167767b782a1cb2_c2pa_8aee36eee54d5dfe40a4e7c6.png?x-kcdn-pid=112372
+set_entrada https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/5623003bb9c213d1f12591283f5c4b0e_c2pa_cdb46ba76e448154bb1c2dd0.png?x-kcdn-pid=112372
+set_aula https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/8d10a2bf7e3e235f0b1e3ce3bc6b2c69_c2pa_fca3274fc805b7fb0ee729cb.png?x-kcdn-pid=112372
+set_cancha https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/842d7c258401ed453cd50c744e5540e8_c2pa_f0a752495a7ecd128df02684.png?x-kcdn-pid=112372
