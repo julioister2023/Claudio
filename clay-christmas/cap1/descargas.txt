@@ -8,3 +8,7 @@ pj_nina https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/2d57c4e44ea
 set_entrada https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/5623003bb9c213d1f12591283f5c4b0e_c2pa_cdb46ba76e448154bb1c2dd0.png?x-kcdn-pid=112372
 set_aula https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/8d10a2bf7e3e235f0b1e3ce3bc6b2c69_c2pa_fca3274fc805b7fb0ee729cb.png?x-kcdn-pid=112372
 set_cancha https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/842d7c258401ed453cd50c744e5540e8_c2pa_f0a752495a7ecd128df02684.png?x-kcdn-pid=112372
+set_musica https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/3f0f4dce607c8eb5ed49fa46c4083bbb_c2pa_31efababd400c9f6bb793145.png?x-kcdn-pid=112372
+set_pasillo https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/729e8767bb9c855d4095f7d6dfd37436_c2pa_ce03acd76c2afb1eb6fe573b.png?x-kcdn-pid=112372
+set_coliseo https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/2b4995a681c42cb05eb501240a47ea50_c2pa_d4c7b6da59dffbd4f7692192.png?x-kcdn-pid=112372
+set_navidad https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/d4bb9e6a6c40ca6b7aac28515f672a94_c2pa_511b05c4308763380a6db461.png?x-kcdn-pid=112372
