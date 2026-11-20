@@ -41,3 +41,5 @@ K17a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/234423bc6d68ce
 K17b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/48c6847bacbee5afc6df7368c204a25f_c2pa_c45bf301cd7578802e3a0995.png?x-kcdn-pid=112372
 K18a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/bb2ee0dcc2860e86b694c83c2a8bcb82_c2pa_0204535923299247d3f6bce5.png?x-kcdn-pid=112372
 K18b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/c453d32b59cf50e21a467cfb5780f077_c2pa_5547c2f1ae1f672303fd26cc.png?x-kcdn-pid=112372
+V2 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/a131bedc2fb1f83ed1b39f87223aa5a0_c2pa_965112bf99135073a7a581e4.mp4?x-kcdn-pid=112372
+V7 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/de06109d05670104ddd3e218c7c291b0_c2pa_a9e5c517c311c41608579dd5.mp4?x-kcdn-pid=112372
