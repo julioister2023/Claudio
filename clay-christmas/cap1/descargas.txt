@@ -58,3 +58,4 @@ V15 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/215904e77b873cf
 V16 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/e3849771a7052fc408e94930edc5bd7a_c2pa_e8403f2d736c1d808b028aab.mp4?x-kcdn-pid=112372
 V17 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/d2ea65830accbc77ece105756d3900ee_c2pa_8937986a66859bee39a377b5.mp4?x-kcdn-pid=112372
 V18 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/a095dbf1e9fdac34ea54f35c7a95ab50_c2pa_4fbd9c0a4ce875b20e168731.mp4?x-kcdn-pid=112372
+V13 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/51893f9bac7f70fbcd1ccb54e1976257_c2pa_274573836b99ad7ff86ce084.mp4?x-kcdn-pid=112372
