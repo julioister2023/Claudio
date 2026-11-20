@@ -43,3 +43,9 @@ K18a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/bb2ee0dcc2860e
 K18b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/c453d32b59cf50e21a467cfb5780f077_c2pa_5547c2f1ae1f672303fd26cc.png?x-kcdn-pid=112372
 V2 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/a131bedc2fb1f83ed1b39f87223aa5a0_c2pa_965112bf99135073a7a581e4.mp4?x-kcdn-pid=112372
 V7 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/de06109d05670104ddd3e218c7c291b0_c2pa_a9e5c517c311c41608579dd5.mp4?x-kcdn-pid=112372
+V1 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/de72b8a3849a7db46af1012f527356af_c2pa_00d56c9ce11775c240909b05.mp4?x-kcdn-pid=112372
+V4 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/2a09a8f921de95f9898c776beb40f8d8_c2pa_6b1d7ae37b78730e61a741bc.mp4?x-kcdn-pid=112372
+V6 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/b9966345fce4d8116f1ed99c4ad98780_c2pa_7a53d06621ae4157aad41040.mp4?x-kcdn-pid=112372
+V8 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/db5d8e65117a00bcfcb6a1f2ff5debc3_c2pa_448653e568823cb3bbc56fb5.mp4?x-kcdn-pid=112372
+V9 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/c551909061e83e510c09ffd6c84877bc_c2pa_1f5dc472a3c52622ec53abba.mp4?x-kcdn-pid=112372
+V10 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/4893787419d14b3779ec81cec8bd5218_c2pa_d9f9d4362654dfc0d32487ec.mp4?x-kcdn-pid=112372
