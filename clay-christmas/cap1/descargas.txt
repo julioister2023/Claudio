@@ -69,3 +69,8 @@ pc_grupo_ef https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/8dfd72e
 pc_rector https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/19b91d3326a05a6b4929186a7c71cddd_c2pa_28463cc4b3adb0992aac5976.png?x-kcdn-pid=112372
 pc_profesora https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/402bb9f9cb0c0c3f87c1793db9b5dd41_c2pa_2a0d543840ce3fa1fc8c4f5f.png?x-kcdn-pid=112372
 pc_mantenimiento https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/1338ff99d8df65af38e381e79e119412_c2pa_31a53cb773ed6fca698d4359.png?x-kcdn-pid=112372
+pc_profesora_con_ninos https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/7413d152f35ad28c78593f029f7e72ff_c2pa_b533631f1e9f32648b0fc80f.png?x-kcdn-pid=112372
+pc_grupo_ef_v2 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/d41d07469e75992403b4b1aa72009e63_c2pa_543a49562f1ae49e6841ca3b.png?x-kcdn-pid=112372
+pc_mantenimiento_v2 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/4127de5597f7be965333bd01de86c4fe_c2pa_da5b0af80535c352402ae6a7.png?x-kcdn-pid=112372
+pc_rector_v2a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/ae487be9a90fedfb07f4aad37ccd91b1_c2pa_0456a300e3421a7266439a6a.png?x-kcdn-pid=112372
+pc_rector_v2b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/cd82b03a1e8c2fd47925b125f126fb1f_c2pa_786a6517dfeb6c9d07ad7104.png?x-kcdn-pid=112372
