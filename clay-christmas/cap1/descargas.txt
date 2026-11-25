@@ -59,3 +59,13 @@ V16 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/e3849771a7052fc
 V17 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/d2ea65830accbc77ece105756d3900ee_c2pa_8937986a66859bee39a377b5.mp4?x-kcdn-pid=112372
 V18 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/a095dbf1e9fdac34ea54f35c7a95ab50_c2pa_4fbd9c0a4ce875b20e168731.mp4?x-kcdn-pid=112372
 V13 https://v15-kling.klingai.com/klingai-stream-sgp/kling/agent/51893f9bac7f70fbcd1ccb54e1976257_c2pa_274573836b99ad7ff86ce084.mp4?x-kcdn-pid=112372
+pc_nina_nueva_blusa https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/767e4682e0bd091b2b0b757a833673c7_c2pa_529d6279c69e5c599bf9b3fe.png?x-kcdn-pid=112372
+pc_companera_sueter https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/ab28102d1d458717ab17303054450a40_c2pa_666b58d7b5abd308af1877ab.png?x-kcdn-pid=112372
+pc_mini17_parada https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/bac7a5b4fca47167334c0d18ff6b2db4_c2pa_c4291187b3a11c1940bf38b6.png?x-kcdn-pid=112372
+pc_mini10_ef https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/d5c09603e658f8890ff8b9f1dc1ce5f8_c2pa_0ae858d6ec355570a5301cae.png?x-kcdn-pid=112372
+pc_mini14_ef https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/8a7344a17e033b71d0e2a4853fa41e44_c2pa_ad166d78b5aff22b58338b72.png?x-kcdn-pid=112372
+pc_companera10_ef https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/161eb5405a6cf69549095b69adc66f16_c2pa_33e7c326399c637f1da51085.png?x-kcdn-pid=112372
+pc_grupo_ef https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/8dfd72e66eb96316582069d8ffcdcfb1_c2pa_9b0481353d00fb94af5d8cae.png?x-kcdn-pid=112372
+pc_rector https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/19b91d3326a05a6b4929186a7c71cddd_c2pa_28463cc4b3adb0992aac5976.png?x-kcdn-pid=112372
+pc_profesora https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/402bb9f9cb0c0c3f87c1793db9b5dd41_c2pa_2a0d543840ce3fa1fc8c4f5f.png?x-kcdn-pid=112372
+pc_mantenimiento https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/1338ff99d8df65af38e381e79e119412_c2pa_31a53cb773ed6fca698d4359.png?x-kcdn-pid=112372
