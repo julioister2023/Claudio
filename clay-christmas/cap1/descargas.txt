@@ -74,3 +74,4 @@ pc_grupo_ef_v2 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/d41d
 pc_mantenimiento_v2 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/4127de5597f7be965333bd01de86c4fe_c2pa_da5b0af80535c352402ae6a7.png?x-kcdn-pid=112372
 pc_rector_v2a https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/ae487be9a90fedfb07f4aad37ccd91b1_c2pa_0456a300e3421a7266439a6a.png?x-kcdn-pid=112372
 pc_rector_v2b https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/cd82b03a1e8c2fd47925b125f126fb1f_c2pa_786a6517dfeb6c9d07ad7104.png?x-kcdn-pid=112372
+pc_mantenimiento_v3 https://s15-kling.klingai.com/klingai-stream-sgp/kling/agent/a5f027e9f83c946f12063fa494ceec39_c2pa_ca29ce79b1d409a2d0db8242.png?x-kcdn-pid=112372
